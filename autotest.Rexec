@@ -9,7 +9,7 @@ if( Sys.info()["nodename"]=="ZUKD208" ){
 	)
 }
 
-if( Sys.info()["nodename"] %in% c("peter-mint", "peter-VirtualBox") ){
+if( Sys.info()["sysname"] %in% c("Linux") ){
 	auto_test_package(pkg = "~/Dropbox/RPackages/diffrprojects", reporter = "summary")
 }
 
