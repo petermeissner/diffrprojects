@@ -68,12 +68,12 @@ diffrproject <-
         # doing-duty-to-do
         if( is.null(name) ){
           next_num <- max(c(as.numeric(text_extract(names, "\\d+")),0))+1
-          name <- text_collapse( "noname_", next_num)
+          name <- text_c( "noname_", next_num)
         }
         self$texts[[name]]    <- rtext
         i <- 0
         while( rtext$id %in% ids ){
-          rtext$id <- text_collapse(id, "_", i)
+          rtext$id <- text_c(id, "_", i)
           i <- i+1
         }
 

@@ -1,7 +1,7 @@
 Package: diffrprojects
 Title: Using diffr for more than two files
-Date: 2016-07-06
-Version: 0.1.0.90000
+Date: 2016-08-01
+Version: 0.1.1.90000
 Authors@R: c(
   person(
     "Peter", "Meissner",
@@ -32,8 +32,9 @@ Imports:
     R6 (>= 2.1.2),
     hellno (>= 0.0.1),
     magrittr (>= 1.5),
-    Rcpp (>= 0.12.5),
     digest (>= 0.6.9),
+    stringb (>= 0.1.0),
+    rtext (>= 0.1.0),
     stats,
     graphics
 Suggests:
@@ -43,7 +44,5 @@ Suggests:
 BugReports: https://github.com/petermeissner/diffrprojects/issues
 URL: https://github.com/petermeissner/diffrprojects
 RoxygenNote: 5.0.1
-VignetteBuilder: knitr
-LinkingTo:
-    Rcpp
+
 
