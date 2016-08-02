@@ -36,8 +36,8 @@ diffrproject <-
       meta     = list(),
       options  = list(),
       tracks   = list(),
+      links    = list(),
       linkage  = list(),
-      texts_connected = list(),
       distance = list(),
       texts    = list(),
 
@@ -47,18 +47,7 @@ diffrproject <-
       text_add = function( rtext, name = NULL ){
 
         # input check
-        stopifnot("rtext"  %in% class(rtext))
-
-        # connecting text with other text
-        if( length(self$texts)>0 ){
-          next_item <- length(self$texts_connected)+1
-          last_item <- length(self$texts)
-          self$texts_connected[[next_item]] <-
-            list(
-              self$texts[[last_item]],
-              rtext
-            )
-        }
+        stopifnot("rtext"  %in% class(rtext) )
 
         # working variable creation
         names <- names(self$texts)
@@ -99,6 +88,21 @@ diffrproject <-
       # basic info on texts
       text_data = function(){
         dp_text_base_data(self)
+      },
+
+      texts_link = function(from=NULL, to=NULL, delete=FALSE){
+        from <- names(self$texts[from])
+        to   <- names(self$texts[to])
+        linker <- function(from, to, delete){
+          name <- text_c(from, "_", to)
+          if(delete){
+            self$links[name] <- NULL
+          }else{
+            self$links[[name]] <- list(from=from, to=to)
+          }
+        }
+        mapply(linker, from, to, delete=delete)
+        invisible(self)
       },
 
       # universal getter
