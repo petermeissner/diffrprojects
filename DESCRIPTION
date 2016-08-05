@@ -25,7 +25,9 @@ Description: This is a description still to be done but to
     prevent checks about complaining about to short descriptions
     this does not simply read TBD.
 Depends:
-    R (>= 3.0.0)
+    R (>= 3.0.0),
+    stringb (>= 0.1.10),
+    rtext (>= 0.1.10)
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
@@ -33,8 +35,6 @@ Imports:
     hellno (>= 0.0.1),
     magrittr (>= 1.5),
     digest (>= 0.6.9),
-    stringb (>= 0.1.0),
-    rtext (>= 0.1.0),
     stats,
     graphics
 Suggests:
@@ -44,5 +44,5 @@ Suggests:
 BugReports: https://github.com/petermeissner/diffrprojects/issues
 URL: https://github.com/petermeissner/diffrprojects
 RoxygenNote: 5.0.1
-
-
+VignetteBuilder: knitr
+Additional_repositories: http://petermeissner.github.io/drat

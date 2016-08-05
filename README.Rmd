@@ -6,15 +6,16 @@ output:
 ---
 
 
-# diffrprojects
-
-A package for using diffr on more than two files
 
 
-**Description**
+```{r, include=FALSE}
+options("width"=110)
+tmp <- packageDescription("diffrprojects")
+```
 
-TBD
-
+```{r, results='asis', echo=FALSE}
+cat("#", tmp$Title)
+```
 
 
 **Status**
@@ -22,6 +23,30 @@ TBD
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
 [![Travis-CI Build Status](https://travis-ci.org/petermeissner/diffrprojects.svg?branch=master)](https://travis-ci.org/petermeissner/diffrprojects)
+
+
+**Version**
+
+```{r, results='asis', echo=FALSE}
+cat(tmp$Version)
+```
+
+
+**Description**
+
+```{r, results='asis', echo=FALSE}
+cat(tmp$Description)
+```
+
+
+**License**
+
+```{r, results='asis', echo=FALSE}
+cat(tmp$License, "<br>")
+cat(tmp$Author)
+```
+
+
 
 
 **Citation**
@@ -44,8 +69,7 @@ toBibtex(citation("diffrprojects"))
 **Installation**
 
 ```{r, eval=FALSE}
-    devtools::install_github("petermeissner/diffrprojects")
-    require(diffrprojects)
+    install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat")
 ```
 
 
@@ -53,7 +77,20 @@ toBibtex(citation("diffrprojects"))
 
 **Example Usage**
 
-TBD - see status
+```{r}
+library(diffrprojects)
+
+dp <- diffrproject$new()
+
+testfiles <- diffrprojects:::test_file(pattern="rc_\\d.txt", full.names = TRUE)
+
+dp$text_add(testfiles)
+names(dp$texts)
+dp$text_data()
+
+dp$texts_link()
+dp$links
+```
    
 
     

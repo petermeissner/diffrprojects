@@ -1,0 +1,3 @@
+#' method of comparison
+#' @export
+

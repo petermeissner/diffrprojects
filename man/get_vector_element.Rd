@@ -18,4 +18,5 @@ get_vector_element(vec, length = 100, from = NULL, to = NULL)
 \description{
 function that extracts elements from vector
 }
+\keyword{internal}
 

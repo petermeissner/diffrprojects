@@ -1,6 +1,5 @@
-#' #' function executet on loading the package
-#' .onLoad <- function(libname, pkgname) {
-#'   packageStartupMessage(
-#'     "Please cite in any publication as:"
-#'   )
-#' }
+.onLoad <- function(libname, pkgname) {
+  #library(stringb)
+  #library(rtext)
+  ##packageStartupMessage()
+}
