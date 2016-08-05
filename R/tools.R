@@ -1,3 +1,81 @@
+#' checking if value is uniqe in set
+#' @param x vector to check
+is_unique <- function(x){
+  !is_duplicate(x)
+}
+
+#' checking if value is duplicated in set
+#' @param x vector to check
+is_duplicate <- function(x){
+  x %in% x[duplicated(x)]
+}
+
+#' extract specific item from each list element
+#' @param l list
+#' @param item name or index of item to extract
+get_list_item <- function(l, item, unlist=TRUE){
+  tmp <- lapply(l, `[`, item)
+  index <- vapply(tmp, is.null, TRUE)
+  tmp[index] <- NA
+  if( unlist ){
+    return(unlist(tmp))
+  }else{
+    return(tmp)
+  }
+}
+
+
+#' text function: wrapper for system.file() to access test files
+#' @param x name of the file
+#' @param pattern pattern of file name
+#' @keywords internal
+test_file <- function(x=NULL, pattern=NULL, full.names=FALSE){
+  if(is.numeric(x)){
+    return(dp_tf(dp_tf()[(x-1) %% length(dp_tf()) +1 ]))
+  }
+  if(is.null(x)){
+    return(
+      list.files(
+        system.file(
+          "testfiles",
+          package = "diffrprojects"
+        ),
+        pattern = pattern,
+        full.names = full.names
+      )
+    )
+  }else if(x==""){
+    return(
+      list.files(
+        system.file(
+          "testfiles",
+          package = "diffrprojects"
+        ),
+        pattern = pattern,
+        full.names = full.names
+      )
+    )
+  }else{
+    return(
+      system.file(
+        paste("testfiles", x, sep="/"),
+        package = "diffrprojects")
+      )
+  }
+}
+
+
+
+
+#' function rbinding list elements
+#' @param l list
+#' @keywords internal
+rbind_list <- function(l){
+  tmp <- do.call(rbind, l)
+  rownames(tmp) <- NULL
+  as.data.frame(tmp, stringsAsFactors = FALSE)
+}
+
 #' function that shifts vector values to right or left
 #'
 #' @param x Vector for which to shift values
@@ -8,7 +86,7 @@
 #' @param default The value that should be inserted by default.
 #' @param invert Whether or not the default shift directions
 #'    should be inverted.
-#' @export
+#' @keywords internal
 shift <- function(x, n=0, default=NA, invert=FALSE){
   n <-
     switch (
@@ -44,6 +122,7 @@ shift <- function(x, n=0, default=NA, invert=FALSE){
 #' @param x the values to be bound
 #' @param max upper boundary
 #' @param min lower boundary
+#' @keywords internal
 bind_between <- function(x, min, max){
   x[x<min] <- min
   x[x>max] <- max
@@ -54,7 +133,7 @@ bind_between <- function(x, min, max){
 #' function for binding data.frames even if names do not match
 #' @param df1 first data.frame to rbind
 #' @param df2 second data.frame to rbind
-#' @export
+#' @keywords internal
 rbind_fill <- function(df1=data.frame(), df2=data.frame()){
   names_df <- c(names(df1), names(df2))
   if( dim1(df1) > 0 ){
@@ -74,10 +153,10 @@ rbind_fill <- function(df1=data.frame(), df2=data.frame()){
 
 
 #' function that checks is values are in between values
-#' @export
 #' @param x input vector
 #' @param y lower bound
 #' @param z upper bound
+#' @keywords internal
 is_between <- function(x,y,z){
   return(x>=y & x<=z)
 }
@@ -89,9 +168,7 @@ is_between <- function(x,y,z){
 #' @param length number of elements to be returned
 #' @param from first element to be returned
 #' @param to last element to be returned
-#'
-#' @export
-#'
+#' @keywords internal
 get_vector_element <-
   function(vec, length=100, from=NULL, to=NULL){
     # helper functions
@@ -151,7 +228,7 @@ get_vector_element <-
 
 #' get first dimension or length of object
 #' @param x object, matrix, vector, data.frame, ...
-#' @export
+#' @keywords internal
 dim1 <- function(x){
   ifelse(is.null(dim(x)[1]), length(x), dim(x)[1])
 }
@@ -159,7 +236,7 @@ dim1 <- function(x){
 
 #' get first dimension or length of object
 #' @param x object, matrix, vector, data.frame, ...
-#' @export
+#' @keywords internal
 dim2 <- function(x){
   dim(x)[2]
 }
@@ -167,7 +244,7 @@ dim2 <- function(x){
 
 #' seq along first dimension / length
 #' @param x x
-#' @export
+#' @keywords internal
 seq_dim1 <- function(x){
   seq_len(dim1(x))
 }
@@ -177,10 +254,11 @@ seq_dim1 <- function(x){
 
 
 #' function giving back the mode
-#' @export
+
 #' @param x vector to get mode for
 #' @param multimodal wether or not all modes should be returned in case of more than one
 #' @param warn should the function warn about multimodal outcomes?
+#' @keywords internal
 modus <- function(x, multimodal=FALSE, warn=TRUE) {
   x_unique <- unique(x)
   tab_x    <- tabulate(match(x, x_unique))
@@ -204,8 +282,9 @@ modus <- function(x, multimodal=FALSE, warn=TRUE) {
 
 
 #' function to get classes from e.g. lists
-#' @export
+
 #' @param x list to get classes for
+#' @keywords internal
 classes <- function(x){
   tmp <- lapply(x, class)
   data.frame(name=names(tmp), class=unlist(tmp) , row.names = NULL)
@@ -219,6 +298,7 @@ classes <- function(x){
 #' function to sort df by variables
 #' @param df data.frame to be sorted
 #' @param ... column names to use for sorting
+#' @keywords internal
 dp_arrange <- function(df, ...){
   sorters    <- as.character(as.list(match.call()))
   if( length(sorters)>2 ){

@@ -1,0 +1,77 @@
+---
+title: "linking"
+author: "Peter Meissner"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{linking}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+Packages
+
+```{r}
+library(stringb)
+library(rtext)
+library(diffrprojects)
+```
+
+
+adding texts
+
+```{r}
+dp <- diffrproject$new()
+
+stringb:::test_file("rc_1.txt") %>% 
+  rtext$new(text_file=.) %>% 
+  dp$text_add()
+
+stringb:::test_file("rc_2.txt") %>% 
+  text_read() %>% 
+  rtext$new(text=.) %>% 
+  dp$text_add()
+
+stringb:::test_file("rc_3.txt") %>% 
+  rtext$new(text_file=.) %>% 
+  dp$text_add(., name = "bummbeldiboo")
+
+length(dp$texts)
+names(dp$texts)
+```
+
+
+assign links between texts
+
+```{r}
+dp$texts_link(1,2)
+dp$links
+```
+
+
+removing links between texts
+
+```{r}
+dp$texts_link(1,2, TRUE)
+dp$links
+```
+
+
+
+assign links between texts by default
+
+```{r}
+dp$texts_link()
+do.call(rbind, dp$links)
+```
+
+
+
+
+
+
+
+
+
+
