@@ -17,8 +17,17 @@ diffrproject <-
   R6::R6Class(
 
     #### class name ============================================================
-    "diffrproject",
+    classname    = "diffrproject",
 
+    #### misc ====================================================================
+    active       = NULL,
+    inherit      = rtext::R6_rtext_extended,
+    lock_objects = TRUE,
+    class        = TRUE,
+    portable     = TRUE,
+    lock_class   = FALSE,
+    cloneable    = TRUE,
+    parent_env   = asNamespace('rtext'),
 
 
     #### private ===============================================================

@@ -82,7 +82,7 @@ library(diffrprojects)
 
 dp <- diffrproject$new()
 
-testfiles <- diffrprojects:::test_file(pattern="rc_\\d.txt", full.names = TRUE)
+testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 
 dp$text_add(testfiles)
 names(dp$texts)

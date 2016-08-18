@@ -12,4 +12,5 @@ is_unique(x)
 \description{
 checking if value is uniqe in set
 }
+\keyword{internal}
 

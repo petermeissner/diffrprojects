@@ -12,4 +12,5 @@ is_duplicate(x)
 \description{
 checking if value is duplicated in set
 }
+\keyword{internal}
 
