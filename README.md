@@ -50,29 +50,10 @@ http://dx.doi.org/10.1111/lsq.12106>.
 
 **BibTex for citing**
 
-<code style="white-space:normal;">
-@Manual{Meissner2016,
-  title = {diffrprojects: Using diffr for more than two texts},
-  author = {Peter Meißner},
-  year = {2016},
-  note = {R package version 0.1.2.90000},
-  url = {https://github.com/petermeissner/diffrprojects},
-}
 
-@Article{Sieberer2016,
-  title = {Mapping and Explaining Parliamentary Rule Changes in Europe: A Research Program},
-  author = {Ulrich Sieberer and Peter Meißner and Julia F. Keh and Wolfgang C. Müller},
-  journal = {Legislative Studies Quarterly},
-  volume = {41},
-  number = {1},
-  issn = {1939-9162},
-  url = {http://dx.doi.org/10.1111/lsq.12106},
-  doi = {10.1111/lsq.12106},
-  pages = {61--88},
-  year = {2016},
-  abstract = {We outline a comprehensive research program on institutional reforms in European parliaments. Original data show that parliamentary rules in Western European parliaments have been changed frequently and massively during the period from 1945 to 2010 suggesting that actors use institutional reforms as a distinct strategy to pursue their substantive goals. We discuss how institutional instability affects existing theoretical and empirical arguments about institutional effects. Furthermore, we present four ideal-typical approaches to analyzing rule changes, present new software tools for identifying and coding changes in large text corpora, and demonstrate their usefulness for valid measurement of the overall change between subsequent text versions.},
-}
-</code>
+```r
+toBibtex(citation("diffrprojects"))
+```
 
 
 
@@ -104,7 +85,7 @@ library(diffrprojects)
 ```r
 dp <- diffrproject$new()
 
-testfiles <- diffrprojects:::test_file(pattern="rc_\\d.txt", full.names = TRUE)
+testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 
 dp$text_add(testfiles)
 ```
@@ -131,10 +112,10 @@ dp$text_data()
 ```
 
 ```
-##                                                           text_file character encoding sourcetype
-## 1 C:/Users/peter/R/win-library/3.3/diffrprojects/testfiles/rc_1.txt    926166    UTF-8  text_file
-## 2 C:/Users/peter/R/win-library/3.3/diffrprojects/testfiles/rc_2.txt    844551    UTF-8  text_file
-## 3 C:/Users/peter/R/win-library/3.3/diffrprojects/testfiles/rc_3.txt    643012    UTF-8  text_file
+##                                                   text_file character encoding sourcetype
+## 1 C:/Users/peter/R/win-library/3.3/rtext/testfiles/rc_1.txt    926166    UTF-8  text_file
+## 2 C:/Users/peter/R/win-library/3.3/rtext/testfiles/rc_2.txt    844551    UTF-8  text_file
+## 3 C:/Users/peter/R/win-library/3.3/rtext/testfiles/rc_3.txt    643012    UTF-8  text_file
 ```
 
 ```r

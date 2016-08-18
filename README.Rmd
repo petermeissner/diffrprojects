@@ -1,8 +1,5 @@
 ---
-title: "README"
-output:
-  html_document:
-    keep_md: yes
+output: github_document
 ---
 
 
@@ -58,18 +55,16 @@ citation("diffrprojects")
 
 **BibTex for citing**
 
-<code style="white-space:normal;">
-```{r, results='asis', echo=FALSE}
+```{r, eval=FALSE}
 toBibtex(citation("diffrprojects"))
 ```
-</code>
 
 
 
 **Installation**
 
 ```{r, eval=FALSE}
-    install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat")
+install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat")
 ```
 
 
