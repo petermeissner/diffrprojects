@@ -91,7 +91,17 @@ http://dx.doi.org/10.1111/lsq.12106>.
 
 ```r
 library(diffrprojects)
+```
 
+```
+## Loading required package: stringb
+```
+
+```
+## Loading required package: rtext
+```
+
+```r
 dp <- diffrproject$new()
 
 testfiles <- diffrprojects:::test_file(pattern="rc_\\d.txt", full.names = TRUE)
@@ -101,6 +111,9 @@ dp$text_add(testfiles)
 
 ```
 ## rtext : initializing
+```
+
+```
 ## rtext : initializing
 ## rtext : initializing
 ```
@@ -118,14 +131,10 @@ dp$text_data()
 ```
 
 ```
-##                                                                        text_file character encoding
-## 1 /home/peter/R/x86_64-pc-linux-gnu-library/3.3/diffrprojects/testfiles/rc_1.txt      1501    UTF-8
-## 2 /home/peter/R/x86_64-pc-linux-gnu-library/3.3/diffrprojects/testfiles/rc_2.txt     10842    UTF-8
-## 3 /home/peter/R/x86_64-pc-linux-gnu-library/3.3/diffrprojects/testfiles/rc_3.txt     10268    UTF-8
-##   sourcetype
-## 1  text_file
-## 2  text_file
-## 3  text_file
+##                                                           text_file character encoding sourcetype
+## 1 C:/Users/peter/R/win-library/3.3/diffrprojects/testfiles/rc_1.txt    926166    UTF-8  text_file
+## 2 C:/Users/peter/R/win-library/3.3/diffrprojects/testfiles/rc_2.txt    844551    UTF-8  text_file
+## 3 C:/Users/peter/R/win-library/3.3/diffrprojects/testfiles/rc_3.txt    643012    UTF-8  text_file
 ```
 
 ```r

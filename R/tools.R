@@ -1,11 +1,13 @@
 #' checking if value is uniqe in set
 #' @param x vector to check
+#' @keywords internal
 is_unique <- function(x){
   !is_duplicate(x)
 }
 
 #' checking if value is duplicated in set
 #' @param x vector to check
+#' @keywords internal
 is_duplicate <- function(x){
   x %in% x[duplicated(x)]
 }
@@ -13,6 +15,8 @@ is_duplicate <- function(x){
 #' extract specific item from each list element
 #' @param l list
 #' @param item name or index of item to extract
+#' @param unlist defaults to TRUE, whether to unlist results or leave as list
+#' @keywords internal 
 get_list_item <- function(l, item, unlist=TRUE){
   tmp <- lapply(l, `[`, item)
   index <- vapply(tmp, is.null, TRUE)
@@ -23,47 +27,6 @@ get_list_item <- function(l, item, unlist=TRUE){
     return(tmp)
   }
 }
-
-
-#' text function: wrapper for system.file() to access test files
-#' @param x name of the file
-#' @param pattern pattern of file name
-#' @keywords internal
-test_file <- function(x=NULL, pattern=NULL, full.names=FALSE){
-  if(is.numeric(x)){
-    return(dp_tf(dp_tf()[(x-1) %% length(dp_tf()) +1 ]))
-  }
-  if(is.null(x)){
-    return(
-      list.files(
-        system.file(
-          "testfiles",
-          package = "diffrprojects"
-        ),
-        pattern = pattern,
-        full.names = full.names
-      )
-    )
-  }else if(x==""){
-    return(
-      list.files(
-        system.file(
-          "testfiles",
-          package = "diffrprojects"
-        ),
-        pattern = pattern,
-        full.names = full.names
-      )
-    )
-  }else{
-    return(
-      system.file(
-        paste("testfiles", x, sep="/"),
-        package = "diffrprojects")
-      )
-  }
-}
-
 
 
 

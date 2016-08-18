@@ -10,8 +10,11 @@ get_list_item(l, item, unlist = TRUE)
 \item{l}{list}
 
 \item{item}{name or index of item to extract}
+
+\item{unlist}{defaults to TRUE, whether to unlist results or leave as list}
 }
 \description{
 extract specific item from each list element
 }
+\keyword{internal}
 
