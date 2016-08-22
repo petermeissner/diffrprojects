@@ -1,3 +1,19 @@
+#' which are minima in vector
+#' @param x vector to check
+#' @param unique defaults to false
+#' @keywords internal
+is_minimum <- function(x, unique=FALSE){
+  if(unique){
+    return(
+      min(x) == x & !duplicated(x)
+    )
+  }else{
+    return(
+      min(x) == x
+    )
+  }
+}
+
 #' checking if value is uniqe in set
 #' @param x vector to check
 #' @keywords internal
@@ -16,7 +32,7 @@ is_duplicate <- function(x){
 #' @param l list
 #' @param item name or index of item to extract
 #' @param unlist defaults to TRUE, whether to unlist results or leave as list
-#' @keywords internal 
+#' @keywords internal
 get_list_item <- function(l, item, unlist=TRUE){
   tmp <- lapply(l, `[`, item)
   index <- vapply(tmp, is.null, TRUE)
