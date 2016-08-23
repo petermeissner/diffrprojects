@@ -5,6 +5,20 @@
 
 using namespace Rcpp;
 
+// choose_options
+List choose_options(NumericVector toki1, NumericVector toki2, NumericVector res_token_i_1, NumericVector res_token_i_2);
+RcppExport SEXP diffrprojects_choose_options(SEXP toki1SEXP, SEXP toki2SEXP, SEXP res_token_i_1SEXP, SEXP res_token_i_2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type toki1(toki1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type toki2(toki2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type res_token_i_1(res_token_i_1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type res_token_i_2(res_token_i_2SEXP);
+    __result = Rcpp::wrap(choose_options(toki1, toki2, res_token_i_1, res_token_i_2));
+    return __result;
+END_RCPP
+}
 // dist_mat_absolute
 IntegerMatrix dist_mat_absolute(IntegerVector x, IntegerVector y);
 RcppExport SEXP diffrprojects_dist_mat_absolute(SEXP xSEXP, SEXP ySEXP) {
