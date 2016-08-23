@@ -17,11 +17,30 @@ cat("#", tmp$Title)
 
 **Status**
 
-*unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
 [![Travis-CI Build Status](https://travis-ci.org/petermeissner/diffrprojects.svg?branch=master)](https://travis-ci.org/petermeissner/diffrprojects)
 [![codecov](https://codecov.io/gh/petermeissner/diffrprojects/branch/master/graph/badge.svg)](https://codecov.io/gh/petermeissner/diffrprojects/tree/master/R)
 [![CRAN version](http://www.r-pkg.org/badges/version/diffrprojects)](https://cran.r-project.org/package=diffrprojects)
+
+
+
+```{r, include=FALSE}
+filelist.R   <- list.files("R", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
+filelist.tests   <- list.files("tests", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
+filelist.cpp <- list.files("src", recursive = TRUE, pattern="\\.cpp$", ignore.case = TRUE, full.names = TRUE)
+lines.R      <- unlist(lapply(filelist.R, readLines))
+lines.tests  <- unlist(lapply(filelist.cpp, readLines))
+lines.cpp    <- unlist(lapply(filelist.cpp, readLines))
+length.R     <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.R,  value = TRUE, invert = TRUE))
+length.tests <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.tests,  value = TRUE, invert = TRUE))
+length.cpp   <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.cpp,  value = TRUE, invert = TRUE))
+```
+
+
+*unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
+
+*lines of R code:* `r length.R`, *lines of C++ code:* `r length.cpp`, *lines of test code:* `r length.tests`
+
 
 
 **Version**

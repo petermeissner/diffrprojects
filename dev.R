@@ -5,6 +5,7 @@ is_unique <- diffrprojects:::is_unique
 is_minimum <- diffrprojects:::is_minimum
 dim1 <- diffrprojects:::dim1
 which_dist_min_absolute <- diffrprojects:::which_dist_min_absolute
+choose_options <- diffrprojects:::choose_options
 
 
 library(dplyr)
@@ -25,12 +26,13 @@ text_files <- list.files(text_path, pattern = "txt", full.names = TRUE)
 text1 <- rtext$new(text_file=text_files[13], encoding="latin1")$text_get()
 text2 <- rtext$new(text_file=text_files[14], encoding="latin1")$text_get()
 
-text1 <- rtext$new(text_file=stringb:::test_file("rc_2.txt"))$text_get()
-text2 <- rtext$new(text_file=stringb:::test_file("rc_3.txt"))$text_get()
+#text1 <- rtext$new(text_file=stringb:::test_file("rc_2.txt"))$text_get()
+#text2 <- rtext$new(text_file=stringb:::test_file("rc_3.txt"))$text_get()
 
 tokenizer <- text_tokenize_words
-clean     <- function(x){x}
-distance  <- function(x,y){matrix(runif(length(x)*length(y), 0, 100), nrow=length(x), ncol=length(y))}
+ignore    = function(from, to, token, token_i){rep(FALSE, length(token))}
+clean     = function(token){token}
+distance  = function(token1, token2){matrix(0, nrow = length(token1), ncol = length(token2))}
 
 #### ---------------------------------------------------------------------------
 
@@ -38,13 +40,14 @@ distance  <- function(x,y){matrix(runif(length(x)*length(y), 0, 100), nrow=lengt
 moc <- function(
   text1     = NULL,
   text2     = NULL,
-  tokenizer = text_tokenize_lines,
-  clean     = function(x){x},
-  distance  = NULL
+  tokenizer = function(text){text_tokenize_lines(text)},
+  ignore    = function(from, to, token, token_i){rep(FALSE, length(token))},
+  clean     = function(token){token},
+  distance  = function(token1, token2){matrix(0, nrow = length(token1), ncol = length(token2))}
 ){}
 
   # tokenize
-  message(" - tokenizing")
+  message(" - tokenizing text")
   text1_tokenized <- tokenizer(text1)[1:3]
   text1_tokenized$token_i <- seq_along(text1_tokenized$token)
 
@@ -52,48 +55,95 @@ moc <- function(
   text2_tokenized$token_i <- seq_along(text2_tokenized$token)
 
   # clean
-  message(" - cleaning")
+  message(" - cleaning token")
   text1_tokenized$token <- clean(text1_tokenized$token)
   text2_tokenized$token <- clean(text2_tokenized$token)
 
+  # ignore
+  message(" - ignoring token")
+  text1_tokenized <- text1_tokenized %>% dplyr::filter( !ignore(text1_tokenized) )
+  text2_tokenized <- text2_tokenized %>% dplyr::filter( !ignore(text2_tokenized) )
 
   # alignment and distances
 
-  #### trivial matches -- unique 1:1 matches
+  #### trivial matches -- unique equal token matches
   message(" - trivial matching")
-  res <- moc_helper_trivial_matches( tt1 = text1_tokenized, tt2 = text2_tokenized )
-
-  #### matching text1 tokens and text2 tokens
-  message(" - easy matching")
-  tt1 <- text1_tokenized %>% subset( !(token_i %in% res$token_i_1) ) %>% data.table::as.data.table() %>% data.table::setkey(token)
-  tt2 <- text2_tokenized %>% subset( !(token_i %in% res$token_i_2) ) %>% data.table::as.data.table() %>% data.table::setkey(token)
-
-  dist         <- which_dist_min_absolute(tt1$token_i, res$token_i_1)
-  tt1$min_dist_1 <- dist$minimum
-  tmp          <- subset(res[dist$location, ], TRUE, c(token_i_1, token_i_2))
-  names(tmp)   <- paste0("res_",names(tmp))
-  tt1_tmp <- cbind(subset(tt1,TRUE, c(token, token_i, min_dist_1)), tmp)
-  tt1_tmp <- suppressWarnings( left_join(tt1_tmp, subset(tt2, TRUE, c(token, token_i)), by="token") )
-  names(tt1_tmp)[names(tt1_tmp)=="token_i.x"] <- "token_i_1"
-  names(tt1_tmp)[names(tt1_tmp)=="token_i.y"] <- "token_i_2"
-
-  tt1_tmp[, token := NULL]
-  tt1_tmp[, res_token_i_1 := NULL]
-
-  tt1_tmp$min_dist_2 <- 0L
-  tt1_tmp$min_dist_2 <- abs(tt1_tmp$res_token_i_2 - tt1_tmp$token_i_2)
-
-  tt1_tmp[, token := NULL]
-  tt1_tmp[, res_token_i_2 := NULL]
-
-  setorder(tt1_tmp, min_dist_1, min_dist_2, token_i_1, token_i_2)
-
-  tt1_tmp <- subset(tt1_tmp, TRUE, c(token_i_1, token_i_2))
-  tt1_tmp <- tt1_tmp[!is.na(tt1_tmp$token_i_2),]
-  tt1_tmp[, min_dist_1 := NULL]
-  tt1_tmp[, min_dist_2 := NULL]
+  res <-
+      moc_helper_trivial_matches( tt1 = text1_tokenized, tt2 = text2_tokenized )
 
 
+  #### easy matches -- text1 non-unique equal token matches
+  message(" - easy matching 1")
+  res <-
+    rbind(
+      res,
+      moc_helper_easy_matches( tt1 = text1_tokenized, tt2 = text2_tokenized, res= res, type=1)
+    )
+
+
+  #### easy matches -- text2 non-unique equal token matches
+  message(" - easy matching 2")
+  res <-
+    rbind(
+      res,
+      moc_helper_easy_matches( tt1 = text1_tokenized, tt2 = text2_tokenized, res= res, type=2)
+    )
+
+  #### easy matches -- text2 non-unique equal token matches
+  message(" - easy matching 3")
+
+  # prepare tt1 and tt2 as lists of data.frames
+  tt1 <-
+    text1_tokenized %>%
+    filter( !(token_i %in% res$token_i_1) ) %>%
+    mutate( token_length = nchar(token) ) %>%
+    split(.$token_length) %>%
+    lapply( dplyr::mutate, token_length = NULL ) %>%
+    lapply(as.data.table) %>%
+    lapply(setkey, token, token_i)
+
+
+  tt2 <-
+    text2_tokenized %>%
+    filter( !(token_i %in% res$token_i_2) ) %>%
+    mutate( token_length = nchar(token) ) %>%
+    split(.$token_length) %>%
+    lapply( dplyr::mutate, token_length = NULL ) %>%
+    lapply(as.data.table) %>%
+    lapply(setkey, token, token_i)
+
+  tt_names <- unique(c(names(tt1), names(tt2)))
+
+  # do the matches
+  for( i in rev(seq_along(tt_names)) ) {
+    cat(i, " ", append=TRUE)
+    res <-
+      moc_helper_easy_matches(
+        tt1 = tt1[[tt_names[i]]],
+        tt2 = tt2[[tt_names[i]]],
+        res=res,
+        type=3
+      )
+  }
+  cat("\n")
+
+  # finishing matching of no-change type
+  res$type <- "no-change"
+  res$diff <- 0
+
+  #### using dist function to match remaining
+  tt1 <-
+    text1_tokenized %>%
+    filter( !(token_i %in% res$token_i_1) )
+
+  tt2 <-
+    text2_tokenized %>%
+    filter( !(token_i %in% res$token_i_2) )
+
+
+  # long strings first
+  a <- adist(rep(tt1$token), rep(tt2$token))
+  pryr::object_size(a)
 
 
 
