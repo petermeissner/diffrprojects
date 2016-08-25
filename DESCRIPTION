@@ -39,6 +39,7 @@ Imports:
     data.table (>= 1.9.6),
     dtplyr (>= 0.0.1),
     Rcpp (>= 0.12.6),
+    stringdist (>= 0.9.4.1),
     stats,
     graphics
 Suggests:

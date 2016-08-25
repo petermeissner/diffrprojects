@@ -149,6 +149,16 @@ moc <- function(
 
 
 
+  # alignment via hungarian solution to assignment problem
+
+  library(clue)
+
+  m <- adist(tt1$token, tt2$token)
+  solution_index_v <- as.numeric(solve_LSAP(m))
+  solution_index_m <- as.matrix(cbind(seq_along(solution_index_v),solution_index_v))
+
+  aligned <- cbind(tt1,tt2[solution_index,], dist = m [solution_index_m])
+
 
 
 
