@@ -1,6 +1,31 @@
+#' splitting a tokenized text
+#' @param tt tokenized text
+#' @keywords internal
+split_tt_by_length <- function(tt){
+  tt %>%
+    dplyr::mutate(
+      token_length = nchar(token)
+    ) %>%
+    split(
+      .$token_length
+    ) %>%
+    lapply(
+      dplyr::mutate,
+      token_length = NULL
+    ) %>%
+    lapply(
+      as.data.table
+    ) %>%
+    lapply(
+      setkey,
+      token, token_i
+    )
+}
+
+
 #' trivial matches
 #'
-#' merthod of comparison helper function
+#' method of comparison helper function
 #' @param tt1 tokenized text number 1
 #' @param tt2 tokenized text number 2
 #' @export
@@ -89,7 +114,7 @@ moc_helper_easy_matches <- function(tt1, tt2, res, type=c(1,2), fullreturn=TRUE)
 
   # return
   if( fullreturn ){
-    return(rbind(res,chosen))
+    return( rbind(res, data.table(chosen), fill=TRUE) )
   }else{
     return(chosen)
   }

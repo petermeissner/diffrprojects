@@ -12,6 +12,6 @@ moc_helper_trivial_matches(tt1, tt2)
 \item{tt2}{tokenized text number 2}
 }
 \description{
-merthod of comparison helper function
+method of comparison helper function
 }
 
