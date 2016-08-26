@@ -6,8 +6,8 @@ output: github_document
 
 
 ```{r, include=FALSE}
-options("width"=110)
-tmp <- packageDescription("diffrprojects")
+options("width"=101)
+tmp <- devtools:::read_dcf("DESCRIPTION")
 ```
 
 ```{r, results='asis', echo=FALSE}
@@ -29,17 +29,20 @@ filelist.R   <- list.files("R", recursive = TRUE, pattern="\\.R$", ignore.case =
 filelist.tests   <- list.files("tests", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
 filelist.cpp <- list.files("src", recursive = TRUE, pattern="\\.cpp$", ignore.case = TRUE, full.names = TRUE)
 lines.R      <- unlist(lapply(filelist.R, readLines))
-lines.tests  <- unlist(lapply(filelist.cpp, readLines))
+lines.tests  <- unlist(lapply(filelist.tests, readLines))
 lines.cpp    <- unlist(lapply(filelist.cpp, readLines))
-length.R     <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.R,  value = TRUE, invert = TRUE))
-length.tests <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.tests,  value = TRUE, invert = TRUE))
-length.cpp   <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.cpp,  value = TRUE, invert = TRUE))
+length.R     <- 
+  length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.R,  value = TRUE, invert = TRUE))
+length.tests <- 
+  length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.tests,  value = TRUE, invert = TRUE))
+length.cpp   <- 
+  length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.cpp,  value = TRUE, invert = TRUE))
 ```
 
 
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
-*lines of R code:* `r length.R`, *lines of C++ code:* `r length.cpp`, *lines of test code:* `r length.tests`
+*R code:* `r length.R`, *C++ code:* `r length.cpp`, *test code:* `r length.tests`
 
 
 
@@ -61,7 +64,7 @@ cat(tmp$Description)
 
 ```{r, results='asis', echo=FALSE}
 cat(tmp$License, "<br>")
-cat(tmp$Author)
+cat(as.character(eval(parse(text=tmp$Author))))
 ```
 
 

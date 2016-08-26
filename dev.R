@@ -16,7 +16,7 @@ text2 <- rtext$new(text_file=text_files[14], encoding="latin1")$text_get(2000)
 
 #### ---------------------------------------------------------------------------
 
-diffr(text1, text2)
+diff_align(text1, text2)
 
 
 

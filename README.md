@@ -8,11 +8,11 @@ Using diffr for more than two files
 
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
-*lines of R code:* 388, *lines of C++ code:* 112, *lines of test code:* 112
+*R code:* 619, *C++ code:* 112, *test code:* 243
 
 **Version**
 
-0.1.2.90000
+0.1.3.90000
 
 **Description**
 
@@ -20,11 +20,11 @@ This is a description still to be done but to prevent checks about complaining a
 
 **License**
 
-MIT + file LICENSE <br>Peter Meissner \[aut, cre\], Ulrich Sieberer \[cph\], University of Konstanz \[cph\]
+MIT + file LICENSE <br>Peter Meissner <retep.meissner@gmail.com> \[aut, cre\] Ulrich Sieberer <ulrich.sieberer@uni-bamberg.de> \[cph\] University of Konstanz <willkommen@uni-konstanz.de> \[cph\]
 
 **Citation**
 
-Meißner P (2016). *diffrprojects: Using diffr for more than two texts*. R package version 0.1.2.90000, &lt;URL: <https://github.com/petermeissner/diffrprojects>&gt;.
+Meißner P (2016). *diffrprojects: Using diffr for more than two texts*. R package version 0.1.3.90000, &lt;URL: <https://github.com/petermeissner/diffrprojects>&gt;.
 
 Sieberer U, Meißner P, Keh J and Müller W (2016). "Mapping and Explaining Parliamentary Rule Changes in Europe: A Research Program." *Legislative Studies Quarterly*, *41*(1), pp. 61-88. ISSN 1939-9162, doi: 10.1111/lsq.12106 (URL: <http://doi.org/10.1111/lsq.12106>), &lt;URL: <http://dx.doi.org/10.1111/lsq.12106>&gt;.
 
