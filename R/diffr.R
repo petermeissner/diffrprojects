@@ -1,6 +1,7 @@
-#' FUNCTION_TITLE
+#' algining texts
 #'
-#' FUNCTION_DESCRIPTION
+#' Function aligns two texts side by side as a data.frame with change type and
+#' distance given as well
 #'
 #' @param text1 first text
 #' @param text2 second text
@@ -19,17 +20,24 @@
 #' @param distance defaults to Levenshtein ("lv"); see \link[stringdist]{amatch},
 #'        \link[stringdist]{stringdist-metrics}, \link[stringdist]{stringdist}
 #' @param ... further arguments passed through to distance function
+#' @inheritParams stringdist::stringdist
 #'
 #' @return dataframe with tokens aligned according to distance
 #'
 #' @export
-diffr <- function(
+diff_align <- function(
   text1     = NULL,
   text2     = NULL,
   tokenizer = NULL,
   ignore    = NULL,
   clean     = NULL,
   distance  = c("lv", "osa", "dl", "hamming", "lcs", "qgram", "cosine", "jaccard", "jw", "soundex"),
+  useBytes = FALSE,
+  weight = c(d = 1, i = 1, s = 1, t = 1),
+  maxDist = Inf,
+  q = 1,
+  p = 0,
+  nthread = getOption("sd_num_thread"),
   ...
 ){
   # checking input
@@ -45,6 +53,8 @@ diffr <- function(
   if( is.null(tokenizer) ){ tokenizer <- stringb::text_tokenize_lines }
   if( is.null(clean) ){     clean     <- function(x){x} }
   if( is.null(ignore) ){    ignore    <- function(x){x} }
+  if( length(text1) > 1){ text1 <- text_collapse(text1) }
+  if( length(text2) > 1){ text2 <- text_collapse(text2) }
   distance <- distance[1]
 
   # tokenize
@@ -67,11 +77,14 @@ diffr <- function(
   text1_tokenized <- ignore(text1_tokenized)
   text2_tokenized <- ignore(text2_tokenized)
 
+  # column naming
+  text1_tokenized_prei <- stats::setNames(text1_tokenized_prei, c("from_1", "to_1", "token_1", "token_i_1"))
+  text2_tokenized_prei <- stats::setNames(text2_tokenized_prei, c("from_2", "to_2", "token_2", "token_i_2"))
+  text1_tokenized <- stats::setNames(text1_tokenized, c("from_1", "to_1", "token_1", "token_i_1"))
+  text2_tokenized <- stats::setNames(text2_tokenized, c("from_2", "to_2", "token_2", "token_i_2"))
+
   # alignment and distances
   message(" - doing distance calculation and alignment")
-
-  text1_tokenized <- setNames(text1_tokenized, c("from_1", "to_1", "token_1", "token_i_1"))
-  text2_tokenized <- setNames(text2_tokenized, c("from_2", "to_2", "token_2", "token_2_1"))
 
   # distance
   a <-
@@ -79,7 +92,12 @@ diffr <- function(
       text1_tokenized$token_1,
       text2_tokenized$token_2,
       method  = distance,
-      ...
+      useBytes = useBytes,
+      weight = weight,
+      maxDist = maxDist,
+      q = q,
+      p = p,
+      nthread = nthread
     )
 
   # alignment
@@ -93,40 +111,113 @@ diffr <- function(
     stringdist::stringdist(
       alignment$token_1,
       alignment$token_2,
-      method = distance
+      method  = distance,
+      useBytes = useBytes,
+      weight = weight,
+      q = q,
+      p = p,
+      nthread = nthread
     )
 
   # type and distances
-  alignment$type <- ""
-  alignment$type[alignment$distance == 0]<-"no-change"
-  alignment$type[alignment$distance >  0]<-"change"
+  if( dim1(alignment) > 0 ){
+    alignment$type <- ""
+    alignment$type[alignment$distance == 0]<-"no-change"
+    alignment$type[alignment$distance >  0]<-"change"
 
-  iffer <- is.na(alignment$token_1)
-  alignment[iffer, "type"]     <- "insertion"
-  alignment[iffer, "distance"] <- stringdist::stringdist("", alignment[iffer, "token_2"])
+  alignment <-
+    rtext:::rbind_fill(
+      alignment,
+      text1_tokenized[
+        !(text1_tokenized$token_i_1 %in% alignment$token_i_1),
+        ]
+    )
+
+  alignment <-
+    rtext:::rbind_fill(
+      alignment,
+      text2_tokenized[
+        !(text2_tokenized$token_i_2 %in% alignment$token_i_2),
+        ]
+    )
 
   iffer <- is.na(alignment$token_2)
   alignment[iffer, "type"]     <- "deletion"
-  alignment[iffer, "distance"] <- stringdist::stringdist("", alignment[iffer, "token_1"])
+  alignment[iffer, "distance"] <-
+    stringdist::stringdist(
+      "",
+      alignment[iffer, "token_1"],
+      method  = distance,
+      useBytes = useBytes,
+      weight = weight,
+      q = q,
+      p = p,
+      nthread = nthread
+    )
+
+  iffer <- is.na(alignment$token_1)
+  alignment[iffer, "type"]     <- "insertion"
+  alignment[iffer, "distance"] <-
+    stringdist::stringdist(
+      "",
+      alignment[iffer, "token_2"],
+      method  = distance,
+      useBytes = useBytes,
+      weight = weight,
+      q = q,
+      p = p,
+      nthread = nthread
+    )
+
+  alignment$token_1 <-
+    dplyr::left_join(
+      subset(alignment, TRUE, token_i_1),
+      subset(text1_tokenized_prei, TRUE, c(token_i_1, token_1) ),
+      by=c("token_i_1"="token_i_1")
+    )$token_1
+
+  alignment$token_2 <-
+    dplyr::left_join(
+      subset(alignment, TRUE, token_i_2),
+      subset(text2_tokenized_prei, TRUE, c(token_i_2, token_2) ),
+      by=c("token_i_2"="token_i_2")
+    )$token_2
+  }
 
   # non matches
-  tmp <-
-    subset(
-      cbind(text1_tokenized, type="ignored"),
-      !(text1_tokenized$token_i_1 %in% alignment$token_i_1)
-    )
-  alignment <-
-    rtext:::rbind_fill(alignment, tmp)
+  if( dim1(text1_tokenized_prei)>0 ){
+    tmp <-
+      subset(
+        cbind(text1_tokenized_prei, type="ignored"),
+        !(text1_tokenized_prei$token_i_2 %in% alignment$token_i_1)
+      )
+    alignment <-
+      rtext:::rbind_fill(alignment, tmp)
+  }
 
+  if( dim1(text2_tokenized_prei)>0 ){
   tmp <-
     subset(
-      cbind(text2_tokenized, type="ignored"),
-      !(text2_tokenized$token_i_2 %in% alignment$token_i_2)
+      cbind(text2_tokenized_prei, type="ignored"),
+      !(text2_tokenized_prei$token_i_2 %in% alignment$token_i_2)
     )
   alignment <-
     rtext:::rbind_fill(alignment, tmp)
+  }
 
   # return
+  if( !("type" %in% names(alignment)) ){
+    alignment <- cbind(alignment, type=character(0))
+  }
+  alignment <-
+    subset(
+      alignment,
+      select=c(
+        token_i_1, token_i_2, distance, type,
+        from_1, to_1, from_2, to_2,
+        token_1,  token_2
+      )
+    )
   return(alignment)
 }
 
