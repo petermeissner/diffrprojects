@@ -14,4 +14,5 @@ moc_helper_trivial_matches(tt1, tt2)
 \description{
 method of comparison helper function
 }
+\keyword{internal}
 

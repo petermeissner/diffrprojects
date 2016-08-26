@@ -14,4 +14,5 @@ moc_helper_easy_matches(tt1, tt2, res, type = c(1, 2), fullreturn = TRUE)
 \description{
 method of comparison helper function
 }
+\keyword{internal}
 

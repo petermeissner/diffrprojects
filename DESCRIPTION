@@ -38,6 +38,7 @@ Imports:
     dtplyr (>= 0.0.1),
     Rcpp (>= 0.12.6),
     stringdist (>= 0.9.4.1),
+    magrittr,
     stats,
     graphics
 Suggests:
