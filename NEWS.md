@@ -11,6 +11,7 @@ version 0.1.2 // 2016-08-26 ...
     
 * FEATURE
     - tests tests tests
+    - passing all checks
     
 
 * DEVELOPMENT

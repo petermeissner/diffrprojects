@@ -16,4 +16,5 @@ moc_helper_get_options_ordered_by_dist(tt1, tt2, res)
 \description{
 method of comparison helper function
 }
+\keyword{internal}
 

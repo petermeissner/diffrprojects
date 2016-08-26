@@ -34,7 +34,7 @@ diff_align <- function(
   distance  = c("lv", "osa", "dl", "hamming", "lcs", "qgram", "cosine", "jaccard", "jw", "soundex"),
   useBytes = FALSE,
   weight = c(d = 1, i = 1, s = 1, t = 1),
-  maxDist = Inf,
+  maxDist = 0,
   q = 1,
   p = 0,
   nthread = getOption("sd_num_thread"),
@@ -56,6 +56,7 @@ diff_align <- function(
   if( length(text1) > 1){ text1 <- text_collapse(text1) }
   if( length(text2) > 1){ text2 <- text_collapse(text2) }
   distance <- distance[1]
+  if(maxDist == 0){ maxDist <- 1e-150}
 
   # tokenize
   message(" - tokenizing text")
@@ -67,6 +68,8 @@ diff_align <- function(
 
   # clean
   message(" - cleaning token")
+  text1_tokenized_prec <- text1_tokenized
+  text2_tokenized_prec <- text2_tokenized
   text1_tokenized$token <- clean(text1_tokenized$token)
   text2_tokenized$token <- clean(text2_tokenized$token)
 
@@ -78,6 +81,8 @@ diff_align <- function(
   text2_tokenized <- ignore(text2_tokenized)
 
   # column naming
+  text1_tokenized_prec <- stats::setNames(text1_tokenized_prec, c("from_1", "to_1", "token_1", "token_i_1"))
+  text2_tokenized_prec <- stats::setNames(text2_tokenized_prec, c("from_2", "to_2", "token_2", "token_i_2"))
   text1_tokenized_prei <- stats::setNames(text1_tokenized_prei, c("from_1", "to_1", "token_1", "token_i_1"))
   text2_tokenized_prei <- stats::setNames(text2_tokenized_prei, c("from_2", "to_2", "token_2", "token_i_2"))
   text1_tokenized <- stats::setNames(text1_tokenized, c("from_1", "to_1", "token_1", "token_i_1"))
@@ -97,7 +102,8 @@ diff_align <- function(
       maxDist = maxDist,
       q = q,
       p = p,
-      nthread = nthread
+      nthread = nthread,
+      matchNA = FALSE
     )
 
   # alignment
@@ -169,19 +175,6 @@ diff_align <- function(
       nthread = nthread
     )
 
-  alignment$token_1 <-
-    dplyr::left_join(
-      subset(alignment, TRUE, token_i_1),
-      subset(text1_tokenized_prei, TRUE, c(token_i_1, token_1) ),
-      by=c("token_i_1"="token_i_1")
-    )$token_1
-
-  alignment$token_2 <-
-    dplyr::left_join(
-      subset(alignment, TRUE, token_i_2),
-      subset(text2_tokenized_prei, TRUE, c(token_i_2, token_2) ),
-      by=c("token_i_2"="token_i_2")
-    )$token_2
   }
 
   # non matches
@@ -189,7 +182,7 @@ diff_align <- function(
     tmp <-
       subset(
         cbind(text1_tokenized_prei, type="ignored"),
-        !(text1_tokenized_prei$token_i_2 %in% alignment$token_i_1)
+        !(text1_tokenized_prei$token_i_1 %in% alignment$token_i_1)
       )
     alignment <-
       rtext:::rbind_fill(alignment, tmp)
@@ -205,19 +198,39 @@ diff_align <- function(
     rtext:::rbind_fill(alignment, tmp)
   }
 
-  # return
+  # original token
+  if( dim1(alignment) > 0 ){
+  alignment$token_1 <-
+    dplyr::left_join(
+      subset(alignment, select="token_i_1"),
+      subset(text1_tokenized_prec, select=c("token_i_1", "token_1") ),
+      by=c("token_i_1"="token_i_1")
+    )$token_1
+
+  alignment$token_2 <-
+    dplyr::left_join(
+      subset(alignment, TRUE, token_i_2),
+      subset(text2_tokenized_prec, select=c("token_i_2", "token_2") ),
+      by=c("token_i_2"="token_i_2")
+    )$token_2
+  }
+
+  # column order and missing columns
   if( !("type" %in% names(alignment)) ){
     alignment <- cbind(alignment, type=character(0))
   }
+
   alignment <-
     subset(
       alignment,
       select=c(
-        token_i_1, token_i_2, distance, type,
-        from_1, to_1, from_2, to_2,
-        token_1,  token_2
+        "token_i_1", "token_i_2", "distance", "type",
+        "from_1", "to_1", "from_2", "to_2",
+        "token_1",  "token_2"
       )
     )
+
+  # return
   return(alignment)
 }
 

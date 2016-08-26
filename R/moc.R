@@ -40,11 +40,11 @@ moc <- function(
   # prepare tt1 and tt2 as lists of data.frames
   tt1 <-
     text1_tokenized %>%
-    filter( !(token_i %in% res$token_i_1) )
+    dplyr::filter( !(token_i %in% res$token_i_1) )
 
   tt2 <-
     text2_tokenized %>%
-    filter( !(token_i %in% res$token_i_2) )
+    dplyr::filter( !(token_i %in% res$token_i_2) )
 
   tt1_split <- split_tt_by_length(tt1)
   tt2_split <- split_tt_by_length(tt2)
