@@ -42,7 +42,11 @@ length.cpp   <-
 
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
-*R code:* `r length.R`, *C++ code:* `r length.cpp`, *test code:* `r length.tests`
+
+
+*R code:* `r length.R`<br> 
+*C++ code:* `r length.cpp`<br> 
+*test code:* `r length.tests`
 
 
 
@@ -99,7 +103,7 @@ install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat"
 ```{r}
 library(diffrprojects)
 
-dp <- diffrproject$new()
+dp <- dp_base$new()
 
 testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 

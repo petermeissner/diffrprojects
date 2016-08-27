@@ -1,4 +1,4 @@
-#' class for diffrproject
+#' class for dp_base
 #'
 #' @docType class
 #'
@@ -8,16 +8,16 @@
 #'
 #' @keywords data
 #'
-#' @return Object of \code{\link{R6Class}}
+#' @return Object of \code{\link{dp_base}}
 #'
 #' @format \code{\link{R6Class}} object.
 #'
 #'
-diffrproject <-
+dp_base <-
   R6::R6Class(
 
     #### class name ============================================================
-    classname    = "diffrproject",
+    classname    = "dp_base",
 
     #### misc ====================================================================
     active       = NULL,
@@ -27,7 +27,7 @@ diffrproject <-
     portable     = TRUE,
     lock_class   = FALSE,
     cloneable    = TRUE,
-    parent_env   = asNamespace('rtext'),
+    parent_env   = asNamespace('diffrprojects'),
 
 
     #### private ===============================================================
@@ -38,8 +38,8 @@ diffrproject <-
         stopifnot("rtext"  %in% class(rtext) )
 
         # working variable creation
-        names <- names(self$texts)
-        ids   <- vapply(self$texts, `[[`, "", "id")
+        names <- names(self$text)
+        ids   <- vapply(self$text, `[[`, "", "id")
         id    <- rtext$id
 
         # doing-duty-to-do
@@ -50,7 +50,7 @@ diffrproject <-
             name     <- text_c( "noname_", next_num)
           }
         }
-        self$texts[[name]]    <- rtext
+        self$text[[name]]    <- rtext
         i <- 0
         while( rtext$id %in% ids ){
           rtext$id <- text_c(id, "_", i)
@@ -69,16 +69,20 @@ diffrproject <-
 
 
       #### data ================================================================
-      meta     = list(),
-      options  = list(),
-      tracks   = list(),
-      links    = list(),
-      linkage  = list(),
-      distance = list(),
-      texts    = list(),
+      meta           = list(),
+      alignment      = list(),
+      alignment_data = list(),
+      text          = list(),
+      link          = list(),
 
 
       #### methods =============================================================
+
+      # initialize
+      initialize = function(ask=TRUE){
+        self$options$ask <- ask
+      },
+
       # add text
       text_add = function(text, name=NULL, ...){
         if( any(class(text) %in% "character") ){
@@ -97,13 +101,13 @@ diffrproject <-
       # delete text
       text_delete = function(name=NULL, id=NULL){
         if( is.null(name) & is.null(id) ){
-          name <- length(self$texts)
-          self$texts[[name]] <- NULL
+          name <- length(self$text)
+          self$text[[name]] <- NULL
         }else if( !is.null(id) & is.null(name) ){
-            name <- vapply(self$texts, `[[`, "", "id")==id
-            self$texts[name] <- NULL
+            name <- vapply(self$text, `[[`, "", "id")==id
+            self$text[name] <- NULL
         }else{
-          self$texts[[name]] <- NULL
+          self$text[[name]] <- NULL
         }
         # return self for piping
         return(invisible(self))
@@ -114,54 +118,24 @@ diffrproject <-
         dp_text_base_data(self)
       },
 
-      texts_link = function(from=NULL, to=NULL, delete=FALSE){
+      text_link = function(from=NULL, to=NULL, delete=FALSE){
         if( is.null(from) & is.null(to) ){
-          from <- shift(names(dp$texts), 1, NULL)
-          to   <- shift(names(dp$texts), -1, NULL)
+          from <- shift(names(self$text), 1, NULL)
+          to   <- shift(names(self$text), -1, NULL)
         }
-        from <- names(self$texts[from])
-        to   <- names(self$texts[to])
+        from <- names(self$text[from])
+        to   <- names(self$text[to])
         linker <- function(from, to, delete){
           name <- text_c(from, "_", to)
           if(delete){
-            self$links[name] <- NULL
+            self$link[name] <- NULL
           }else{
-            self$links[[name]] <- list(from=from, to=to)
+            self$link[[name]] <- list(from=from, to=to)
           }
         }
         mapply(linker, from, to, delete=delete)
         invisible(self)
-      },
-
-      # universal getter
-      get = function(name){
-        if(name=="private"){
-          return(private)
-        }
-        if( name %in% names(self) ){
-          return(get(name, envir=self))
-        }else if( name %in% names(private) ){
-          return(get(name, envir=private))
-        }else{
-          return(NULL)
-        }
       }
-
-    )
-  )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    )# closes public
+  )# closes R6Class
 

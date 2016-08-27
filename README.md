@@ -8,11 +8,11 @@ Using diffr for more than two files
 
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
-*R code:* 619, *C++ code:* 112, *test code:* 243
+| -- | -- | *R code:* | 637 | *C++ code:* | 112 | *test code:* | 243 |
 
 **Version**
 
-0.1.3.90000
+0.1.4.90000
 
 **Description**
 
@@ -24,7 +24,7 @@ MIT + file LICENSE <br>Peter Meissner <retep.meissner@gmail.com> \[aut, cre\] Ul
 
 **Citation**
 
-Meißner P (2016). *diffrprojects: Using diffr for more than two texts*. R package version 0.1.3.90000, &lt;URL: <https://github.com/petermeissner/diffrprojects>&gt;.
+Meißner P (2016). *diffrprojects: Using diffr for more than two texts*. R package version 0.1.4.90000, &lt;URL: <https://github.com/petermeissner/diffrprojects>&gt;.
 
 Sieberer U, Meißner P, Keh J and Müller W (2016). "Mapping and Explaining Parliamentary Rule Changes in Europe: A Research Program." *Legislative Studies Quarterly*, *41*(1), pp. 61-88. ISSN 1939-9162, doi: 10.1111/lsq.12106 (URL: <http://doi.org/10.1111/lsq.12106>), &lt;URL: <http://dx.doi.org/10.1111/lsq.12106>&gt;.
 
@@ -51,7 +51,7 @@ library(diffrprojects)
     ## Loading required package: rtext
 
 ``` r
-dp <- diffrproject$new()
+dp <- dp_base$new()
 
 testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 

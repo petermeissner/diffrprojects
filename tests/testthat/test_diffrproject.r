@@ -17,7 +17,7 @@ test_that("diffrproject can be created", {
 
 context("diffrproject text_add") # ===============================
 
-test_that("texts can be added", {
+test_that("text can be added", {
   expect_error({
     dp <- diffrproject$new()
     dp$text_add("")
@@ -40,7 +40,7 @@ test_that("texts can be added", {
     dp$text_add(text =rtext$new(""), name = "b")
     dp$text_add(text =rtext$new(""), name = "c")
     dp$text_add(text =rtext$new(""), name = "a")
-    length(dp$texts) == 3
+    length(dp$text) == 3
   })
   expect_true({
     dp <- diffrproject$new()
@@ -48,7 +48,7 @@ test_that("texts can be added", {
     dp$text_add(text =rtext$new(""))
     dp$text_add(text =rtext$new(""))
     dp$text_add(text =rtext$new(""))
-    length(dp$texts) == 4
+    length(dp$text) == 4
   })
   expect_true({
     dp <- diffrproject$new()
@@ -60,7 +60,7 @@ test_that("texts can be added", {
     dp$text_add(text =rtext$new(""), name = "b")
     dp$text_add(text =rtext$new(""), name = "c")
     dp$text_add(text =rtext$new(""), name = "a")
-    length(dp$texts) == 7
+    length(dp$text) == 7
   })
 })
 
@@ -76,7 +76,7 @@ test_that("names and ids are unique", {
     dp$text_add(text =rtext$new(""), name = "b")
     dp$text_add(text =rtext$new(""), name = "c")
     dp$text_add(text =rtext$new(""), name = "a")
-    all(names(dp$texts) == unique(names(dp$texts)))
+    all(names(dp$text) == unique(names(dp$text)))
   })
   expect_true({
     dp <- diffrproject$new()
@@ -88,14 +88,14 @@ test_that("names and ids are unique", {
     dp$text_add(text =rtext$new(""), name = "b")
     dp$text_add(text =rtext$new("123"), name = "c")
     dp$text_add(text =rtext$new("123"), name = "a")
-    ids <- vapply(dp$texts, `[[`, "", "id")
+    ids <- vapply(dp$text, `[[`, "", "id")
     all(ids == unique(ids))
   })
 })
 
 context("diffrproject text_delete") # ===============================
 
-test_that("texts can be deleted", {
+test_that("text can be deleted", {
   expect_true({
     dp <- diffrproject$new()
     dp$text_add(text =rtext$new(""))
@@ -113,7 +113,7 @@ test_that("texts can be deleted", {
     dp$text_delete()
     dp$text_delete()
     dp$text_delete()
-    length(dp$texts) == 0
+    length(dp$text) == 0
   })
   expect_true({
     dp <- diffrproject$new()
@@ -126,7 +126,7 @@ test_that("texts can be deleted", {
     dp$text_add(text =rtext$new(""), name = "c")
     dp$text_add(text =rtext$new(""), name = "a")
     dp$text_delete(1)
-    length(dp$texts) == 6
+    length(dp$text) == 6
   })
   expect_true({
     dp <- diffrproject$new()
@@ -140,7 +140,7 @@ test_that("texts can be deleted", {
     dp$text_add(text =rtext$new(""), name = "a")
     dp$text_delete("b")
     dp$text_delete("b")
-    length(dp$texts) == 6
+    length(dp$text) == 6
   })
   expect_true({
     dp <- diffrproject$new()
@@ -148,12 +148,12 @@ test_that("texts can be deleted", {
     dp$text_add(text =rtext$new("2"))
     dp$text_add(text =rtext$new("3"))
     dp$text_add(text =rtext$new("4"), name = "a")
-    ID <- dp$texts$a$id
+    ID <- dp$text$a$id
     dp$text_add(text =rtext$new("5"))
     dp$text_add(text =rtext$new("6"), name = "b")
     dp$text_add(text =rtext$new("7"), name = "c")
     dp$text_delete(id=ID)
-    !("a"  %in% names(dp$texts))
+    !("a"  %in% names(dp$text))
   })
   expect_true({
     dp <- diffrproject$new()
@@ -161,12 +161,12 @@ test_that("texts can be deleted", {
     dp$text_add(text =rtext$new(""))
     dp$text_add(text =rtext$new(""))
     dp$text_add(text =rtext$new(""), name = "a")
-    ID <- dp$texts$a$id
+    ID <- dp$text$a$id
     dp$text_add(text =rtext$new(""))
     dp$text_add(text =rtext$new(""), name = "b")
     dp$text_add(text =rtext$new(""), name = "c")
     dp$text_delete(id=ID)
-    !("a"  %in% names(dp$texts))
+    !("a"  %in% names(dp$text))
   })
 })
 

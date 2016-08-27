@@ -3,6 +3,8 @@
 export("%>%")
 export(diff_align)
 export(diffrproject)
+export(dp_align)
+export(dp_base)
 export(dp_text_base_data)
 import(data.table)
 import(hellno)
