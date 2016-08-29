@@ -97,7 +97,7 @@ dp_base <-
           stopifnot(class(text) %in% c("character", "list"))
           for(i in seq_along(text) ){
             text_add_worker(
-              rtext=rtext::rtext$new(text = text[[i]], ...),
+              rtext=rtext::rtext$new(text = text[[i]], ..., verbos=self$options$verbose),
               name = name[i]
             )
           }
