@@ -8,7 +8,7 @@ Using diffr for more than two files
 
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
-| -- | -- | *R code:* | 637 | *C++ code:* | 112 | *test code:* | 243 |
+*R code:* 775<br> *C++ code:* 112<br> *test code:* 577
 
 **Version**
 
@@ -51,11 +51,11 @@ library(diffrprojects)
     ## Loading required package: rtext
 
 ``` r
-dp <- dp_base$new()
+dp <- diffrproject$new()
 
 testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 
-dp$text_add(testfiles)
+dp$text_add(text_file=testfiles)
 ```
 
     ## rtext : initializing
@@ -67,7 +67,7 @@ dp$text_add(testfiles)
 names(dp$texts)
 ```
 
-    ## [1] "rc_1.txt" "rc_2.txt" "rc_3.txt"
+    ## NULL
 
 ``` r
 dp$text_data()
@@ -79,8 +79,8 @@ dp$text_data()
     ## 3 C:/Users/peter/R/win-library/3.3/rtext/testfiles/rc_3.txt    643012    UTF-8  text_file
 
 ``` r
-dp$texts_link()
-dp$links
+dp$text_link()
+dp$link
 ```
 
     ## $rc_1.txt_rc_2.txt
@@ -97,3 +97,7 @@ dp$links
     ## 
     ## $rc_2.txt_rc_3.txt$to
     ## [1] "rc_3.txt"
+    ## 
+    ## 
+    ## attr(,"class")
+    ## [1] "alignment_list" "list"

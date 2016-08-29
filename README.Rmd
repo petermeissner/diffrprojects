@@ -107,7 +107,7 @@ dp <- diffrproject$new()
 
 testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 
-dp$text_add(testfiles)
+dp$text_add(text_file=testfiles)
 names(dp$texts)
 dp$text_data()
 
