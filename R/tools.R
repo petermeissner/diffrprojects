@@ -18,7 +18,9 @@ is_minimum <- function(x, unique=FALSE){
 #' @param x vector to check
 #' @keywords internal
 is_unique <- function(x){
-  !is_duplicate(x)
+  tmp <- !is_duplicate(x)
+  tmp[is.na(x)] <- NA
+  tmp
 }
 
 #' checking if value is duplicated in set
@@ -34,7 +36,17 @@ is_duplicate <- function(x){
 #' @param unlist defaults to TRUE, whether to unlist results or leave as list
 #' @keywords internal
 get_list_item <- function(l, item, unlist=TRUE){
-  tmp <- lapply(l, `[`, item)
+  tmp <-
+    lapply(
+      l,
+      function(x, item){
+        tryCatch(
+          x[[item]],
+          error = function(e){NULL}
+        )
+      },
+      item
+    )
   index <- vapply(tmp, is.null, TRUE)
   tmp[index] <- NA
   if( unlist ){
@@ -55,6 +67,7 @@ rbind_list <- function(l){
   as.data.frame(tmp, stringsAsFactors = FALSE)
 }
 
+
 #' function that shifts vector values to right or left
 #'
 #' @param x Vector for which to shift values
@@ -66,6 +79,7 @@ rbind_list <- function(l){
 #' @param invert Whether or not the default shift directions
 #'    should be inverted.
 #' @keywords internal
+
 shift <- function(x, n=0, default=NA, invert=FALSE){
   n <-
     switch (
@@ -78,7 +92,13 @@ shift <- function(x, n=0, default=NA, invert=FALSE){
       lead     = -1,
       as.numeric(n)
     )
-  stopifnot(length(x)>=n)
+  if( length(x) <= abs(n) ){
+    if(n < 0){
+      n <- -1 * length(x)
+    }else{
+      n <- length(x)
+    }
+  }
   if(n==0){
     return(x)
   }
@@ -96,6 +116,7 @@ shift <- function(x, n=0, default=NA, invert=FALSE){
     return(c(x[seq_len(length(x)-n)+n], rep(default, n)))
   }
 }
+
 
 #' function forcing value to fall between min and max
 #' @param x the values to be bound
@@ -149,7 +170,7 @@ is_between <- function(x,y,z){
 #' @param to last element to be returned
 #' @keywords internal
 get_vector_element <-
-  function(vec, length=100, from=NULL, to=NULL){
+  function(vec, length=NULL, from=NULL, to=NULL){
     # helper functions
     bind_to_vecrange <- function(x){bind_between(x, 1, length(vec))}
     bind_length       <- function(x){bind_between(x, 0, length(vec))}
@@ -274,6 +295,8 @@ classes <- function(x){
 
 
 
+
+
 #' function to sort df by variables
 #' @param df data.frame to be sorted
 #' @param ... column names to use for sorting
@@ -284,11 +307,17 @@ dp_arrange <- function(df, ...){
     sorters    <- sorters[-c(1:2)]
     sorters    <- paste0("df['",sorters,"']", collapse = ", ")
     order_call <- paste0("order(",sorters,")")
-    return(df[eval(parse(text=order_call)), ])
+    res        <- df[eval(parse(text=order_call)), ]
+    if( is.data.frame(df) & !is.data.frame(res) ){
+      res <- as.data.frame(res)
+      names(res) <- names(df)
+    }
+    return(res)
   }else{
     return(df)
   }
 }
+
 
 
 

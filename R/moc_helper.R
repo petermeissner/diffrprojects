@@ -1,3 +1,14 @@
+if(getRversion() >= "2.15.1"){
+  utils::globalVariables(
+    c(
+      "token_i_1", "token_i_2",
+      "text1_tokenized", "text2_tokenized",
+      "token", ".", "...", "res_token_i_1", "res_token_i_2",
+      "min_dist_1"
+    )
+  )
+}
+
 #' splitting a tokenized text
 #' @param tt tokenized text
 #' @keywords internal

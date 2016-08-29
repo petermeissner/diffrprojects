@@ -1,3 +1,11 @@
+if(getRversion() >= "2.15.1"){
+  utils::globalVariables(
+    c(
+      "text1_tokenized", "text2_tokenized", "token_i"
+    )
+  )
+}
+
 #' stub
 #' @keywords internal
 moc <- function(

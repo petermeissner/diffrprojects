@@ -21,6 +21,7 @@ version 0.1.4 // 2016-08-28 ...
 * DEVELOPMENT
     - tools : as.data.frame.named_df_list()
     - tools : as.data.frame.alignment_list()
+    - registering NSE-variables as globals to make check complaints go away
 
 
 
