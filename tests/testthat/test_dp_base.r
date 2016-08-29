@@ -1,6 +1,6 @@
 #### diffrproject ==============================================================
 
-context("\ndiffrproject") # ====================================================
+context("\ndp_base") # ====================================================
 
 
 
@@ -92,6 +92,22 @@ test_that("names and ids are unique", {
     ids <- vapply(dp$text, `[[`, "", "id")
     all(ids == unique(ids))
   })
+
+  testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
+  expect_true({
+    dp <- diffrproject$new()
+    dp$text_add(text_file = testfiles)
+    length(dp$text) == 3
+  })
+
+  testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
+  texts <- lapply(testfiles, text_read, n = 5)
+  expect_true({
+    dp <- diffrproject$new()
+    dp$text_add(text = texts)
+    length(dp$text) == 3
+  })
+
 })
 
 context("diffrproject text_delete") # ===============================

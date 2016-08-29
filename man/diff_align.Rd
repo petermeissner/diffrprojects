@@ -60,6 +60,8 @@ Jaro-distance is returned. Applies only to \code{method='jw'}.}
 \item{nthread}{Maximum number of threads to use. By default, a sensible
 number of threads is chosen, see \code{\link{stringdist-parallelization}}.}
 
+\item{verbose}{should function report on its doings via messages or not}
+
 \item{...}{further arguments passed through to distance function}
 }
 \value{

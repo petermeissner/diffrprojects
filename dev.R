@@ -21,18 +21,14 @@ testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 
 dp <- diffrproject$new()
 
-dp$text_add(text_files[13], encoding = "latin1")
-dp$text_add(text_files[14], encoding = "latin1")
+dp$text_add(text_file = text_files[13], encoding = "latin1")
+dp$text_add(text_file = text_files[14], encoding = "latin1")
 
 dp$text_link()
 
 dp$debug()
 
 dp$text_align()
-
-
-
-
 
 
 

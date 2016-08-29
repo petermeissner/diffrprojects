@@ -13,3 +13,42 @@ dp_text_base_data <- function(dp){
   }
   df
 }
+
+
+
+
+#' as.data.frame method for for named lists of data.frames
+#' @inheritParams base::as.data.frame
+#' @param dfnamevar in which variable should list item names be saved
+#' @method as.data.frame named_df_list
+#' @export
+as.data.frame.named_df_list <- function(x, row.names=NULL, optional=FALSE, dfnamevar="name", ...){
+  if( any(unlist(lapply(x, class)) == "list") ){
+    x <- lapply(x, as.data.frame)
+  }
+  # prepare variable
+  each <- unlist(lapply(x, dim1))
+  var <- names(x)
+  var <- unlist(mapply(rep, var, each, SIMPLIFY=FALSE))
+  # doing-duty-to-do
+  names(x) <- NULL
+  x <- do.call(rbind_fill, x)
+  # add link variable
+  x[[dfnamevar]] <- var
+  # return
+  return(x)
+}
+
+#' as.data.frame method for for named lists of data.frames
+#' @inheritParams as.data.frame.named_df_list
+#' @method as.data.frame alignment_list
+#' @export
+as.data.frame.alignment_list <- function(x, row.names=NULL, optional=FALSE, ...){
+  as.data.frame.named_df_list(
+    x,
+    row.names = row.names,
+    optional = optional,
+    dfnamevar = "link",
+    ...
+  )
+}

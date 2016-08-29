@@ -3,7 +3,7 @@ NEWS diffrprojects
 
 
 
-version 0.1.4 // 2016-08-26 ... 
+version 0.1.4 // 2016-08-28 ... 
 --------------------------------------------------------------------------
 
 * BUGFIXES
@@ -12,13 +12,15 @@ version 0.1.4 // 2016-08-26 ...
     
 * FEATURE
     - introducing alignment and alignment_data 
-    - dp : alignment_add
-    - dp : alignment_delete
-    - dp : alignment_code
-    - dp : alignment_update
+    - dp : alignment_add()
+    - dp : alignment_delete()
+    - dp : alignment_code()
+    - dp : alignment_update()
     
 
 * DEVELOPMENT
+    - tools : as.data.frame.named_df_list()
+    - tools : as.data.frame.alignment_list()
 
 
 
