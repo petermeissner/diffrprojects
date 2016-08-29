@@ -92,7 +92,10 @@ toBibtex(citation("diffrprojects"))
 **Installation**
 
 ```{r, eval=FALSE}
-install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat")
+devtools::install_github("petermeissner/stringb")
+devtools::install_github("petermeissner/rtext")
+devtools::install_github("petermeissner/diffrprojects")
+# install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat")
 ```
 
 
@@ -101,23 +104,31 @@ install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat"
 **Example Usage**
 
 ```{r, cache=TRUE}
+# loading package
 library(diffrprojects)
 
+
 # the first chapter of Robinson Crusoe from three different sources
-rcs <- 
-  rtext:::testfile(pattern="rc.*ch1.txt", full.names = TRUE) %>% 
-  lapply(text_read)
+rcs <- rtext:::testfile(pattern="rc.*ch1.txt", full.names = TRUE) 
+
 
 # creating a new project
 dp <- diffrproject$new()
 
+
+# setting options
+dp$options$verbose <- FALSE
+
+
 # adding texts to the corpus
-dp$text_add(text=rcs)
+dp$text_add(text_file = rcs)
 dp$text_data()
+
 
 # linking the files (which file should be compared to which)
 dp$text_link()
 dp$link %>% as.data.frame()
+
 
 # calculating text alignments
 dp$text_align(tokenizer=text_tokenize_words)
