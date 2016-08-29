@@ -2,16 +2,20 @@
 #' @param dp a diffrproject object
 #' @export
 dp_text_base_data <- function(dp){
-  df <- data.frame()
+  df <- data.frame(NA)
   rt <- rtext$new("", verbose=FALSE)$info()
   names <- names(rt)
   for(i in seq_along(names) ){
     df[seq_along(dp$text), names[i]] <- NA
   }
+  df <- df[,-1]
   for( i in seq_along(dp$text) ){
     df[i,] <- get("info", dp$text[[i]])()
   }
-  df
+  if( all(is.na(df)) ){
+    df <- subset(df, FALSE)
+  }
+  return(df)
 }
 
 

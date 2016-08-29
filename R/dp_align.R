@@ -40,7 +40,17 @@ dp_align <-
 
       #### [ text_align() ] ====================================================
 
-      text_align = function(t1=NULL, t2=NULL, ...){
+      text_align = function(
+          t1=NULL, t2=NULL,
+          tokenizer = NULL, ignore = NULL, clean = NULL,
+          distance = c("lv", "osa", "dl", "hamming", "lcs", "qgram", "cosine", "jaccard", "jw", "soundex"),
+          useBytes = FALSE,
+          weight = c(d = 1, i = 1, s = 1, t = 1),
+          maxDist = 0, q = 1, p = 0,
+          nthread = getOption("sd_num_thread"),
+          verbose = self$options$verbose,
+          ...
+        ){
 
         if( is.null(t1) & is.null(t2) ){
           # check again
@@ -53,7 +63,19 @@ dp_align <-
           for(i in seq_along(self$link) ){
             self$text_align(
               self$link[[i]]$from,
-              self$link[[i]]$to
+              self$link[[i]]$to,
+              tokenizer = tokenizer,
+              ignore = ignore,
+              clean=clean,
+              distance=distance,
+              useBytes = useBytes,
+              weight=weight,
+              maxDist = maxDist,
+              q=q,
+              p=p,
+              nthread = nthread,
+              verbose = verbose,
+              ...
             )
           }
         }else{
@@ -65,7 +87,21 @@ dp_align <-
             self$text[[t2]]$text_get()
 
           alignment <-
-            diff_align(tt1, tt2, verbose = self$options$verbose,  ...)
+            diff_align(
+              tt1, tt2,
+              tokenizer = tokenizer,
+              ignore = ignore,
+              clean=clean,
+              distance=distance,
+              useBytes = useBytes,
+              weight=weight,
+              maxDist = maxDist,
+              q=q,
+              p=p,
+              nthread = nthread,
+              verbose = verbose,
+              ...
+            )
 
           self$text_alignment_add(
             alignment,

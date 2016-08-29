@@ -100,19 +100,28 @@ install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat"
 
 **Example Usage**
 
-```{r}
+```{r, cache=TRUE}
 library(diffrprojects)
 
+# the first chapter of Robinson Crusoe from three different sources
+rcs <- 
+  rtext:::testfile(pattern="rc.*ch1.txt", full.names = TRUE) %>% 
+  lapply(text_read)
+
+# creating a new project
 dp <- diffrproject$new()
 
-testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
-
-dp$text_add(text_file=testfiles)
-names(dp$texts)
+# adding texts to the corpus
+dp$text_add(text=rcs)
 dp$text_data()
 
+# linking the files (which file should be compared to which)
 dp$text_link()
-dp$link
+dp$link %>% as.data.frame()
+
+# calculating text alignments
+dp$text_align(tokenizer=text_tokenize_words)
+dp$alignment[[1]] %>% head(30)
 ```
    
 

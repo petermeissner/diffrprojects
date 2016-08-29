@@ -18,9 +18,25 @@ test_that("easy examples work properly", {
 
 
 
+context("tools dp_text_base_data ")
 
+context("tools dp_text_base_data ")
 
-
+test_that("dp_text_base_data works properly", {
+  dp <- diffrproject$new()
+  expect_error({
+    dp_text_base_data(dp)
+  },NA)
+  expect_true({
+    dp$text_add(text="abcd")
+    dim(dp_text_base_data(dp))[1]==1
+  },NA)
+  expect_true({
+    dp$text_add(text="abcd")
+    dim(dp_text_base_data(dp))[1]==2
+  },NA)
+}
+)
 
 context("tools as.data.frame") # ===============================================
 
