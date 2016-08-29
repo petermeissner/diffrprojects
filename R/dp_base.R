@@ -31,36 +31,7 @@ dp_base <-
 
 
     #### private ===============================================================
-    private = list(
-      text_add_worker = function( rtext, name = NULL ){
-
-        # input check
-        stopifnot("rtext"  %in% class(rtext) )
-
-        # working variable creation
-        names <- names(self$text)
-        ids   <- vapply(self$text, `[[`, "", "id")
-        id    <- rtext$id
-
-        # doing-duty-to-do
-        if( is.null(name) ){
-          name <- tryCatch(basename(NULL), error=function(e){NA} )
-          if( is.na(name) ){
-            next_num <- max(c(as.numeric(text_extract(names, "\\d+")),0))+1
-            name     <- text_c( "noname_", next_num)
-          }
-        }
-        self$text[[name]]    <- rtext
-        i <- 0
-        while( rtext$id %in% ids ){
-          rtext$id <- text_c(id, "_", i)
-          i <- i+1
-        }
-
-        # return self for piping
-        return(invisible(self))
-      }
-    ),
+    private = list(),
 
 
 
@@ -72,8 +43,8 @@ dp_base <-
       meta           = list(),
       alignment      = list(),
       alignment_data = list(),
-      text          = list(),
-      link          = list(),
+      text           = list(),
+      link           = list(),
 
 
       #### methods =============================================================
@@ -84,18 +55,56 @@ dp_base <-
       },
 
       # add text
-      text_add = function(text, name=NULL, ...){
-        if( any(class(text) %in% "character") ){
-          stopifnot(file.exists(text))
-          for(i in seq_along(text)){
-            private$text_add_worker(
-              rtext$new(text_file=text[i], ...),
-              name = ifelse(is.null(name), basename(text[i]), name[i])
+      text_add = function(rtext=NULL, text=NULL, textfile=NULL,  name=NULL, ...){
+        # worker function
+        text_add_worker = function( rtext=NULL, name = NULL ){
+          # input check
+          stopifnot( "rtext"  %in% class(rtext) )
+          # working variable creation
+          names <- names(self$text)
+          ids   <- vapply(self$text, `[[`, "", "id")
+          id    <- rtext$id
+          # doing-duty-to-do
+          if( is.null(name) ){
+            name <-
+              tryCatch(
+                basename(rtext$text_file), error=function(e){NA}
+              )
+            if( is.na(name) ){
+              next_num <- max(c(as.numeric(text_extract(names, "\\d+")),0))+1
+              name     <- text_c( "noname_", next_num)
+            }
+          }
+          self$text[[name]]    <- rtext
+          i <- 0
+          while( rtext$id %in% ids ){
+            rtext$id <- text_c(id, "_", i)
+            i <- i+1
+          }
+        }
+        # doing-duty-to-do
+        if( !is.null(rtext) ){
+          text_add_worker(rtext, name = name)
+        }else if( !is.null(text) ){
+          stopifnot(class(text)=="character")
+          for(i in seq_along(text) ){
+            text_add_worker(
+              rtext=rtext::rtext$new(text = text[i], ...),
+              name = name[i]
+            )
+          }
+        }else if( !is.null(text_file) ){
+          for(i in seq_along(text_file) ){
+            text_add_worker(
+              rtext::rtext$new(text_file = text_file[i], ...),
+              name = ifelse(is.null(name), basename(text_file[i]), name[i])
             )
           }
         }else{
-          private$text_add_worker(text,name = name)
+          warning("no file added")
         }
+        # return
+        return(invisible(self))
       },
 
       # delete text

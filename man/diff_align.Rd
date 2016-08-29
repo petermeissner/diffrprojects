@@ -8,7 +8,7 @@ diff_align(text1 = NULL, text2 = NULL, tokenizer = NULL, ignore = NULL,
   clean = NULL, distance = c("lv", "osa", "dl", "hamming", "lcs", "qgram",
   "cosine", "jaccard", "jw", "soundex"), useBytes = FALSE, weight = c(d = 1,
   i = 1, s = 1, t = 1), maxDist = 0, q = 1, p = 0,
-  nthread = getOption("sd_num_thread"), ...)
+  nthread = getOption("sd_num_thread"), verbose = TRUE, ...)
 }
 \arguments{
 \item{text1}{first text}

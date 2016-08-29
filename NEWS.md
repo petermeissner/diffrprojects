@@ -2,7 +2,27 @@ NEWS diffrprojects
 ==========================================================================
 
 
-version 0.1.2 // 2016-08-26 ... 
+
+version 0.1.4 // 2016-08-26 ... 
+--------------------------------------------------------------------------
+
+* BUGFIXES
+
+
+    
+* FEATURE
+    - introducing alignment and alignment_data 
+    - dp : alignment_add
+    - dp : alignment_delete
+    - dp : alignment_code
+    - dp : alignment_update
+    
+
+* DEVELOPMENT
+
+
+
+version 0.1.3 // 2016-08-26 ... 
 --------------------------------------------------------------------------
 
 * BUGFIXES

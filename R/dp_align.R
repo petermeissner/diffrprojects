@@ -47,16 +47,17 @@ dp_align <-
           #   }
           # }
         for(i in seq_along(self$link) ){
-          self$text_align(
-            self$text[[self$link[[i]]$from]]$text_get(),
-            self$text[[self$link[[i]]$from]]$text_get()
-           )
+          self$text_align( self$link[[i]]$from, self$link[[i]]$to )
         }
         }else{
-          self$message("")
+          self$message("- doing alignment")
           tt1 <- self$text[[t1]]$text_get()
           tt2 <- self$text[[t2]]$text_get()
-          self$alignment <- diff_align(tt1, tt2, ...)
+          self$alignment <-
+            subset(
+              diff_align(tt1, tt2, ...),
+              select=-c("token_1", "token_2")
+            )
         }
       }
     ) # closes public

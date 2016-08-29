@@ -38,6 +38,7 @@ diff_align <- function(
   q = 1,
   p = 0,
   nthread = getOption("sd_num_thread"),
+  verbose = TRUE,
   ...
 ){
   # checking input
@@ -59,7 +60,7 @@ diff_align <- function(
   if(maxDist == 0){ maxDist <- 1e-150}
 
   # tokenize
-  message(" - tokenizing text")
+  if( verbose ){ message(" - tokenizing text") }
   text1_tokenized <- tokenizer(text1)[1:3]
   text1_tokenized$token_i <- seq_along(text1_tokenized$token)
 
@@ -67,14 +68,14 @@ diff_align <- function(
   text2_tokenized$token_i <- seq_along(text2_tokenized$token)
 
   # clean
-  message(" - cleaning token")
+  if( verbose ){ message(" - cleaning token") }
   text1_tokenized_prec <- text1_tokenized
   text2_tokenized_prec <- text2_tokenized
   text1_tokenized$token <- clean(text1_tokenized$token)
   text2_tokenized$token <- clean(text2_tokenized$token)
 
   # ignore
-  message(" - ignoring token")
+  if( verbose ){ message(" - ignoring token") }
   text1_tokenized_prei <- text1_tokenized
   text2_tokenized_prei <- text2_tokenized
   text1_tokenized <- ignore(text1_tokenized)
@@ -89,7 +90,7 @@ diff_align <- function(
   text2_tokenized <- stats::setNames(text2_tokenized, c("from_2", "to_2", "token_2", "token_i_2"))
 
   # alignment and distances
-  message(" - doing distance calculation and alignment")
+  if( verbose ){ message(" - doing distance calculation and alignment") }
 
   # distance
   a <-

@@ -103,7 +103,7 @@ install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat"
 ```{r}
 library(diffrprojects)
 
-dp <- dp_base$new()
+dp <- diffrproject$new()
 
 testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 
@@ -111,8 +111,8 @@ dp$text_add(testfiles)
 names(dp$texts)
 dp$text_data()
 
-dp$texts_link()
-dp$links
+dp$text_link()
+dp$link
 ```
    
 

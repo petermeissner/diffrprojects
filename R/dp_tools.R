@@ -6,10 +6,10 @@ dp_text_base_data <- function(dp){
   rt <- rtext$new("", verbose=FALSE)$info()
   names <- names(rt)
   for(i in seq_along(names) ){
-    df[seq_along(dp$texts), names[i]] <- NA
+    df[seq_along(dp$text), names[i]] <- NA
   }
-  for( i in seq_along(dp$texts) ){
-    df[i,] <- get("info", dp$texts[[i]])()
+  for( i in seq_along(dp$text) ){
+    df[i,] <- get("info", dp$text[[i]])()
   }
   df
 }
