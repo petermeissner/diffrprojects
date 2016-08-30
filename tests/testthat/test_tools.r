@@ -225,6 +225,51 @@ test_that("rbind_fill works", {
       )==c(0,0)
     )
   })
+  expect_true({
+    df1 <- NULL
+    df2 <- data.frame()
+    all(
+      dim(
+        diffrprojects:::rbind_fill(df1, df2)
+      )==c(0,0)
+    )
+  })
+  expect_true({
+    df1 <- NULL
+    df2 <- NULL
+    all(
+      dim(
+        diffrprojects:::rbind_fill(df1, df2)
+      )==c(0,0)
+    )
+  })
+  expect_true({
+    df1 <- data.frame()
+    df2 <- NULL
+    all(
+      dim(
+        diffrprojects:::rbind_fill(df1, df2)
+      )==c(0,0)
+    )
+  })
+  expect_true({
+    df1 <- NULL
+    df2 <- data.frame(x=1:3)
+    all(
+      dim(
+        diffrprojects:::rbind_fill(df1, df2)
+      )==c(3,1)
+    )
+  })
+  expect_true({
+    df1 <- data.frame(z=letters[8:10], a=1)
+    df2 <- NULL
+    all(
+      dim(
+        diffrprojects:::rbind_fill(df1, df2)
+      )==c(3,2)
+    )
+  })
 })
 
 

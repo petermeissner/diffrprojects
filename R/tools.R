@@ -135,17 +135,31 @@ bind_between <- function(x, min, max){
 #' @param df2 second data.frame to rbind
 #' @keywords internal
 rbind_fill <- function(df1=data.frame(), df2=data.frame()){
+
+  # get union of names
   names_df <- c(names(df1), names(df2))
+
+  # prepare empty data.frame
+  empty_frame <- data.frame(lapply(names_df, as.data.frame))
+  names(empty_frame) <- names_df
+  if(length(names_df)>0){
+    empty_frame <- subset(empty_frame, FALSE)
+  }
+
+  # filling up
   if( dim1(df1) > 0 ){
     df1[, names_df[!(names_df %in% names(df1))]] <- rep(NA, dim1(df1))
   }else{
-    df1 <- data.frame()
+    df1 <- empty_frame
   }
+
   if( dim1(df2) > 0 ){
     df2[, names_df[!(names_df %in% names(df2))]] <- rep(NA, dim1(df2))
   }else{
-    df2 <- data.frame()
+    df2 <- empty_frame
   }
+
+  # doing-duty-to-do
   rbind(df1, df2)
 }
 
