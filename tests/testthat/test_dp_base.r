@@ -29,7 +29,7 @@ test_that("text can be added", {
   }, NA)
   expect_error({
     dp <- diffrproject$new()
-    dp$text_add(rtext::rtext$new(""), name = 1)
+    dp$text_add("", name = 1)
   }, NA)
   expect_error({
     dp <- diffrproject$new()
