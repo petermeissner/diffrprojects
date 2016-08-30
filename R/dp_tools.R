@@ -1,3 +1,38 @@
+#' function adding rtext objects to diffrprojects
+#' @param self an object of class dp
+#' @param rtext an object of class rtext
+#' @param name an optional name for the text to stick to the text within the
+#'        diffrproject corpus - if none is supplied the function will try to
+#'        infere a reasonable name from the rtext$text_file field, if that is
+#'        not given it will get the name noname_x where x is a running integer
+#' @keywords internal
+text_add_worker = function(self, rtext=NULL, name = NULL ){
+  # input check
+  stopifnot( "rtext"  %in% class(rtext) )
+  # working variable creation
+  names <- names(self$text)
+  ids   <- vapply(self$text, `[[`, "", "id")
+  id    <- rtext$id
+  # doing-duty-to-do
+  if( is.null(name) ){
+    name <-
+      tryCatch(
+        basename(rtext$text_file), error=function(e){NA}
+      )
+    if( is.na(name) ){
+      next_num <- max(c(as.numeric(text_extract(names, "\\d+")),0))+1
+      name     <- text_c( "noname_", next_num)
+    }
+  }
+  self$text[[name]]    <- rtext
+  i <- 0
+  while( rtext$id %in% ids ){
+    rtext$id <- text_c(id, "_", i)
+    i <- i+1
+  }
+}
+
+
 #' function providing basic information on texts within diffrproject
 #' @param dp a diffrproject object
 #' @export

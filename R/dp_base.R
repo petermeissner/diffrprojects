@@ -59,59 +59,58 @@ dp_base <-
 
       #### [ add text() ] ======================================================
 
-      text_add = function(rtext=NULL, text=NULL, text_file=NULL,  name=NULL, ...){
+      text_add = function(text=NULL, text_file=NULL, rtext=NULL, name=NULL, ...){
 
-        text_add_worker = function( rtext=NULL, name = NULL ){
-          # input check
-          stopifnot( "rtext"  %in% class(rtext) )
-          # working variable creation
-          names <- names(self$text)
-          ids   <- vapply(self$text, `[[`, "", "id")
-          id    <- rtext$id
-          # doing-duty-to-do
-          if( is.null(name) ){
-            name <-
-              tryCatch(
-                basename(rtext$text_file), error=function(e){NA}
-              )
-            if( is.na(name) ){
-              next_num <- max(c(as.numeric(text_extract(names, "\\d+")),0))+1
-              name     <- text_c( "noname_", next_num)
-            }
-          }
-          self$text[[name]]    <- rtext
-          i <- 0
-          while( rtext$id %in% ids ){
-            rtext$id <- text_c(id, "_", i)
-            i <- i+1
-          }
-        }
-
-        # doing-duty-to-do
-        if( !is.null(rtext) ){                                 # - for rtext
+        # case: < rtext >
+        if( !is.null(rtext) ){
           text_add_worker(
+            self,
             rtext,
             name = name
           )
-        }else if( !is.null(text) ){                            # - for text
+          # return
+          return(invisible(self))
+        }
+
+        # case: < text >
+        if( !is.null(text) ){
           stopifnot(class(text) %in% c("character", "list"))
-          for(i in seq_along(text) ){
-            text_add_worker(
-              rtext=rtext::rtext$new(text = text[[i]], ..., verbos=self$options$verbose),
-              name = name[i]
-            )
+          if( is.null(text_file) ){
+            for(i in seq_along(text) ){
+              text_add_worker(
+                self,
+                rtext=rtext::rtext$new(text = text[[i]], ..., verbos=self$options$verbose),
+                name = name[i]
+              )
+            }
+          }else{
+            for(i in seq_along(text) ){
+              text_add_worker(
+                self,
+                rtext=rtext::rtext$new(text = text[[i]], text_file = text_file[i], ..., verbos=self$options$verbose),
+                name = name[i]
+              )
+            }
           }
-        }else if( !is.null(text_file) ){                       # - for text_file
+          # return
+          return(invisible(self))
+        }
+
+        # case: < text_file >
+        if( !is.null(text_file) ){
           for(i in seq_along(text_file) ){
             text_add_worker(
+              self,
               rtext::rtext$new(text_file = text_file[i], ...),
               name = ifelse(is.null(name), basename(text_file[i]), name[i])
             )
           }
-        }else{
-          warning("no file added")
+          # return
+          return(invisible(self))
         }
 
+        # case: < nothing added >
+        warning("no file added")
         # return
         return(invisible(self))
       },
