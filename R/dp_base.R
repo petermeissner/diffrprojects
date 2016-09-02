@@ -42,7 +42,7 @@ dp_base <-
       #### data ================================================================
       meta           = list(),
       alignment      = structure(list(), class=c("alignment_list","list")),
-      alignment_data = list(),
+      alignment_data = structure(list(), class=c("alignment_data_list","list")),
       text           = list(),
       link           = structure(list(), class=c("alignment_list","list")),
 
@@ -150,7 +150,7 @@ dp_base <-
         from <- names(self$text[from])
         to   <- names(self$text[to])
         linker <- function(from, to, delete){
-          name <- text_c(from, "_", to)
+          name <- text_c(from, "~", to)
           if(delete){
             self$link[name] <- NULL
           }else{

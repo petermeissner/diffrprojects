@@ -26,8 +26,8 @@ Description: This is a description still to be done but to
     this does not simply read TBD.
 Depends:
     R (>= 3.0.0),
-    stringb (>= 0.1.10),
-    rtext (>= 0.1.10)
+    stringb (>= 0.1.11),
+    rtext (>= 0.1.16)
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:

@@ -4,9 +4,9 @@ context("\ndp_align") # ====================================================
 
 
 
-context("diffrproject dp_align") # =================================================
+context("diffrproject text_align()") # =================================================
 
-test_that("diffrproject alignment works", {
+test_that("diffrproject text_align works", {
   expect_true({
     dp <- diffrproject$new()
     dp$text_add(text = "a\nb")
@@ -50,5 +50,139 @@ test_that("diffrproject alignment works", {
       all(dim(as.data.frame(dp$alignment)) == c(1, 10))
   })
 })
+
+
+
+context("diffrproject text_alignment_delete()") # =================================================
+
+test_that("diffrproject text_alignment_delete works", {
+  expect_error({
+    dp <- diffrproject$new()
+    dp$text_alignment_delete(1)
+  })
+  expect_warning({
+    dp <- diffrproject$new()
+    dp$text_alignment_delete(1,1,1)
+  })
+  expect_error({
+    dp <- diffrproject$new()
+    dp$options$warning <- FALSE
+    dp$text_alignment_delete(1,1)
+  }, NA)
+  expect_true({
+    dp <- diffrproject$new()
+    dp$options$warning <- FALSE
+    any( class(dp$text_alignment_delete(1,1)) %in% "diffrproject" )
+  })
+  expect_true({
+    dp <- diffrproject$new()
+    dp$text_add("")
+    dp$text_add("b\n")
+    dp$text_link()
+    dp$text_align()
+    dp$alignment
+    dp$text_alignment_delete(1,1)
+    dim(dp$alignment[[1]])[1]==0
+  })
+  expect_true({
+    dp <- diffrproject$new()
+    dp$text_add("kdsajhfsadlkfhdsaf")
+    dp$text_add("asdfklsadfm.samdfasf")
+    dp$text_add("asdfklseadasdfwqwwer.samdfagsf")
+    dp$text_link()
+    dp$text_align(tokenizer = function(x){text_tokenize(x, "")})
+    dp$alignment
+    dp$text_alignment_delete(1,1)
+    dp$text_alignment_delete(2,1)
+    sum(
+      vapply(
+        dp$alignment,
+        function(x){sum(x$alignment_i %in% 1)},
+        1
+      )
+    )==0
+  })
+  expect_true({
+    dp <- diffrproject$new()
+    dp$text_add("kdsajhfsadlkfhdsaf")
+    dp$text_add("asdfklsadfm.samdfasf")
+    dp$text_add("asdfklseadasdfwqwwer.samdfagsf")
+    dp$text_link()
+    dp$text_align(tokenizer = function(x){text_tokenize(x, "")})
+    dp$alignment
+    dp$text_alignment_delete(1, type = "insertion")
+    dp$text_alignment_delete(2,type="insertion")
+    sum(
+      vapply(
+        dp$alignment,
+        function(x){sum(x$type %in% "insertion")},
+        1
+      )
+    )==0
+  })
+})
+
+
+
+
+
+
+
+
+
+context("diffrproject text_alignment_data_set()") # =================================================
+
+test_that("diffrproject text_alignment_data_set()", {
+  expect_error({
+    dp <-
+      diffrproject$
+      new()$
+      text_add(list("abcd", "bcdaa", "ccdabbcd"))$
+      text_link()$
+      debug()$
+      text_align(tokenizer=function(x){text_tokenize(x,"")})
+    dp$text_alignment_data_set()
+  })
+
+
+
+  expect_true({
+    dp <-
+      diffrproject$
+      new()$
+      text_add(list("abcd", "bcdaa", "ccdabbcd"))$
+      text_link()$
+      debug()$
+      text_align(tokenizer=function(x){text_tokenize(x,"")})
+    dp$text_alignment_data_set(link=1, alignment_i = 1, x="test_var", val=3)
+    dp$text_alignment_data_set(link=1, alignment_i = 1:4, x="y", val=2)
+    dp$text_alignment_data_set(link=2, alignment_i = 1:9, x="y", val=2)
+    df <- as.data.frame(dp$alignment_data)
+    all(
+      c("alignment_i", "hl", "link") %in% names(df)
+    )
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

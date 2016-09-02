@@ -63,17 +63,21 @@ dp_text_base_data <- function(dp){
 #' @export
 as.data.frame.named_df_list <- function(x, row.names=NULL, optional=FALSE, dfnamevar="name", ...){
   if( any(unlist(lapply(x, class)) == "list") ){
-    x <- lapply(x, as.data.frame)
+    x <- lapply(x, as.data.frame.named_df_list)
   }
   # prepare variable
   each <- unlist(lapply(x, dim1))
   var <- names(x)
   var <- unlist(mapply(rep, var, each, SIMPLIFY=FALSE))
   # doing-duty-to-do
-  names(x) <- NULL
-  x <- do.call(rbind_fill, x)
-  # add link variable
-  x[[dfnamevar]] <- var
+  if( class(x[[1]])!="data.frame" ){
+    x<-as.data.frame(x)
+  }else{
+    names(x) <- NULL
+    x <- do.call(rbind_fill, x)
+    # add link variable
+    x[[dfnamevar]] <- var
+  }
   # return
   return(x)
 }
@@ -91,3 +95,43 @@ as.data.frame.alignment_list <- function(x, row.names=NULL, optional=FALSE, ...)
     ...
   )
 }
+
+
+
+#' as.data.frame method for for named lists of data.frames
+#' @inheritParams as.data.frame.named_df_list
+#' @method as.data.frame alignment_data_list
+#' @export
+as.data.frame.alignment_data_list <- function(x, row.names=NULL, optional=FALSE, ...){
+  tmp <- as.data.frame.named_df_list(
+    x,
+    row.names = row.names,
+    optional = optional,
+    dfnamevar = "link",
+    ...
+  )
+  cols <- which(names(tmp) %in% c("link", "alignment_i", "hl", "name"))
+  val <- tmp[, -c(cols)]
+  tmp <- tmp[, cols]
+  tmp$val <- unlist(apply(val, 1, function(x){ x[!is.na(x)][1] } ))
+  tmp
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

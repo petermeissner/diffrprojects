@@ -1,6 +1,8 @@
 #### ---------------------------------------------------------------------------
 
 library(diffrprojects)
+devtools::load_all()
+
 
 #### ---------------------------------------------------------------------------
 
@@ -19,16 +21,17 @@ testfiles <- rtext:::testfile(pattern="rc_\\d.txt", full.names = TRUE)
 #### ---------------------------------------------------------------------------
 
 
-dp <- diffrproject$new()
+dp <-
+  diffrproject$
+  new()$
+  text_add(list(text1, text2))$
+  text_link()$
+  debug()$
+  text_align()
 
-dp$text_add(text_file = text_files[13], encoding = "latin1")
-dp$text_add(text_file = text_files[14], encoding = "latin1")
+dp$alignment
+dp$alignment_data
 
-dp$text_link()
-
-dp$debug()
-
-dp$text_align()
 
 
 
