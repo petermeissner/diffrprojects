@@ -232,10 +232,22 @@ dp_align <-
             FALSE
           }
 
-          iffer <- iffer %>% lapply(f) %>%  as.data.frame() %>% apply(1,g)
+        iffer  <- iffer %>% lapply(f) %>%  as.data.frame() %>% apply(1,g)
+        wiffer <- self$alignment[[link]][!iffer, ]$alignment_i
 
+
+        # update text_alignment_data
+        for(i in seq_along(self$alignment_data[[link]]) ){
+          iffer_tmp <- self$alignment_data[[link]][[i]]$alignment_i %in% wiffer
+          self$alignment_data[[link]][[i]] <- self$alignment_data[[link]][[i]][iffer_tmp,]
+        }
+
+        # update alignments
         self$alignment[[link]] <- self$alignment[[link]][!iffer, ]
       }
+
+      # update hashes
+      private$hash("alignment")
 
       # return
       return(invisible(self))
@@ -247,11 +259,87 @@ dp_align <-
     text_alignment_code =
       function(
         link=NULL, alignment_i=NULL,
+        pattern=NULL, pattern1=NULL, pattern2=NULL,
         from_1=NULL, to_1=NULL,
         from_2=NULL, to_2=NULL,
         type=NULL
       ){
+        # check inputs
+        stopifnot(!is.null(link))
 
+        # fetching link name if necessary
+        if( !is.character(link) ){
+          link <- names(self$link)[link]
+        }
+
+        # doing-duty-to-do
+        iffer <- list()
+        if( !is.null(alignment_i)){
+          iffer[[1]] <- self$alignment[[link]]$alignment_i %in% alignment_i
+        }
+        iffer[[2]] <- self$alignment[[link]]$from_1 <= from_1
+        iffer[[3]] <- self$alignment[[link]]$to_1   >= to_1
+        iffer[[4]] <- self$alignment[[link]]$from_2 <= from_2
+        iffer[[5]] <- self$alignment[[link]]$to_2   >= to_2
+        iffer[[6]] <- as.character(self$alignment[[link]]$type)   == type
+
+        if( !is.null(pattern) ){
+          token_1 <-
+            text_sub(
+              self$text[[self$link[[link]]$from]]$text_get(),
+              self$alignment[[link]]$from_1,
+              self$alignment[[link]]$to_1
+            )
+          token_2 <-
+            text_sub(
+              self$text[[self$link[[link]]$to  ]]$text_get(),
+              self$alignment[[link]]$from_2,
+              self$alignment[[link]]$to_2
+            )
+          iffer[[7]] <-
+            stringb::text_detect(token_1, pattern) |
+            stringb::text_detect(token_2, pattern)
+        }
+
+        if( !is.null(pattern1) ){
+          token_1 <-
+            text_sub(
+              self$text[[self$link[[link]]$from]]$text_get(),
+              self$alignment[[link]]$from_1,
+              self$alignment[[link]]$to_1
+            )
+          iffer[[8]] <-
+            stringb::text_detect(token_1, pattern1)
+        }
+
+        if( !is.null(pattern1) ){
+          token_2 <-
+            text_sub(
+              self$text[[self$link[[link]]$to  ]]$text_get(),
+              self$alignment[[link]]$from_2,
+              self$alignment[[link]]$to_2
+            )
+          iffer[[9]] <-
+            stringb::text_detect(token_2, pattern)
+        }
+
+        # combining iffer
+        f <- function(x){ if( length(x) == 0 ){ x<-rep(NA, dim1(self$alignment[[link]])) }; return(x) }
+        g <- function(x){
+          if( all( is.na(x) ) ){
+            return(FALSE)
+          }
+          if( all( is.na(x) | x ) ){
+            return(TRUE)
+          }
+          FALSE
+        }
+
+        iffer  <- iffer %>% lapply(f) %>%  as.data.frame() %>% apply(1,g)
+        wiffer <- self$alignment[[link]][!iffer, ]$alignment_i
+
+        # setting values
+        self$text_alignment_data_set(link=link, alignment_i = wiffer)
     },
 
     #### [ text_alignment_set ] #### ................................................

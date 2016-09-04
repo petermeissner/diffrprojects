@@ -58,6 +58,20 @@ test_that("as.data.frame methods work", {
     is.data.frame(as.data.frame(dp$link)) &
       all(dim(as.data.frame(dp$alignment)) == c(3, 10))
   })
+
+  expect_error({
+    dp <-
+      diffrproject$
+      new()$
+      text_add(list("abcd", "bcdaa", "ccdabbcd"))$
+      text_link()$
+      debug()$
+      text_align(tokenizer=function(x){text_tokenize(x,"")})
+
+    dp$text_alignment_data_set(link=1, alignment_i = 1, x="test_var", val=3)
+
+    df <- as.data.frame(dp$alignment_data)
+  }, NA)
 })
 
 

@@ -144,8 +144,6 @@ test_that("diffrproject text_alignment_data_set()", {
     dp$text_alignment_data_set()
   })
 
-
-
   expect_true({
     dp <-
       diffrproject$
@@ -161,6 +159,42 @@ test_that("diffrproject text_alignment_data_set()", {
     all(
       c("alignment_i", "hl", "link") %in% names(df)
     )
+  })
+
+  expect_true({
+    dp <-
+      diffrproject$
+      new()$
+      text_add(list("abcd", "bcdaa", "ccdabbcd"))$
+      text_link()$
+      debug()$
+      text_align(tokenizer=function(x){text_tokenize(x,"")})
+    dp$text_alignment_data_set(link=1, alignment_i = 1, x="test_var", val=3)
+    dp$text_alignment_data_set(link=1, alignment_i = 1:4, x="y", val=2)
+    dp$text_alignment_data_set(link=2, alignment_i = 1:9, x="y", val=2)
+
+    dp$text_alignment_delete(1:2,2:9)
+    df <- as.data.frame(dp$alignment_data)
+    all(df$alignment_i==1)
+  })
+
+  expect_true({
+    dp <-
+      diffrproject$
+      new()$
+      text_add(list("abcd", "bcdaa", "ccdabbcd"))$
+      text_link()$
+      debug()$
+      text_align(tokenizer=function(x){text_tokenize(x,"")})
+
+    dp$alignment
+
+    dp$text_alignment_data_set(link=1, alignment_i = 1:3, x="test_var", val=3)
+    dp$text_alignment_data_set(link=1, alignment_i = 1, x="test_var", val=4, hl=1)
+    dp$text_alignment_data_set(link=1, alignment_i = 2, x="test_var", val=4, hl=-1)
+
+    df <- as.data.frame(dp$alignment_data)
+    all(df$val==c(4,3,3))
   })
 })
 

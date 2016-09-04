@@ -111,8 +111,8 @@ as.data.frame.alignment_data_list <- function(x, row.names=NULL, optional=FALSE,
     ...
   )
   cols <- which(names(tmp) %in% c("link", "alignment_i", "hl", "name"))
-  val <- tmp[, -c(cols)]
-  tmp <- tmp[, cols]
+  val <- subset( tmp, select = -c(cols) )
+  tmp <- subset( tmp, select = cols )
   tmp$val <- unlist(apply(val, 1, function(x){ x[!is.na(x)][1] } ))
   tmp
 }
