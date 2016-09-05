@@ -258,14 +258,14 @@ dp_align <-
 
     text_alignment_code =
       function(
-        link=NULL, alignment_i=NULL,
+        link=NULL, alignment_i=NULL, x=NULL, val=NA, hl = 0,
         pattern=NULL, pattern1=NULL, pattern2=NULL,
         from_1=NULL, to_1=NULL,
         from_2=NULL, to_2=NULL,
         type=NULL
       ){
         # check inputs
-        stopifnot(!is.null(link))
+        stopifnot(!is.null(link), !is.null(x))
 
         # fetching link name if necessary
         if( !is.character(link) ){
@@ -339,7 +339,16 @@ dp_align <-
         wiffer <- self$alignment[[link]][!iffer, ]$alignment_i
 
         # setting values
-        self$text_alignment_data_set(link=link, alignment_i = wiffer)
+        self$text_alignment_data_set(
+          link        = link,
+          alignment_i = wiffer,
+          val         = val,
+          x           = x,
+          hl          = hl
+        )
+
+        # return
+        return(invisible(self))
     },
 
     #### [ text_alignment_set ] #### ................................................
@@ -440,7 +449,66 @@ dp_align <-
 
       # return for piping
       return(invisible(self))
+    },
+
+
+    #### [ alignment_data_full ] #### ................................................
+    alignment_data_full = function(link=NULL, data_only=TRUE){
+
+      # fetching link name if necessary
+      if( is.null(link) ){
+        link <- seq_along(self$link)
+      }
+      if( !is.character(link) ){
+        link <- names(self$link)[link]
+      }
+
+      if(data_only){
+        tmp <-
+          self$alignment %>%
+          as.data.frame() %>%
+          dplyr::right_join(as.data.frame(self$alignment_data))
+      }else{
+        tmp <-
+          self$alignment %>%
+          as.data.frame() %>%
+          dplyr::left_join(as.data.frame(self$alignment_data))
+      }
+      tmp <-
+        tmp %>%
+        dplyr::rename(
+          var_name = name,
+          var_value = val
+        ) %>%
+          dplyr::left_join(as.data.frame(self$link)) %>%
+          dplyr::rename(
+            text_from = from,
+            text_to = to
+          )
+
+      for( i in seq_along(unique(tmp$text_from)) ){
+        tf    <- unique(tmp$text_from)[i]
+        iffer <- tmp$text_from == tf
+        tmp[iffer, "token_1"] <-
+          self$text[[tf]]$text_get() %>%
+          stringb::text_sub(tmp$from_1[iffer],tmp$to_1[iffer])
+      }
+      for( i in seq_along(unique(tmp$text_to)) ){
+        tf    <- unique(tmp$text_to)[i]
+        iffer <- tmp$text_to == tf
+        tmp[iffer, "token_2"] <-
+          self$text[[tf]]$text_get() %>%
+          stringb::text_sub(tmp$from_2[iffer],tmp$to_2[iffer])
+      }
+
+      tmp <-
+        dplyr::select(tmp, link, alignment_i, type, distance, alignment_i:token_2)
+
+      # return
+      return(tmp)
     }
+
+
 
     ) # closes public
   )# closes R6Class
