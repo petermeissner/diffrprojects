@@ -245,7 +245,9 @@ test_that("diffrproject text_alignment_data_code()", {
       text_align(tokenizer=function(x){text_tokenize(x,"")})
     dp$text_alignment_code(link=1, x="pattern", pattern="a")
     df <- dp$alignment_data_full(1)
-    df
+    all(
+      df$alignment_i == c(1,5)
+    )
   })
 
   expect_true({
@@ -256,16 +258,26 @@ test_that("diffrproject text_alignment_data_code()", {
       text_link()$
       debug()$
       text_align(tokenizer=function(x){text_tokenize(x,"")})
-
-    dp$alignment
-
-    dp$text_alignment_data_set(link=1, alignment_i = 1:3, x="test_var", val=3)
-    dp$text_alignment_data_set(link=1, alignment_i = 1, x="test_var", val=4, hl=1)
-    dp$text_alignment_data_set(link=1, alignment_i = 2, x="test_var", val=4, hl=-1)
-
-    df <- as.data.frame(dp$alignment_data)
-    all(df$val==c(4,3,3))
+    dp$text_alignment_code(link=1, x="pattern", pattern1="a")
+    df <- dp$alignment_data_full(1)
+    df$alignment_i==1
   })
+
+  expect_true({
+    dp <-
+      diffrproject$
+      new()$
+      text_add(list("abcd", "bcdaa", "ccdabbcd"))$
+      text_link()$
+      debug()$
+      text_align(tokenizer=function(x){text_tokenize(x,"")})
+    dp$text_alignment_code(link=1, x="pattern", pattern2="a")
+    df <- dp$alignment_data_full(1)
+    all(
+      df$alignment_i==c(1,5)
+    )
+  })
+
 })
 
 

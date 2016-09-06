@@ -259,7 +259,7 @@ dp_align <-
     text_alignment_code =
       function(
         link=NULL, alignment_i=NULL, x=NULL, val=NA, hl = 0,
-        pattern=NULL, pattern1=NULL, pattern2=NULL,
+        pattern=NULL, pattern1=NULL, pattern2=NULL, invert=FALSE,
         from_1=NULL, to_1=NULL,
         from_2=NULL, to_2=NULL,
         type=NULL
@@ -312,7 +312,7 @@ dp_align <-
             stringb::text_detect(token_1, pattern1)
         }
 
-        if( !is.null(pattern1) ){
+        if( !is.null(pattern2) ){
           token_2 <-
             text_sub(
               self$text[[self$link[[link]]$to  ]]$text_get(),
@@ -320,7 +320,7 @@ dp_align <-
               self$alignment[[link]]$to_2
             )
           iffer[[9]] <-
-            stringb::text_detect(token_2, pattern)
+            stringb::text_detect(token_2, pattern2)
         }
 
         # combining iffer
@@ -336,7 +336,11 @@ dp_align <-
         }
 
         iffer  <- iffer %>% lapply(f) %>%  as.data.frame() %>% apply(1,g)
-        wiffer <- self$alignment[[link]][!iffer, ]$alignment_i
+        if( invert ){
+          wiffer <- self$alignment[[link]][!iffer, ]$alignment_i
+        }else{
+          wiffer <- self$alignment[[link]][iffer, ]$alignment_i
+        }
 
         # setting values
         self$text_alignment_data_set(
