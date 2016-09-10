@@ -103,7 +103,7 @@ dp_align <-
               ...
             )
 
-          self$text_alignment_add(
+          self$alignment_add(
             alignment,
             link = stringb::text_c(t1, "~", t2)
           )
@@ -113,9 +113,9 @@ dp_align <-
       },
 
 
-    #### [ text_alignment_add() ] ==============================================
+    #### [ alignment_add() ] ==============================================
 
-    text_alignment_add = function(x, link){
+    alignment_add = function(x, link){
 
       # fetching link name if necessary
       if( !is.character(link) ){
@@ -164,9 +164,9 @@ dp_align <-
     },
 
 
-    #### [ text_alignment_delete() ] ==============================================
+    #### [ alignment_delete() ] ==============================================
 
-    text_alignment_delete =
+    alignment_delete =
       function(
         link=NULL, alignment_i=NULL, from_1=NULL, to_1=NULL, from_2=NULL, to_2=NULL, type=NULL
       ){
@@ -183,7 +183,7 @@ dp_align <-
       # recursion
       if( length(link)>1 ){
         for(i in seq_along(link)){
-          self$text_alignment_delete(
+          self$alignment_delete(
             link        = link[i],
             alignment_i = alignment_i,
             from_1      = from_1,
@@ -236,7 +236,7 @@ dp_align <-
         wiffer <- self$alignment[[link]][!iffer, ]$alignment_i
 
 
-        # update text_alignment_data
+        # update alignment_data
         for(i in seq_along(self$alignment_data[[link]]) ){
           iffer_tmp <- self$alignment_data[[link]][[i]]$alignment_i %in% wiffer
           self$alignment_data[[link]][[i]] <- self$alignment_data[[link]][[i]][iffer_tmp,]
@@ -254,9 +254,9 @@ dp_align <-
     },
 
 
-    #### [ text_alignment_code() ] ==============================================
+    #### [ alignment_code() ] ==============================================
 
-    text_alignment_code =
+    alignment_code =
       function(
         link=NULL, alignment_i=NULL, x=NULL, val=NA, hl = 0,
         pattern=NULL, pattern1=NULL, pattern2=NULL, invert=FALSE,
@@ -343,7 +343,7 @@ dp_align <-
         }
 
         # setting values
-        self$text_alignment_data_set(
+        self$alignment_data_set(
           link        = link,
           alignment_i = wiffer,
           val         = val,
@@ -355,8 +355,8 @@ dp_align <-
         return(invisible(self))
     },
 
-    #### [ text_alignment_set ] #### ................................................
-    text_alignment_data_set = function(
+    #### [ alignment_set ] #### ................................................
+    alignment_data_set = function(
       link=NULL, alignment_i=NULL, x=NULL, val=NA, hl = 0
     ){
       # check input
@@ -453,6 +453,83 @@ dp_align <-
 
       # return for piping
       return(invisible(self))
+    },
+
+
+    #### [ text_code_alignment_token() ] =====================================================
+
+    text_code_alignment_token = function(link=NULL, alignment_i=NULL, text1=FALSE, text2=FALSE, x=NULL, val=NA, hl=0, ...){
+      # fetching link name if necessary
+      if( !is.character(link) ){
+        link <- names(self$link)[link]
+      }
+
+      tbc <-
+        self$alignment[[link]] %>%
+          subset(
+            subset = self$alignment[[link]]$alignment_i %in% alignment_i,
+            select = c("from_1","to_1", "from_2", "to_2")
+          )
+
+      l <- dim1(tbc)
+      if( l != length(val) ){ val <- rep(val, l)[seq_len(l)] }
+      if( l != length(hl ) ){ hl  <- rep(hl,  l)[seq_len(l)] }
+
+      tbc$val <- val
+      tbc$hl  <- hl
+      tbc_split <- split(tbc, seq_dim1(tbc))
+
+       if( text1 ){
+         res <-
+           do.call(
+              rbind,
+              lapply(tbc_split, function(x){
+                if( !is.na(x$from_1) & !is.na(x$to_1) ){
+                  res <-
+                    data.frame(
+                    i   = seq(x$from_1, x$to_1),
+                    val = x$val,
+                    hl  = x$hl
+                  )
+                }else{
+                  res <- subset(data.frame(i=0,val=NA,hl=0), FALSE)
+                }
+              return(res)
+            })
+           )
+
+         self$text_code(self$link[[link]]$from, x=x, i=res$i, val=res$val, hl=res$hl)
+      }
+
+      if( text2 ){
+        res <-
+          do.call(
+            rbind,
+            lapply(tbc_split, function(x){
+              if( !is.na(x$from_2) & !is.na(x$to_2) ){
+                res <-
+                  data.frame(
+                    i   = seq(x$from_2, x$to_2),
+                    val = x$val,
+                    hl  = x$hl
+                  )
+              }else{
+                res <- subset(data.frame(i=0,val=NA,hl=0), FALSE)
+              }
+              return(res)
+            })
+          )
+
+        self$text_code(self$link[[link]]$to, x=x, i=res$i, val=res$val, hl=res$hl)
+      }
+      return(invisible(self))
+    },
+
+
+    #### [ text_code_alignment_token_regex() ] =====================================================
+
+    text_code_alignment_token_regex = function(link=NULL, alignment_i, text1=TRUE, text2=TRUE, x=NULL, pattern=NULL, val=NA, hl=0, ...){
+
     },
 
 

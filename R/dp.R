@@ -21,7 +21,7 @@ diffrproject <-
 
     #### misc ====================================================================
     active       = NULL,
-    inherit      = dp_align,
+    inherit      = dp_inherit,
     lock_objects = TRUE,
     class        = TRUE,
     portable     = TRUE,

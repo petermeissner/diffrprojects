@@ -68,7 +68,7 @@ test_that("as.data.frame methods work", {
       debug()$
       text_align(tokenizer=function(x){text_tokenize(x,"")})
 
-    dp$text_alignment_data_set(link=1, alignment_i = 1, x="test_var", val=3)
+    dp$alignment_data_set(link=1, alignment_i = 1, x="test_var", val=3)
 
     df <- as.data.frame(dp$alignment_data)
   }, NA)

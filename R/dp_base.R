@@ -140,6 +140,31 @@ dp_base <-
       },
 
 
+      #### [ text_code() ] =====================================================
+
+      text_code = function(text=NULL, x=NULL, i=NULL, val=NA, hl = 0){
+        if( is.null(text) ){
+          warning("no text selected, so I will code nothing")
+        }else{
+          text <- self$text[[text]]
+          text$char_data_set( x=x, i=i, val=val, hl=0)
+        }
+        return(invisible(self))
+      },
+
+
+      #### [ text_code_regex() ] =====================================================
+
+      text_code_regex = function(text=NULL, x=NULL, pattern=NULL, val=NA, hl=0, ...){
+        if( is.null(text) ){
+          warning("no text selected, so I will code nothing")
+        }else{
+          text$char_data_set_regex(x=x, pattern=pattern, val=val, hl=hl, ...)
+        }
+        return(invisible(self))
+      },
+
+
       #### [ text_link ] =======================================================
 
       text_link = function(from=NULL, to=NULL, delete=FALSE){

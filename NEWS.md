@@ -3,6 +3,25 @@ NEWS diffrprojects
 
 
 
+version 0.1.5 // 2016-09-10 ... 
+--------------------------------------------------------------------------
+
+* BUGFIXES
+
+
+    
+* FEATURE
+    - dp : text_code()
+    - dp : text_code_regex()
+    - dp : text_code_alignment()
+    - dp : text_code_alignment_regex()
+    
+
+* DEVELOPMENT
+    - renaming self$text_alignment... self$to alignment
+
+
+
 version 0.1.4 // 2016-08-28 ... 
 --------------------------------------------------------------------------
 
