@@ -133,11 +133,29 @@ dp_base <-
       },
 
 
-      #### [ text_data() ] =====================================================
+      #### [ text_meta_data() ] =====================================================
 
-      text_data = function(){
+      text_meta_data = function(){
         dp_text_base_data(self)
       },
+
+
+      #### [ text_data() ] =====================================================
+      text_data = function(text=NULL){
+        tmp <- list()
+        if( is.null(text) ){
+          is <- seq_along(self$text)
+        }else{
+          is <- text
+        }
+        for(i in is){
+          tmp[[i]] <- self$text[[i]]$char_data_get()
+          tmp[[i]]$name <- names(self$text)[i]
+        }
+        tmp <- do.call(rbind_fill, tmp)
+        return(tmp)
+      },
+
 
 
       #### [ text_code() ] =====================================================
@@ -159,6 +177,7 @@ dp_base <-
         if( is.null(text) ){
           warning("no text selected, so I will code nothing")
         }else{
+          text <- self$text[[text]]
           text$char_data_set_regex(x=x, pattern=pattern, val=val, hl=hl, ...)
         }
         return(invisible(self))
