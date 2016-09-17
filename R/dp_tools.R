@@ -47,7 +47,7 @@ dp_text_base_data <- function(dp){
   for( i in seq_along(dp$text) ){
     df[i,] <- get("info", dp$text[[i]])()
   }
-  df$name <- names(self$text)
+  df$name <- names(dp$text)
   if( all(is.na(df)) ){
     df <- subset(df, FALSE)
   }

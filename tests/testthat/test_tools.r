@@ -20,8 +20,6 @@ test_that("easy examples work properly", {
 
 context("tools dp_text_base_data ")
 
-context("tools dp_text_base_data ")
-
 test_that("dp_text_base_data works properly", {
   dp <- diffrproject$new()
   expect_error({

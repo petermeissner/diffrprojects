@@ -8,7 +8,7 @@ version 0.1.6 // 2016-09-10 ...
 --------------------------------------------------------------------------
 
 * BUGFIXES
-
+    - fixing bug in test_tools.r because of false usage of self within dp_text_base_data
 
     
 * FEATURE
