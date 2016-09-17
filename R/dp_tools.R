@@ -149,6 +149,8 @@ as.data.frame.alignment_data_list <- function(x, row.names=NULL, optional=FALSE,
 #' @param x name of the char_data variable to pull and push -
 #'        defaults to NULL which will result in cycling through all availible
 #'        variables
+#' @param warn should function warn about non-uniform pull values (those will
+#'        not be pushed to the other text)
 #'
 #' @return NULL
 #' @export
