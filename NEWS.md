@@ -3,6 +3,24 @@ NEWS diffrprojects
 
 
 
+
+version 0.1.6 // 2016-09-10 ... 
+--------------------------------------------------------------------------
+
+* BUGFIXES
+
+
+    
+* FEATURE
+    - dp :  text_code_inherit() ... 
+            allowing for pushing text_coding through zero distance alignments
+    
+
+* DEVELOPMENT
+
+
+
+
 version 0.1.5 // 2016-09-10 ... 
 --------------------------------------------------------------------------
 

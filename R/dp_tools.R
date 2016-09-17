@@ -119,9 +119,99 @@ as.data.frame.alignment_data_list <- function(x, row.names=NULL, optional=FALSE,
 }
 
 
+#' push char_data of one rtext objet to another
+#'
+#' Function that takes a rtext object pulls specific char_data from it and
+#' pushes this information to another rtext object.
+#'
+#' Note, that this is an intelligent function.
+#'
+#' It will e.g. always decrease the hierarchy level (hl) found when pulling and
+#' decrease it before pushing it forward therewith allowing that already present
+#' coding might take priority over those pushed.
+#'
+#' Furthermore, the function will only push values if the pulled values are all
+#' the same. Since, character index lengths that are used for pulling and
+#' pushing might differ in length there is no straight forward rule to translate
+#' non uniform value sequences in value sequnces of differing length. Note, that
+#' of cause the values might differ between char_data variables but not within.
+#' In case of non-uniformity the function will simply do nothing.
+#'
+#'
+#' @param from_text text to pull data from
+#' @param to_text text to push data to
+#' @param from_token token of text to pull data from
+#'        (e.g.: data.frame(from=1, to=4))
+#' @param to_token token of text to push data to
+#'        (e.g.: data.frame(from=1, to=4))
+#' @param from_i index of characters to pull data from
+#' @param to_i index of characters to push data to
+#' @param x name of the char_data variable to pull and push -
+#'        defaults to NULL which will result in cycling through all availible
+#'        variables
+#'
+#' @return NULL
+#' @export
 
+push_text_char_data <-
+  function(
+    from_text  = NULL,
+    to_text    = NULL,
+    from_token = NULL,
+    to_token   = NULL,
+    from_i     = NULL,
+    to_i       = NULL,
+    x          = NULL,
+    warn       = TRUE
+  ){
+    # check input
+    stopifnot(
+      !is.null(from_text), !is.null(to_text),
+      !is.null(from_token) | is.null(from_i),
+      !is.null(to_token) | is.null(to_i)
+    )
+    # prepare variables
+    if( is.null(from_i) ){
+      from_i <- stringb:::sequenize(from_token)
+    }
+    if( is.null(to_i) ){
+      to_i <- stringb:::sequenize(to_token)
+    }
 
+    char_data <- from_text$get("char_data")
 
+    if( is.null(x) ){
+      from_names <- names(char_data)
+    }else{
+      from_names <- names(char_data)[names(char_data) %in% x]
+    }
+
+    # push data
+    for(i in seq_along(from_names) ){
+      iffer <- char_data[[from_names[i]]]$i %in% from_i
+      name  <- from_names[i]
+      value <-
+        subset(
+          char_data[[from_names[i]]],
+          subset = iffer,
+          select = name
+        ) %>%
+        unlist()
+
+      if( length(unique(value)) ==1 ){
+        to_text$char_data_set(
+          x   = from_names[i],
+          i   = to_i,
+          val = value[1],
+          hl  = min(char_data[[from_names[i]]]$hl)-1
+        )
+      }else if( warn & length(unique(value)) > 1 ){
+          warning("push_text_char_data() pulled non uniform values, nothing pushed")
+      }
+    }
+    # return
+    return(invisible(NULL))
+  }
 
 
 

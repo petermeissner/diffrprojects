@@ -37,10 +37,16 @@ dp_inherit <-
 
       #### methods =============================================================
 
-      #### [ inherit ] #### ................................................
-      text_inherit = function(link=NULL){
+
+      #### [ text_data_inherit ] #### ..........................................
+
+      text_data_inherit = function(
+        link=NULL,
+        direction = c("both", "forward", "backward")
+      ){
 
         # checking inputs and setting defaults
+        direction <- direction[1]
         if( is.null(link) ){
           link <- names(self$link)
         }
@@ -50,28 +56,70 @@ dp_inherit <-
           link <- names(self$link)[link]
         }
 
-        links <- self$link[link]
 
-        current_link <- names(links)[1]
+        # cycling through links
+        links      <- self$link[link]
 
-        text1_subset <-
-          self$alignment[[current_link]] %>%
+        # getting directions right
+        if( direction == "forward" ){
+          directions <- rep(direction, length(links))
+        }
+
+        if( direction == "backward" ){
+          links      <- rev(links)
+          directions <- rep(direction, length(links))
+        }
+
+        if( direction == "both" ){
+          directions <- c(rep("forward", length(links)), rep("backward", length(links)))
+          links <- c(links, rev(links))
+        }
+
+        # cycling through link list
+        for( link_i in seq_along(links) ){
+          # current link
+          current_link_name <- names(links)[link_i]
+          current_link      <- links[[link_i]]
+
+          # current direction
+          direction <- directions[link_i]
+
+          # gathering zero distance alignments
+          text1_tokens <-
+            self$alignment[[current_link_name]] %>%
+              subset(subset=distance==0) %>%
+              subset(select=c(from_1, to_1))
+
+          text2_tokens <-
+            self$alignment[[current_link_name]] %>%
             subset(subset=distance==0) %>%
-            subset(select=c(from_1, to_1))
+            subset(select=c(from_2, to_2))
 
-        text2_susbet <-
-          self$alignment[[current_link]] %>%
-          subset(subset=distance==0) %>%
-          subset(select=c(from_1, to_1))
+          # getting direction right
+          if( direction == "backward" ){
+            text1 <- self$text[[current_link$to]]
+            text2 <- self$text[[current_link$from]]
+            tmp <- text1_tokens
+            text1_tokens <- text2_tokens
+            text1_tokens <- tmp
+          }else{
+            text1 <- self$text[[current_link$from]]
+            text2 <- self$text[[current_link$to]]
+          }
 
-        self$text[[self$link[[current_link]]$from]]$get("char_data")
-        self$text[[self$link[[current_link]]$to]]$get("char_data")
-
-
-
-      }
-
-
+          # pushing data from one text to the other
+          for(i in seq_len(nrow(text1_tokens)) ){
+            push_text_char_data(
+              from_text  = text1,
+              to_text    = text2,
+              from_token = text1_tokens[i, ],
+              to_token   = text2_tokens[i, ],
+              warn       = self$options$warning
+            )
+          }
+        }
+        return(invisible(self))
+      } # end of text_data_inherit()
     ) # closes public
   )# closes R6Class
 

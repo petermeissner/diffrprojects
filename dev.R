@@ -32,12 +32,67 @@ dp <-
   debug()
 
 dp$text_code_regex(text=1, x="a", pattern=".*a.*", val=TRUE)
-dp$text_code_regex(text=1, x="b", pattern=".*[^a].*", val=FALSE)
+dp$text_code_regex(text=2, x="b", pattern=".*[^a].*", val=TRUE)
 
 dp$text_data()
 
 dp$alignment
 dp$alignment_data
+
+
+dp$text_data_inherit()
+
+dp$text_data()
+
+
+#### start
+
+link = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
