@@ -19,7 +19,7 @@ dp_base <-
     #### class name ============================================================
     classname    = "dp_base",
 
-    #### misc ====================================================================
+    #### misc ==================================================================
     active       = NULL,
     inherit      = rtext::R6_rtext_extended,
     lock_objects = TRUE,
@@ -40,7 +40,11 @@ dp_base <-
 
 
       #### data ================================================================
-      meta           = list(),
+      meta           =
+        list(
+          date_created = character(0),
+          db_path      = character(0)
+        ),
       alignment      = structure(list(), class=c("alignment_list","list")),
       alignment_data = structure(list(), class=c("alignment_data_list","list")),
       text           = list(),
@@ -171,7 +175,7 @@ dp_base <-
       },
 
 
-      #### [ text_code_regex() ] =====================================================
+      #### [ text_code_regex() ] ===============================================
 
       text_code_regex = function(text=NULL, x=NULL, pattern=NULL, val=NA, hl=0, ...){
         if( is.null(text) ){

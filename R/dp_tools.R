@@ -217,7 +217,32 @@ push_text_char_data <-
 
 
 
+#' transform rtext text data into a data.frame
+#' @param x rtext object
+#' @keywords internal
+rtext_char_data_to_data_frame <- function(x){
+  cd <- x$get("char_data")
+  for( i in seq_along(cd) ){
+    names(cd[[i]])[3] <- "value"
+    cd[[i]]$value <- as.character(cd[[i]]$value)
+    cd[[i]]$variable <- names(cd)[i]
+  }
+  df <- rbind_list(cd)
+  return(df)
+}
 
+#' transform alignment_data list into data.frame
+#' @param x alignment_data list
+#' @keywords internal
+alignment_data_to_data_frame <- function(x){
+  for( i in seq_along(x) ){
+    names(x[[i]])[3] <- "value"
+    x[[i]]$value <- as.character(x[[i]]$value)
+    x[[i]]$variable <- names(x)[i]
+  }
+  df <- rbind_list(x)
+  return(df)
+}
 
 
 

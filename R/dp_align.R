@@ -22,7 +22,7 @@ dp_align <-
 
     #### misc ====================================================================
     active       = NULL,
-    inherit      = dp_base,
+    inherit      = dp_loadsave,
     lock_objects = TRUE,
     class        = TRUE,
     portable     = TRUE,

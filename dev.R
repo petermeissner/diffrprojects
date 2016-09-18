@@ -31,8 +31,8 @@ dp <-
   alignment_code(1,c(3,8,9,11), "womppah", 1)$
   debug()
 
-dp$text_code_regex(text=1, x="a", pattern=".*a.*", val=TRUE)
-dp$text_code_regex(text=2, x="b", pattern=".*[^a].*", val=TRUE)
+dp$text_code_regex(text=1, x="a", pattern="a", val=TRUE)
+dp$text_code_regex(text=2, x="b", pattern="[^a]", val=TRUE)
 
 dp$text_data()
 
