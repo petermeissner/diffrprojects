@@ -8,11 +8,11 @@ Using diffr for more than two files
 
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
-*R code:* 663<br> *C++ code:* 112<br> *test code:* 594
+*R code:* 1308<br> *C++ code:* 112<br> *test code:* 939
 
 **Version**
 
-0.1.4.90000
+0.1.7.90000
 
 **Description**
 
@@ -24,7 +24,7 @@ MIT + file LICENSE <br>Peter Meissner <retep.meissner@gmail.com> \[aut, cre\] Ul
 
 **Citation**
 
-Meißner P (2016). *diffrprojects: Using diffr for more than two texts*. R package version 0.1.4.90000, &lt;URL: <https://github.com/petermeissner/diffrprojects>&gt;.
+Meißner P (2016). *diffrprojects: Using diffr for more than two texts*. R package version 0.1.7.90000, &lt;URL: <https://github.com/petermeissner/diffrprojects>&gt;.
 
 Sieberer U, Meißner P, Keh J and Müller W (2016). "Mapping and Explaining Parliamentary Rule Changes in Europe: A Research Program." *Legislative Studies Quarterly*, *41*(1), pp. 61-88. ISSN 1939-9162, doi: 10.1111/lsq.12106 (URL: <http://doi.org/10.1111/lsq.12106>), &lt;URL: <http://dx.doi.org/10.1111/lsq.12106>&gt;.
 
