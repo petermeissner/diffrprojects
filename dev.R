@@ -15,10 +15,4 @@ dp$text_code_regex(text=2, x="b", pattern="[^a]", val=TRUE)
 
 dp$text_data_inherit()
 
-dp$save()
-
-
-dp_loaded <- diffrproject$new()
-dp_loaded$load(file="diffrproject.RData")
-
-
+dp$debug()

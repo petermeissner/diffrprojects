@@ -1,3 +1,33 @@
+#' function writing numerous parts of table to database
+#'
+#' @param x parts to be written
+#' @param name of the table
+#' @param meta additional information to be attachesd to table parts
+#'
+#' @export
+#'
+write_numerous_parts_to_table <- function(x, con, table_name, meta=data.frame() ){
+  for( i in seq_along(x) ){
+    if(i==1){
+      overwrite <- TRUE
+      append    <- FALSE
+    }else{
+      overwrite <- FALSE
+      append    <- TRUE
+    }
+    for(k in seq_len(ncol(meta)) ){
+      x[[i]][[ names(meta)[k] ]] <- meta[ i, k ]
+    }
+    RSQLite::dbWriteTable(
+      con,
+      table_name,
+      x[[i]],
+      overwrite=overwrite,
+      append=append
+    )
+  }
+}
+
 #' function adding rtext objects to diffrprojects
 #' @param self an object of class dp
 #' @param rtext an object of class rtext
