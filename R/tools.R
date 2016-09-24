@@ -1,3 +1,16 @@
+#' accessing private from R6 object
+#'
+#' @param x R6 object to access private from
+#'
+#' @source http://stackoverflow.com/a/38578080/1144966
+#'
+#' @export
+#'
+get_private <- function(x) {
+  x[['.__enclos_env__']]$private
+}
+
+
 #' which are minima in vector
 #' @param x vector to check
 #' @param unique defaults to false

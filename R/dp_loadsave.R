@@ -33,44 +33,31 @@ dp_loadsave <-
       #### [ prepare_save ] #### ...............................................
       prepare_save = function(){
 
-        # texts
-        text <- lapply(self$text, function(x){x$text_get()})
-        text <-
-          data.frame(
-            text_name = names(self$text),
-            length    = nchar(text),
-            text_id   = unlist(lapply(self$text, function(x){x$id})),
-            text
+        # meta
+        meta <-
+          list(
+            project_id   = self$meta$project_id,
+            db_path      = self$meta$db_path,
+            file_path    = self$meta$file_path,
+            ts_created   = self$meta$ts_created,
+            n_texts      = length(self$text),
+            nchar_text   = sum(unlist(lapply(self$text, function(x){x$char_length()}))),
+            dp_version   = as.character(packageVersion("diffrprojects")),
+            rtext_version= as.character(packageVersion("rtext")),
+            save_format_version = 1
           )
 
-        # text data
-        text_data <- lapply( self$text, rtext_char_data_to_data_frame )
-        for( i in seq_along(text_data) ){
-          text_data[[i]]$text_name <- text$text_name[i]
-          text_data[[i]]$text_id   <- text$text_id[i]
-        }
-        text_data <- rbind_list(text_data)
-
+        # texts
+        text <- lapply( self$text, function(x){ get_private(x)$prepare_save() })
 
         # alignment
         alignment <- self$alignment
-        for(i in seq_along(alignment) ){
-          alignment[[i]]$alignment_name <- names(alignment)[i]
-          alignment[[i]]$text_name_1 <- self$link[[names(alignment)[i]]]$from
-          alignment[[i]]$text_name_2 <- self$link[[names(alignment)[i]]]$to
-        }
-        alignment <- rbind_list(alignment)
-
 
         # alignment_data
-        alignment_data <- as.data.frame(self$alignment_data)
-        names(alignment_data)[3] <- "variable"
-        names(alignment_data)[5] <- "value"
-        alignment_data$value <- as.character(alignment_data$value)
+        alignment_data <- self$alignment_data
 
         # link
-        link <- as.data.frame(self$link)
-        names(link)[3] <- "alignment_name"
+        link <- self$link
 
         # put together information
         tb_saved <-
@@ -83,8 +70,7 @@ dp_loadsave <-
                 row.names=NULL
               ),
             text           = text,
-            text_data      = text_data,
-            alignment      = alignment ,
+            alignment      = alignment,
             alignment_data = alignment_data,
             link           = link
           )
@@ -97,7 +83,29 @@ dp_loadsave <-
       #### [ execute_load ] #### ...............................................
       execute_load = function(tmp){
 
-        warning("TBD")
+        #  meta
+        self$meta$db_path      <- tmp$meta$db_path
+        self$meta$file_path    <- tmp$meta$file_path
+        self$meta$project_id   <- tmp$meta$project_id
+        self$meta$ts_created   <- tmp$meta$ts_created
+
+        # alignment
+        self$alignment_data <- tmp$alignment_data
+
+        # alignment data
+        self$alignment      <- tmp$alignment
+
+        # texts
+        self$text <- list()
+        text_names <- names(tmp$text)
+
+        for(i in seq_along(text_names)){
+          self$text[[text_names[i]]] <- rtext$new()
+          get_private(self$text[[text_names[i]]])$execute_load(tmp$text[[i]])
+        }
+
+        # hash update
+        private$hashes <- private$hash()
 
         # return for piping
         invisible(self)
@@ -110,14 +118,15 @@ dp_loadsave <-
 
       #### [ save ] #### .........................................................
       save = function(file=NULL, id=NULL){
-        dp_save <- as.environment(private$prepare_save(id=id))
+        dp_save <- as.environment(private$prepare_save())
         # handle file option
-        if( is.null(dp_save$meta$db_path) & is.null(file) ){
-          stop("rtext$save() : Neither file nor db_path given, do not know where to store file.")
+        if( is.null(dp_save$meta$save_path) & is.null(file) ){
+          if( self$options$warning ){
+            warning("dp$save() : Neither file nor save_path given: storing in default location: ")
+          }
+          file <- "./diffrproject.RData"
         }else if( !is.null(file) ){
           file <- file
-        }else if( !is.null(dp_save$meta$db_path) ){
-          file <- dp_save$meta$db_path
         }
         # save to file
         base::save(

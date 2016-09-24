@@ -42,8 +42,10 @@ dp_base <-
       #### data ================================================================
       meta           =
         list(
-          date_created = character(0),
-          db_path      = character(0)
+          ts_created   = "",
+          db_path      = "",
+          file_path    = "",
+          project_id   = ""
         ),
       alignment      = structure(list(), class=c("alignment_list","list")),
       alignment_data = structure(list(), class=c("alignment_data_list","list")),
@@ -56,8 +58,17 @@ dp_base <-
 
       #### [ initialize() ] ====================================================
 
-      initialize = function(ask=TRUE){
+      initialize =
+        function(
+          project_id = digest::digest( list(sessionInfo(), Sys.time()) ) ,
+          ask          = TRUE,
+          ts_created   = Sys.time(),
+          db_path      = "./diffrproject.db"
+        ){
         self$options$ask <- ask
+        self$meta$project_id   <- project_id
+        self$meta$ts_created   <- ts_created
+        self$meta$db_path      <- db_path
       },
 
 
