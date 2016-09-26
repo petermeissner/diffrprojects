@@ -101,19 +101,19 @@ dp_export <-
 
           # text_meta
           text_meta <- do.call(rbind,lapply(tb_exported$text, function(x){x$meta}))
-          dbWriteTable(con, "text_meta", text_meta, overwrite=TRUE)
+          RSQLite::dbWriteTable(con, "text_meta", text_meta, overwrite=TRUE)
 
           # link
-          dbWriteTable(con, "link", as.data.frame(tb_exported$link), overwrite=TRUE)
+          RSQLite::dbWriteTable(con, "link", as.data.frame(tb_exported$link), overwrite=TRUE)
 
           # alignment
-          dbWriteTable(con, "alignment", as.data.frame(tb_exported$alignment), overwrite=TRUE)
+          RSQLite::dbWriteTable(con, "alignment", as.data.frame(tb_exported$alignment), overwrite=TRUE)
 
           # alignment data
-          dbWriteTable(con, "alignment_data", as.data.frame(tb_exported$alignment_data), overwrite=TRUE)
+          RSQLite::dbWriteTable(con, "alignment_data", as.data.frame(tb_exported$alignment_data), overwrite=TRUE)
 
           # meta
-          dbWriteTable(con, "meta", as.data.frame(tb_exported$meta), overwrite=TRUE)
+          RSQLite::dbWriteTable(con, "meta", as.data.frame(tb_exported$meta), overwrite=TRUE)
 
         RSQLite::dbCommit(con)
 
@@ -122,36 +122,70 @@ dp_export <-
       },
 
       #### [ import_sqlite ] #### .......................................................
-      import_sqlite = function(db_name = ""){
+      import_sqlite = function(db_path = ""){
         # establish connection
-        if( is.character(db_name) ){
-          con <- RSQLite::dbConnect(RSQLite::SQLite(), db_name)
+        if( is.character(db_path) ){
+          if( db_path == "" ){
+            if( self$options$warning ){
+              warn("no db_path specified, using default value")
+            }
+            db_path <- "./diffrproject.db"
+          }
+          con <- RSQLite::dbConnect(RSQLite::SQLite(), db_path)
           on.exit({
             RSQLite::dbDisconnect(con)
           })
         }else{
-          con <- db_name
+          con <- db_path
         }
         # import data
         imported <- list()
-        imported$meta   <- RSQLite::dbReadTable(con, "meta")
-        imported$hashes <- RSQLite::dbReadTable(con, "hashes")
-        imported$char   <- RSQLite::dbReadTable(con, "char")[[1]]
+
+        imported$alignment      <- RSQLite::dbReadTable(con, "alignment")
+        imported$alignment      <- split(imported$alignment, f=imported$alignment$link)
+        imported$alignment      <- lapply(imported$alignment, subset, select=-link)
+
+        imported$alignment_data <- RSQLite::dbReadTable(con, "alignment_data")
+        imported$alignment_data <- split(imported$alignment_data, imported$alignment_data$link)
+        imported$alignment_data <- lapply(imported$alignment_data, subset, select=-link)
+        imported$alignment_data <- lapply(imported$alignment_data, function(x){split(x, x[[3]])})
+        for( i in seq_along(imported$alignment_data) ) {
+          for( k in seq_along(imported$alignment_data[[i]]) ){
+            names(imported$alignment_data[[i]][[k]])[4] <- imported$alignment_data[[i]][[k]]$name[1]
+            imported$alignment_data[[i]][[k]][[3]] <- NULL
+          }
+        }
+
+
+        imported$text_char      <- RSQLite::dbReadTable(con, "text_char")
+        imported$text_char      <- split(imported$text_char, f=imported$text_char$text_name)
+        imported$text_char      <- lapply(imported$text_char, subset, select=char, drop=TRUE)
+
+        imported$text_meta      <- RSQLite::dbReadTable(con, "text_meta")
+
         # import char_data
-        if( RSQLite::dbExistsTable(con, "char_data") ){
-          tmp <- RSQLite::dbReadTable(con, "char_data")
-          tmp <- split(tmp, f=tmp$var)
-          for( i in seq_along(tmp) ) {
-            nam <- tmp[[i]]$var[1]
-            tmp[[i]][[4]] <- NULL
-            names(tmp[[i]]) <- c("i", "hl", nam)
+        if( RSQLite::dbExistsTable(con, "text_char_data") ){
+          imported$text_char_data <- RSQLite::dbReadTable(con, "text_char_data")
+          imported$text_char_data <- split(imported$text_char_data, f=imported$text_char_data$text_name)
+          imported$text_char_data <- lapply( imported$text_char_data, function(x){ split(x, f=x$variable) })
+
+          for( i in seq_along(imported$text_char_data) ) {
+            for( k in seq_along(imported$text_char_data[[i]]) ){
+              nam <- imported$text_char_data[[i]][[k]]$variable[1]
+              imported$text_char_data[[i]][[k]][["text_name"]] <- NULL
+              imported$text_char_data[[i]][[k]][["text_id"]] <- NULL
+              names(imported$text_char_data[[i]][[k]])[3] <- nam
+              imported$text_char_data[[i]][[k]][["variable"]] <- NULL
+            }
           }
         }else{
-          tmp <- list()
+          imported$text_char_data <- list()
         }
-        imported$char_data   <- tmp
+
+
         # incorporate data
         private$execute_load(imported)
+
         # return self for piping
         return(invisible(self))
       }

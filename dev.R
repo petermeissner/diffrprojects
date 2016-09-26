@@ -16,3 +16,9 @@ dp$text_code_regex(text=2, x="b", pattern="[^a]", val=TRUE)
 dp$text_data_inherit()
 
 dp$debug()
+
+dp$export_sqlite()
+
+
+
+
