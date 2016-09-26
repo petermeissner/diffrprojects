@@ -8,11 +8,11 @@ Using diffr for more than two files
 
 *unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
-*R code:* 1308<br> *C++ code:* 112<br> *test code:* 939
+*R code:* 1453<br> *C++ code:* 112<br> *test code:* 939
 
 **Version**
 
-0.1.7.90000
+0.1.8.90000
 
 **Description**
 
