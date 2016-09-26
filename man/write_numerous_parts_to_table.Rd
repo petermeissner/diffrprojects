@@ -9,9 +9,11 @@ write_numerous_parts_to_table(x, con, table_name, meta = data.frame())
 \arguments{
 \item{x}{parts to be written}
 
-\item{meta}{additional information to be attachesd to table parts}
+\item{con}{connection to database}
 
-\item{name}{of the table}
+\item{table_name}{of the table}
+
+\item{meta}{additional information to be attachesd to table parts}
 }
 \description{
 function writing numerous parts of table to database

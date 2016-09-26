@@ -1,8 +1,9 @@
 #' function writing numerous parts of table to database
 #'
 #' @param x parts to be written
-#' @param name of the table
+#' @param table_name of the table
 #' @param meta additional information to be attachesd to table parts
+#' @param con connection to database
 #'
 #' @export
 #'

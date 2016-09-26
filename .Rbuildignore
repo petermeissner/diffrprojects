@@ -11,3 +11,5 @@ meta.R
 dev_save.R
 README_cache
 diffrprojects.pdf
+diffrproject.RData
+diffrproject.db
