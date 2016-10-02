@@ -87,7 +87,11 @@ dp_loadsave <-
         self$meta$db_path      <- tmp$meta$db_path
         self$meta$file_path    <- tmp$meta$file_path
         self$meta$project_id   <- tmp$meta$project_id
-        self$meta$ts_created   <- tmp$meta$ts_created
+        if( "numeric" %in% class(tmp$meta$ts_created)  ){
+          self$meta$ts_created   <- as.POSIXct(tmp$meta$ts_created, origin = "1970-01-01", tz="UTC")
+        }else if( "character" %in% class(tmp$meta$ts_created) ){
+          self$meta$ts_created   <- as.POSIXct(tmp$meta$ts_created, tz="UTC")
+        }
 
         # alignment
         self$alignment_data <- tmp$alignment_data
@@ -101,7 +105,7 @@ dp_loadsave <-
 
         for(i in seq_along(text_names)){
           self$text[[text_names[i]]] <- rtext$new()
-          get_private(self$text[[text_names[i]]])$execute_load(tmp$text[[i]])
+          self$text[[text_names[i]]]$get("private")$execute_load(tmp$text[[i]])
         }
 
         # hash update

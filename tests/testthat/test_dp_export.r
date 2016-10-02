@@ -1,8 +1,8 @@
-context("\ndp_loadsave")
+context("\ndp_export")
 
-context("dp_loadsave : loaded equals saved")
+context("dp_export : imported equals exported")
 
-test_that("loaded equals saved", {
+test_that("imported equals exported", {
   dp <-
     diffrproject$new()$
     text_add(list("aaa\nbb\ncccc\ndd\nee\nff\ny\n", "bb\ncccd\ndd\nddd\nee\nff\n"))$
@@ -19,11 +19,11 @@ test_that("loaded equals saved", {
 
   dp_orig <- dp$clone(deep=TRUE)
 
-  save_file <- tempfile()
-  dp$save(file=save_file)
+  db_path <- tempfile()
+  dp$export_sqlite(db_path)
 
   dp_loaded <- diffrproject$new()
-  dp_loaded$load(file=save_file)
+  dp_loaded$import_sqlite(db_path)
 
   expect_true({dp_orig$meta$ts_created == dp_loaded$meta$ts_created })
   expect_true({dp_orig$meta$db_path    == dp_loaded$meta$db_path })
@@ -31,21 +31,21 @@ test_that("loaded equals saved", {
   expect_true({dp_orig$meta$project_id == dp_loaded$meta$project_id })
 
   expect_true({
-    rtext:::rtext_hash(
-      dp_orig$alignment[[1]]
-    ) ==
-    rtext:::rtext_hash(
-      dp_loaded$alignment[[1]]
-    )
+    orig   <- dp_orig$alignment[[1]]
+    loaded <- dp_loaded$alignment[[1]]
+    all(orig[!is.na(orig)] == loaded[!is.na(loaded)])
   })
 
   expect_true({
-    rtext:::rtext_hash(
-      dp_orig$alignment_data[[1]]
-    ) ==
-    rtext:::rtext_hash(
-      dp_loaded$alignment_data[[1]]
-    )
+    orig   <- dp_orig$alignment_data[[1]][["womppah"]]
+    loaded <- dp_loaded$alignment_data[[1]][["womppah"]]
+    all(orig[!is.na(orig)] == loaded[!is.na(loaded)])
+  })
+
+  expect_true({
+    orig   <- dp_orig$alignment_data[[1]][["wuppah"]]
+    loaded <- dp_loaded$alignment_data[[1]][["wuppah"]]
+    all(orig[!is.na(orig)] == loaded[!is.na(loaded)])
   })
 
   expect_true({
@@ -69,11 +69,13 @@ test_that("loaded equals saved", {
     )
   })
   expect_true({
-    rtext:::rtext_hash(
-      dp_orig$text[[1]]$get("char_data")
-    ) ==
-      rtext:::rtext_hash(
-      dp_loaded$text[[1]]$get("char_data")
+    all(
+      dp_orig$text[[1]]$get("char_data")[[1]] ==
+      dp_loaded$text[[1]]$get("char_data")[[1]]
+    ) &
+    all(
+      dp_orig$text[[1]]$get("char_data")[[2]] ==
+      dp_loaded$text[[1]]$get("char_data")[[2]]
     )
   })
 

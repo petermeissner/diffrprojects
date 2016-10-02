@@ -62,7 +62,7 @@ dp_base <-
         function(
           project_id = digest::digest( list(sessionInfo(), Sys.time()) ) ,
           ask          = TRUE,
-          ts_created   = Sys.time(),
+          ts_created   = as.POSIXct(as.numeric(Sys.time()), origin = "1970-01-01", tz="UTC"),
           db_path      = "./diffrproject.db"
         ){
         self$options$ask <- ask
