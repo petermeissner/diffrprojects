@@ -25,7 +25,9 @@ test_that("loaded equals saved", {
   dp_loaded <- diffrproject$new()
   dp_loaded$load(file=save_file)
 
-  expect_true({dp_orig$meta$ts_created == dp_loaded$meta$ts_created })
+  expect_true({
+    dp_orig$meta$ts_created == dp_loaded$meta$ts_created
+  })
   expect_true({dp_orig$meta$db_path    == dp_loaded$meta$db_path })
   expect_true({dp_orig$meta$file_path  == dp_loaded$meta$file_path })
   expect_true({dp_orig$meta$project_id == dp_loaded$meta$project_id })

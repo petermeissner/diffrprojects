@@ -91,6 +91,8 @@ dp_loadsave <-
           self$meta$ts_created   <- as.POSIXct(tmp$meta$ts_created, origin = "1970-01-01", tz="UTC")
         }else if( "character" %in% class(tmp$meta$ts_created) ){
           self$meta$ts_created   <- as.POSIXct(tmp$meta$ts_created, tz="UTC")
+        }else{
+          self$meta$ts_created   <- tmp$meta$ts_created
         }
 
         # alignment
