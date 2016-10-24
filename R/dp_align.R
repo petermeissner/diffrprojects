@@ -536,6 +536,7 @@ dp_align <-
     #### [ alignment_data_full ] #### ................................................
     alignment_data_full = function(link=NULL, data_only=TRUE){
 
+
       # fetching link name if necessary
       if( is.null(link) ){
         link <- seq_along(self$link)
@@ -580,6 +581,11 @@ dp_align <-
         tmp[iffer, "token_2"] <-
           self$text[[tf]]$text_get() %>%
           stringb::text_sub(tmp$from_2[iffer],tmp$to_2[iffer])
+      }
+
+      if( !("token_2" %in% names(tmp)) ){
+        tmp$token_1 <- rep(NA, nrow(tmp))
+        tmp$token_2 <- rep(NA, nrow(tmp))
       }
 
       tmp <-

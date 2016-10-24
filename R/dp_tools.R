@@ -135,13 +135,20 @@ as.data.frame.alignment_list <- function(x, row.names=NULL, optional=FALSE, ...)
 #' @method as.data.frame alignment_data_list
 #' @export
 as.data.frame.alignment_data_list <- function(x, row.names=NULL, optional=FALSE, ...){
-  tmp <- as.data.frame.named_df_list(
-    x,
-    row.names = row.names,
-    optional = optional,
-    dfnamevar = "link",
-    ...
-  )
+  if(length(x) > 0 ){
+    tmp <- as.data.frame.named_df_list(
+      x,
+      row.names = row.names,
+      optional = optional,
+      dfnamevar = "link",
+      ...
+    )
+  }else{
+    tmp <-
+      data.frame("",1,1,"") %>%
+      dplyr::filter(FALSE) %>%
+      setNames(c("link", "alignment_i", "hl", "name"))
+  }
   cols <- which(names(tmp) %in% c("link", "alignment_i", "hl", "name"))
   val <- subset( tmp, select = -c(cols) )
   tmp <- subset( tmp, select = cols )
@@ -274,6 +281,84 @@ alignment_data_to_data_frame <- function(x){
   df <- rbind_list(x)
   return(df)
 }
+
+
+
+
+#' function sorting alignment data according to token index
+#'
+#' @param x data.frame to be sorted
+#' @param ti1 either NULL (default): first column of x is used as first token
+#'        index for sorting; a character vector specifying the column to be used
+#'        as first token index; or a numeric vector of length nrow(x) to be use
+#'        as first token index
+#' @param ti2 either NULL (default): second column of x is used as second token
+#'        index for sorting; a character vector specifying the column to be used
+#'        as second token index; or a numeric vector of length nrow(x) to be use
+#'        as second token index
+#' @param first should first text or second text be given priority
+#'
+#' @export
+#'
+sort_alignment <- function(x, ti1 = NULL, ti2 = NULL, first = TRUE){
+  # processing input
+  if( is.null(ti1) ){
+    ti1 <- x[,1]
+  }else if( is.numeric(ti1) ){
+    ti1 <- ti1
+  }else if( is.character(ti1) ){
+    ti1 <- x[, ti1]
+  }
+
+  if( is.null(ti2) ){
+    ti2 <- x[,2]
+  }else if( is.numeric(ti2) ){
+    ti2 <- ti2
+  }else if( is.character(ti2) ){
+    ti2 <- x[, ti2]
+  }
+
+  # preparing loop
+  if ( first == T  ){
+    var1 <- ti1
+    var2 <- ti2
+  }else{
+    var1 <- ti2
+    var2 <- ti1
+  }
+
+  looper   <- seq_len(max(ti1, ti2, na.rm=T))
+  data_nr  <- seq_along(x[,1])
+  sorter <- NULL
+
+  # loop
+  for ( i in looper ){
+    sorter <- c(  sorter                                            ,
+                  data_nr[ i==var1 & !is.na(var1) &   is.na(var2) ] ,
+                  data_nr[ i==var1 & !is.na(var1) &  !is.na(var2) ] ,
+                  data_nr[ i==var2 &  is.na(var1) &  !is.na(var2) ] )
+  }
+  # return
+  return(x[sorter,])
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

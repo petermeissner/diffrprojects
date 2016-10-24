@@ -65,7 +65,7 @@ dp_base <-
           ts_created   = force(as.POSIXct(as.numeric(Sys.time()), origin = "1970-01-01", tz="UTC")),
           db_path      = "./diffrproject.db"
         ){
-        self$options$ask <- ask
+        self$options$ask       <- ask
         self$meta$project_id   <- project_id
         self$meta$ts_created   <- ts_created
         self$meta$db_path      <- db_path
@@ -156,7 +156,7 @@ dp_base <-
 
 
       #### [ text_data() ] =====================================================
-      text_data = function(text=NULL){
+      text_data = function(text=NULL, var){
         tmp <- list()
         if( is.null(text) ){
           is <- seq_along(self$text)
@@ -171,6 +171,86 @@ dp_base <-
         return(tmp)
       },
 
+      #### [ tokenize_text_data_lines() ] ======================================
+      tokenize_text_data_lines = function(
+        text               = NULL,
+        join               = c("full", "left", "right", ""),
+        aggregate_function = NULL
+      ){
+        tmp <- list()
+        if( is.null(text) ){
+          is <- seq_along(self$text)
+        }else{
+          is <- text
+        }
+        for(i in is){
+          tmp[[i]] <- self$text[[i]]$tokenize_data_lines()
+          tmp[[i]]$name <- names(self$text)[i]
+        }
+        tmp <- do.call(rbind_fill, tmp)
+        return(tmp)
+      },
+
+      #### [ tokenize_text_data_words() ] ======================================
+      tokenize_text_data_words = function(
+        text        = NULL,
+        join        = c("full", "left", "right", ""),
+        aggregate_function = NULL
+      ){
+        tmp <- list()
+        if( is.null(text) ){
+          is <- seq_along(self$text)
+        }else{
+          is <- text
+        }
+        for(i in is){
+          tmp[[i]] <-
+            self$text[[i]]$
+              tokenize_data_words(
+                join               = join,
+                aggregate_function = aggregate_function
+              )
+          tmp[[i]]$name <- names(self$text)[i]
+        }
+        tmp <- do.call(rbind_fill, tmp)
+        return(tmp)
+      },
+
+      #### [ tokenize_text_data_regex() ] ======================================
+      tokenize_text_data_regex = function(
+        split       = NULL,
+        ignore.case = FALSE,
+        fixed       = FALSE,
+        perl        = FALSE,
+        useBytes    = FALSE,
+        non_token   = FALSE,
+        join        = c("full", "left", "right", ""),
+        aggregate_function = NULL
+      ){
+        tmp <- list()
+        if( is.null(text) ){
+          is <- seq_along(self$text)
+        }else{
+          is <- text
+        }
+        for(i in is){
+          tmp[[i]] <-
+            self$text[[i]]$
+            tokenize_data_regex(
+              split       = NULL,
+              ignore.case = FALSE,
+              fixed       = FALSE,
+              perl        = FALSE,
+              useBytes    = FALSE,
+              non_token   = FALSE,
+              join        = c("full", "left", "right", ""),
+              aggregate_function = NULL
+            )
+          tmp[[i]]$name <- names(self$text)[i]
+        }
+        tmp <- do.call(rbind_fill, tmp)
+        return(tmp)
+      },
 
 
       #### [ text_code() ] =====================================================
