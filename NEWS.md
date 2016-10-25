@@ -2,6 +2,14 @@ NEWS diffrprojects
 ==========================================================================
 
 
+version 0.1.11 // 2016-10-25 ...
+
+* BUGFIXES
+    - using reserved name for alignment coding now gives more informative error message
+
+
+
+
 version 0.1.10 // 2016-10-20 ...
 
 * FEATURE 

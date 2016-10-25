@@ -41,12 +41,17 @@ dp_align <-
       #### [ text_align() ] ====================================================
 
       text_align = function(
-          t1=NULL, t2=NULL,
-          tokenizer = NULL, ignore = NULL, clean = NULL,
+          t1=NULL,
+          t2=NULL,
+          tokenizer = NULL,
+          ignore = NULL,
+          clean = NULL,
           distance = c("lv", "osa", "dl", "hamming", "lcs", "qgram", "cosine", "jaccard", "jw", "soundex"),
           useBytes = FALSE,
           weight = c(d = 1, i = 1, s = 1, t = 1),
-          maxDist = 0, q = 1, p = 0,
+          maxDist = 0,
+          q = 1,
+          p = 0,
           nthread = getOption("sd_num_thread"),
           verbose = self$options$verbose,
           ...
@@ -361,7 +366,9 @@ dp_align <-
     ){
       # check input
       stopifnot( length(x) == 1 )
-      stopifnot( x != c("alignment_i", "link", "hl", "x") )
+      if( any(x == c("alignment_i", "link", "hl", "x")) ){
+        stop("Reserved names used: alignment_i, link, hl, and x are reserved names - use another name!")
+      }
       if( is.null(x) | is.null(alignment_i) | is.null(link) ){
         warning("char_data_set : no sufficient information passed for x, i - nothing coded")
         return(invisible(self))

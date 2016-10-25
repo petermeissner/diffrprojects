@@ -147,7 +147,7 @@ as.data.frame.alignment_data_list <- function(x, row.names=NULL, optional=FALSE,
     tmp <-
       data.frame("",1,1,"") %>%
       dplyr::filter(FALSE) %>%
-      setNames(c("link", "alignment_i", "hl", "name"))
+      stats::setNames(c("link", "alignment_i", "hl", "name"))
   }
   cols <- which(names(tmp) %in% c("link", "alignment_i", "hl", "name"))
   val <- subset( tmp, select = -c(cols) )
