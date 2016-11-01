@@ -1,16 +1,12 @@
 #' class for dp_base
 #'
 #' @docType class
-#'
-#' @name diffrproject
-#'
+#' @name dp_loadsave
 #' @export
-#'
 #' @keywords data
-#'
 #' @return Object of \code{\link{dp_loadsave}}
-#'
 #' @format \code{\link{R6Class}} object.
+#' @seealso \code{\link{diffrproject}}
 #'
 #'
 dp_loadsave <-

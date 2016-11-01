@@ -2,6 +2,18 @@ NEWS diffrprojects
 ==========================================================================
 
 
+
+version 0.1.12 // 2016-11-01 ...
+
+* FEATURE
+    - extended documentation
+    - examples
+    - usage section in README
+    - CRAN submission
+
+
+
+
 version 0.1.11 // 2016-10-25 ...
 
 * BUGFIXES

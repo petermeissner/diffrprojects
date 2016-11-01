@@ -1,19 +1,25 @@
 ---
-output: github_document
+output: 
+  html_document: 
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+    self_contained: yes
 ---
 
 
 
 
-```{r, include=FALSE}
+```{r setting options, include=FALSE}
 options("width"=101)
 tmp <- devtools:::read_dcf("DESCRIPTION")
 ```
 
-```{r, results='asis', echo=FALSE}
+```{r title, results='asis', echo=FALSE}
 cat("#", tmp$Title)
 ```
 
+## Overview
 
 **Status**
 
@@ -24,7 +30,7 @@ cat("#", tmp$Title)
 
 
 
-```{r, include=FALSE}
+```{r count lines of code, include=FALSE}
 filelist.R   <- list.files("R", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
 filelist.tests   <- list.files("tests", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
 filelist.cpp <- list.files("src", recursive = TRUE, pattern="\\.cpp$", ignore.case = TRUE, full.names = TRUE)
@@ -40,7 +46,6 @@ length.cpp   <-
 ```
 
 
-*unstable* - in wild developement with fuRiouS rEstRucturINg and biG biG pOKing
 
 
 
@@ -50,60 +55,82 @@ length.cpp   <-
 
 
 
+
+<br><br>
 **Version**
 
-```{r, results='asis', echo=FALSE}
+```{r version, results='asis', echo=FALSE}
 cat(tmp$Version)
 ```
 
 
+
+
+<br><br>
 **Description**
 
-```{r, results='asis', echo=FALSE}
+```{r description, results='asis', echo=FALSE}
 cat(tmp$Description)
 ```
 
 
+
+<br><br>
 **License**
 
-```{r, results='asis', echo=FALSE}
+```{r licence, results='asis', echo=FALSE}
 cat(tmp$License, "<br>")
 cat(as.character(eval(parse(text=tmp$Author))))
 ```
 
 
 
-
+<br><br>
 **Citation**
 
 
-```{r, results='asis', echo=FALSE}
+```{r citation1, results='asis', echo=FALSE}
 citation("diffrprojects")
 ```
 
 **BibTex for citing**
 
-```{r, eval=FALSE}
+```{r citation2, eval=FALSE}
 toBibtex(citation("diffrprojects"))
 ```
 
 
 
+<br><br>
 **Installation**
 
-```{r, eval=FALSE}
-devtools::install_github("petermeissner/stringb")
-devtools::install_github("petermeissner/rtext")
-devtools::install_github("petermeissner/diffrprojects")
-# install.packages("diffrprojects", repos = "https://petermeissner.github.io/drat")
+stable CRAN version
+
+```{r installation1, eval=FALSE}
+install.packages("diffrprojects")
+library(rtext)
 ```
 
 
+
+(stable) development version
+
+```{r installation2, eval=FALSE}
+standard_repos <- options("repos")$repos
+install.packages( "diffrprojects", repos = c(standard_repos, "https://petermeissner.github.io/drat/"))
+library(rtext)
+```
+
+
+
     
+## Usage
 
-**Example Usage**
+### Fast Introduction for the Impatient
 
-```{r, cache=TRUE}
+For those in a hurry here is a very brief
+
+```{r fast intro, cache=TRUE}
 # loading package
 library(diffrprojects)
 
@@ -122,7 +149,7 @@ dp$options$verbose <- FALSE
 
 # adding texts to the corpus
 dp$text_add(text_file = rcs)
-dp$text_data()
+dp$text_data(1) %>% head(11)
 
 
 # linking the files (which file should be compared to which)
@@ -135,14 +162,42 @@ dp$text_align(tokenizer=text_tokenize_words)
 dp$alignment[[1]] %>% head(30)
 ```
    
+   
+   
+### Creating a Diffr Project
+
+To create a diffrproject we use the diffrproject creator object - its simply an object with an function that knows how to create a project. 
+
+Creating a project looks like this:
+
+```{r new project}
+library(diffrprojects)
+dp <- diffrproject$new()
+```
+
+Et violà - we created a first, for now empty, project that we will use throughout the tutorial. 
+
+
+## Some help please 
+
+To get a better idea about what this thing called *diffrproject* really is you can consult its help page which gives a broad overview over its capabilities:
+
+```{r getting help, eval=FALSE}
+?diffrproject
+```
+
+Another way is to call its ls() method. This will present us with a data frame listing all fields where data is stored and all the methods (aka object specific functions). Those methods and fields located in *private* are not for the user to mess around with while non-private (*self* aka public) data fields can be read by the user and public methods can be triggered by the user to manipulate the data or retrieve data in a specific format. 
+
+```{r}
+dp$ls()
+```
+
+
+
+
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+```{r}
+
+```

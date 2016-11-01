@@ -2,7 +2,7 @@
 #'
 #' @docType class
 #'
-#' @name diffrproject
+#' @name dp_base
 #'
 #' @export
 #'
@@ -12,6 +12,7 @@
 #'
 #' @format \code{\link{R6Class}} object.
 #'
+#' @seealso \code{\link{diffrproject}}
 #'
 dp_base <-
   R6::R6Class(

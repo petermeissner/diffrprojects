@@ -1,7 +1,7 @@
 Package: diffrprojects
 Title: Using diffr for more than two files
-Date: 2016-10-02
-Version: 0.1.11.90000
+Date: 2016-11-01
+Version: 0.1.12
 Authors@R: c(
   person(
     "Peter", "Meissner",
@@ -21,13 +21,12 @@ Authors@R: c(
     comment = ""
   )
   )
-Description: This is a description still to be done but to
-    prevent checks about complaining about to short descriptions
-    this does not simply read TBD.
+Description: Provides data structures and methods for manual as wells as
+    automated R based text comparison and text as well as change coding.
 Depends:
     R (>= 3.0.0),
-    stringb (>= 0.1.11),
-    rtext (>= 0.1.16)
+    stringb (>= 0.1.13),
+    rtext (>= 0.1.20)
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
@@ -50,5 +49,4 @@ Suggests:
 BugReports: https://github.com/petermeissner/diffrprojects/issues
 URL: https://github.com/petermeissner/diffrprojects
 RoxygenNote: 5.0.1.9000
-VignetteBuilder: knitr
 LinkingTo: Rcpp

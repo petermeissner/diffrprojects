@@ -3,7 +3,7 @@
 #'
 #' @docType class
 #'
-#' @name diffrproject
+#' @name dp_inherit
 #'
 #' @export
 #'
@@ -13,6 +13,7 @@
 #'
 #' @format \code{\link{R6Class}} object.
 #'
+#' @seealso \code{\link{diffrproject}}
 #'
 dp_inherit <-
   R6::R6Class(

@@ -3,7 +3,7 @@
 #'
 #' @docType class
 #'
-#' @name diffrproject
+#' @name dp_align
 #'
 #' @export
 #'
@@ -13,6 +13,7 @@
 #'
 #' @format \code{\link{R6Class}} object.
 #'
+#' @seealso \code{\link{diffrproject}}
 #'
 dp_align <-
   R6::R6Class(
