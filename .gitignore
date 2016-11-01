@@ -7,3 +7,5 @@ README.html
 *.o
 *.so
 *.dll
+readme.R
+README_cache
