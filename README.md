@@ -1,12 +1,13 @@
+# Projects for Text Version Comparison and Analytics in R
 
 
 
 
 
 
-# Using diffr for more than two files
 
-## Overview
+
+# Overview
 
 **Status**
 
@@ -99,10 +100,16 @@ library(rtext)
 
 
 
-    
-## Usage
+<br><br>   
 
-### Fast Introduction for the Impatient
+# Usage
+
+
+
+
+<br><br>
+
+## Fast Introduction for the Impatient
 
 For those in a hurry here is a very brief
 
@@ -126,15 +133,6 @@ dp$options$verbose <- FALSE
 
 # adding texts to the corpus
 dp$text_add(text_file = rcs)
-```
-
-```
-## rtext : initializing
-## rtext : initializing
-## rtext : initializing
-```
-
-```r
 dp$text_data(1) %>% head(11)
 ```
 
@@ -207,7 +205,12 @@ dp$alignment[[1]] %>% head(30)
    
    
    
-### Creating a Diffr Project
+   
+   
+   
+   <br><br>
+   
+## Creating a Diffr Project
 
 To create a diffrproject we use the diffrproject creator object - its simply an object with an function that knows how to create a project. 
 
@@ -216,24 +219,19 @@ Creating a project looks like this:
 
 ```r
 library(diffrprojects)
-```
-
-```
-## Loading required package: stringb
-```
-
-```
-## Loading required package: rtext
-```
-
-```r
 dp <- diffrproject$new()
 ```
 
 Et violà - we created a first, for now empty, project that we will use throughout the tutorial. 
 
 
-## Some help please 
+
+
+
+
+<br><br>
+
+## Some Help Please 
 
 To get a better idea about what this thing called *diffrproject* really is you can consult its help page which gives a broad overview over its capabilities:
 
@@ -242,7 +240,7 @@ To get a better idea about what this thing called *diffrproject* really is you c
 ?diffrproject
 ```
 
-Another way is to call its ls() method. This will present us with a data frame listing all fields where data is stored and all the methods (aka object specific functions). Those methods and fields located in *private* are not for the user to mess around with while non-private (*self* aka public) data fields can be read by the user and public methods can be triggered by the user to manipulate the data or retrieve data in a specific format. 
+Another way is to call the ls() method. This will present us with a data frame listing all fields where data is stored and all the methods (aka object specific functions) of our diffrprojects instance. Those methods and fields located in *private* are not for the user to mess around with while non-private (*self* aka public) data fields can be read by the user and public methods can be triggered by the user to manipulate the data or retrieve data in a specific format. 
 
 
 ```r
@@ -296,10 +294,401 @@ dp$ls()
 ## 28                            text    self                      list
 ```
 
+The base R class() function furthermore reveals from which classes the diffrproject class inherits: 
+
+
+```r
+class(dp)
+```
+
+```
+## [1] "diffrproject"      "dp_inherit"        "dp_align"          "dp_export"        
+## [5] "rtext_loadsave"    "dp_base"           "R6_rtext_extended" "R6"
+```
 
 
 
 
-    
-    
+
+<br><br>
+
+## Adding Texts to Projects
+
+Our diffrproject (`dp`) has one method called `text_add()` that allows to add texts to the project. Basically the method can be used in three different flavors: adding character vectors, adding texts stored on disk, or by adding rtext objects (see rtext package:  https://CRAN.R-project.org/package=rtext; rtext objects are the way individual texts are represented within diffrprojects). For each of these use cases there is one option: `text`, `text_file`, `rtext`; respectively. 
+
+Below are shown examples using each of these methods:
+
+
+**adding text files**
+
+```r
+test_file1 <- stringb:::test_file("rc_1_ch1.txt")
+test_file2 <- stringb:::test_file("rc_2_ch1.txt")
+dp$text_add(text_file = c(test_file1, test_file2) )
+```
+
+
+**adding rtext objects**
+
+```r
+test_file <- stringb:::test_file("rc_1_ch1.txt")
+rt <- rtext$new( text_file = test_file)
+dp$text_add(rtext = rt)
+```
+
+
+**adding character vectors**
+
+```r
+test_file1 <- stringb:::test_file("rc_1_ch1.txt")
+test_file2 <- stringb:::test_file("rc_2_ch1.txt")
+cv <- ""
+cv[1] <- text_read(test_file1, NULL)
+cv[2] <- text_read(test_file2, NULL)
+dp$text_add(text = cv)
+```
+
+In the last case make sure to put each text in one separate line. Functions like 
+readLines() or text_read() read in texts such that each line corresponds to one element in a character vector. With e.g. text_read()'s tokenize parameter to NULL the text will be read in as one long string. 
+
+
+
+
+
+<br><br>
+
+## Piping methods 
+
+Now is a good time to mention a feature of diffrprojects that comes in handy: All functions that do not explicitly extract data (those usually have some 'get' as part of their name) do return return the object itself so that one can pipe together a series of method calls.
+
+Consider the following example where we initiate a new diffrprojects instance and add two texts in just one pipe:
+
+
+```r
+dp <- 
+  diffrproject$
+  new()$
+  text_add(text_version_1, name = "version1")$
+  text_add(text_version_2, name = "version2")
+
+length(dp$text)
+```
+
+```
+## [1] 2
+```
+
+
+
+
+## Getting Infos About Texts 
+
+If we want to get some general overview about the texts gathered in our project we can use the text_meta_data() method to do so. The method has no parameters and return a data.frame with several variables informing us about its source, length, encoding used for storage, and its name. 
+
+
+```r
+dp$text_meta_data()
+```
+
+```
+##   text_file character encoding sourcetype     name
+## 1      <NA>       479    UTF-8       text version1
+## 2      <NA>       539    UTF-8       text version2
+```
+
+
+## Getting And Setting Infos About the Project
+
+Similar to the text_meta_data() method we can access the projects meta data via data fields meta and options. But contrary to the text_meta_data() method that gathers data from all the texts within the project and does not allow for manipulation of the data, the data fields allow reading and writing. 
+
+First let us have a look and thereafter turn of the message notification service:
+
+**getting data fields**
+
+```r
+dp$options
+```
+
+```
+## $verbose
+## [1] TRUE
+## 
+## $warning
+## [1] TRUE
+## 
+## $ask
+## [1] TRUE
+```
+
+**setting data fields**
+
+```r
+dp$options$verbose <- FALSE
+```
+
+(note, ask is deprecated and only remains for compatibility reasons but has no function anymore)
+
+Now its time to have a look at the projects meta data. It tells us when the project was created, which path to use for SQLite exports, which path to use for saving data as in RData format and what is the projects id. The id is a hash of a time stamp as well as session information which should ensure uniqueness across space and time. 
+
+All these values can manipulated by the user to her liking. 
+
+
+```r
+dp$meta
+```
+
+```
+## $ts_created
+## [1] "2016-11-02 20:47:47 UTC"
+## 
+## $db_path
+## [1] "./diffrproject.db"
+## 
+## $file_path
+## [1] ""
+## 
+## $project_id
+## [1] "fe237d7522d22dd6c7a113ebcc5d2273"
+```
+
+```r
+dp$meta$file_path = "./diffrproject.RData"
+```
+
+
+
+
+
+<br><br>
+
+## Deleting Texts 
+
+Of cause we can not only add texts but delete them from the project as well. For this purpose there is the text_delete() method.
+
+Let's just add two texts and delete one by providing its index number and the second by providing its name to the text_delete() method. 
+
+
+```r
+dp$text_add(text = "nonesense", "n1")
+dp$text_add(text = "nonesense", "n2")
+
+dp$text_delete(3)
+dp$text_delete("n2")
+
+length(dp$text)
+```
+
+```
+## [1] 2
+```
+
+```r
+names(dp$text)
+```
+
+```
+## [1] "version1" "version2"
+```
+
+
+
+
+<br><br>
+
+## Coding Texts
+
+
+
+
+
+<br><br>
+
+## Getting Text Codings
+
+
+
+
+
+<br><br>
+
+## Aggregating Text Codings
+
+
+
+
+
+
+
+<br><br>
+
+## Measuring Change and Aligning Texts
+
+
+
+
+
+
+<br><br>
+
+## Text Coding Inheritence
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+<br><br>
+
+## _
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

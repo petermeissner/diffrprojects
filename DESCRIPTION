@@ -1,5 +1,5 @@
 Package: diffrprojects
-Title: Using diffr for more than two files
+Title: Projects for Text Version Comparison and Analytics in R
 Date: 2016-11-01
 Version: 0.1.12
 Authors@R: c(
