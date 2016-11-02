@@ -82,7 +82,7 @@ stable CRAN version
 
 
 ```r
-install.packages("rtext")
+install.packages("diffrprojects")
 library(rtext)
 ```
 
@@ -93,7 +93,7 @@ library(rtext)
 
 ```r
 standard_repos <- options("repos")$repos
-install.packages( "rtext", repos = c(standard_repos, "https://petermeissner.github.io/drat/"))
+install.packages( "diffrprojects", repos = c(standard_repos, "https://petermeissner.github.io/drat/"))
 library(rtext)
 ```
 
