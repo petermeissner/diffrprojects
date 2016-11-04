@@ -100,6 +100,24 @@ library(rtext)
 
 
 
+
+**Contribution**
+
+Note, that this package uses a Contributor Code of Conduct. By participating in this project you agree to abide by its terms: http://contributor-covenant.org/version/1/0/0/ (basically this should be a place were people get along with each other respectful and nice because it's simply more fun that way for everybody)
+
+Contributions are very much welcome, e.g. in the form of:
+
+- **typo fixing** ([edit file directly on Github](https://help.github.com/articles/editing-files-in-another-user-s-repository/))
+- **bug reporting** (file an [issue](https://guides.github.com/features/issues/) - after having searched if the issue came up before - as - if possible - [minimal reproducable example](http://stackoverflow.com/help/mcve))
+- **extending help files** (e.g. [edit the respective files directly on Github](https://help.github.com/articles/editing-files-in-another-user-s-repository/) or [fork the package](https://help.github.com/articles/fork-a-repo/) and later on make a [pull request](https://help.github.com/articles/using-pull-requests/); note, that the package use [roxygen2](http://r-pkgs.had.co.nz/man.html) for easing documentation)
+- **writing example** (e.g. [edit the respective files directly on Github](https://help.github.com/articles/editing-files-in-another-user-s-repository/) or [fork the package](https://help.github.com/articles/fork-a-repo/) and later on make a [pull request](https://help.github.com/articles/using-pull-requests/); note, that the package use [roxygen2](http://r-pkgs.had.co.nz/man.html) for easing documentation)
+- **vignette writing** (file an [issue](https://guides.github.com/features/issues/) first so that we can discuss htings than [fork the package](https://help.github.com/articles/fork-a-repo/) and later on make a [pull request](https://help.github.com/articles/using-pull-requests/))
+- **test writing** (have a look at the [test coverage](https://codecov.io/gh/petermeissner/stringb/tree/master/R) than [fork the package](https://help.github.com/articles/fork-a-repo/) and later on make a [pull request](https://help.github.com/articles/using-pull-requests/))
+- **feature suggestions** (file an [issue](https://guides.github.com/features/issues/) describing the idea, why this is important, possible alternative solutions and an example)
+- **general discussion** of approach and or implementation  (file an [issue](https://guides.github.com/features/issues/))
+- implementation **improvements** (file an [issue](https://guides.github.com/features/issues/) naming whats to be improved, why and how)
+
+
 <br><br>   
 
 # Usage
@@ -439,7 +457,7 @@ dp$meta
 
 ```
 ## $ts_created
-## [1] "2016-11-04 21:58:50 UTC"
+## [1] "2016-11-04 22:26:31 UTC"
 ## 
 ## $db_path
 ## [1] "./diffrproject.db"
@@ -448,7 +466,7 @@ dp$meta
 ## [1] ""
 ## 
 ## $project_id
-## [1] "ab37bbb1cff48ed183228a7424339d75"
+## [1] "a26abd4ee5cc483423495569b34b500e"
 ```
 
 ```r
