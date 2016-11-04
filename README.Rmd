@@ -1,6 +1,9 @@
 ---
 title: Projects for Text Version Comparison and Analytics in R
 output: 
+  pdf_document: 
+    number_sections: yes
+    toc: yes
   html_document: 
     keep_md: yes
     number_sections: yes
@@ -352,7 +355,7 @@ names(dp$text)
 ## Coding Texts
 
 ```{r}
-
+dp$text
 ```
 
 
@@ -544,11 +547,65 @@ names(dp$text)
 
 
 
+# Technicalities
+
+<br><br>
+
+## Naming Conventions and General Structure of Methods and Data
+
+The methods and data fields of diffrprojects can be categorized into five realms - *cursive*: methods; (paratheses): private; rest: data: 
+
+- **text**: everything related to individual texts starts with text 
+    - text, *text_add*, *text_delete*, *text_align*, *text_code*, *text_code_alignment_token*, *text_code_alignment_token_regex*, *text_code_regex*, 
+    - *text_data*, *text_data_inherit*, *tokenize_text_data_lines*, *tokenize_text_data_regex*, *tokenize_text_data_words*
+    - text_meta_data
+- **alignment**: everything that concerns the relation between two texts
+    - alignment, *alignment_add*, *alignment_code*, *alignment_delete*, *alignemtn_data_full*, *alignment_data_set*
+    - text_link, *link*
+- **misc**:
+    - meta, options, *load*, *save*, *export_sqlite*, *import_sqlite*, (*execute_load*), (*prepare_save*)
+- **inherited from R6_rtext_extended**:
+    - options, *message*, *warning*, (*hash*), (hashed), (hashes)
+- **inherited from R6**:
+    - *clone*, *initialize*
 
 
 
+## Data formats 
 
 
+### meta
+
+Meta is a list with only a few items providing/storing general information for the whole project - i.e. time stamp the project was created, path to store data, path to export data, an project id.
+
+
+### text
+
+Text is a list of rtext instances. Each rtext instances stores text's actual text as data gathered on the text. 
+
+The text_data method will return a data.frame containing all text data, while tokenize_text_data_xxx mehtods will aggregate text data to specific token levels: words, lines or user defined patterns. 
+
+
+### link
+
+Link is a list of links between texts. Link defines for which text combination alignments should be calcualted. Each list item hold a from and to field which stores the names of texts to be aligned. The method to create links is text_link, it also allows to delete specific links. 
+
+Link data can be transformed to one big data.frame via: as.data.frame function. 
+
+
+### alignment 
+
+Alignment is a list of data.frames. Each alignment list item stores the which part (character span) of one text is connected to which part (character span) of another text. 
+
+The list of alignments can be transformed to one big data.frame via: as.data.frame function. 
+
+
+### alignment_data
+
+The list of alignment_data can be transformed to one big data.frame via: as.data.frame function. 
+
+
+[[[???!!!]]]
 
 
 

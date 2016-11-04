@@ -439,7 +439,7 @@ dp$meta
 
 ```
 ## $ts_created
-## [1] "2016-11-02 20:47:47 UTC"
+## [1] "2016-11-04 21:58:50 UTC"
 ## 
 ## $db_path
 ## [1] "./diffrproject.db"
@@ -448,7 +448,7 @@ dp$meta
 ## [1] ""
 ## 
 ## $project_id
-## [1] "fe237d7522d22dd6c7a113ebcc5d2273"
+## [1] "ab37bbb1cff48ed183228a7424339d75"
 ```
 
 ```r
@@ -498,6 +498,113 @@ names(dp$text)
 ## Coding Texts
 
 
+```r
+dp$text
+```
+
+```
+## $version1
+## <rtext>
+##   Inherits from: <rtext_tokenize>
+##   Public:
+##     char_add: function (what = NULL, after = NULL) 
+##     char_data_get: function (from = 1, to = Inf, x = NULL, full = FALSE) 
+##     char_data_set: function (x = NULL, i = NULL, val = NA, hl = 0) 
+##     char_data_set_regex: function (x = NULL, pattern = NULL, val = NA, hl = 0, ...) 
+##     char_delete: function (n = NULL, from = NULL, to = NULL) 
+##     char_get: function (length = Inf, from = NULL, to = NULL, raw = FALSE) 
+##     char_length: function () 
+##     char_replace: function (from = NULL, to = NULL, by = NULL) 
+##     clone: function (deep = FALSE) 
+##     debug: function (pos = 1) 
+##     encoding: UTF-8
+##     export_csv: function (folder_name = "") 
+##     export_sqlite: function (db_name = "") 
+##     get: function (name = NULL) 
+##     hash_get: function (name = "") 
+##     id: 6eb7737ee041de8c
+##     import_csv: function (folder_name = "") 
+##     import_sqlite: function (db_name = "") 
+##     info: function () 
+##     initialize: function (text = NULL, text_file = NULL, encoding = "UTF-8", 
+##     load: function (file = NULL) 
+##     ls: function (what = c("self", "private"), class = NULL) 
+##     message: function (x, ...) 
+##     options: list
+##     save: function (file = NULL, id = NULL) 
+##     save_file: NA
+##     sourcetype: text
+##     text_file: NA
+##     text_get: function (length = Inf, from = NULL, to = NULL, split = NULL) 
+##     text_get_lines: function (length = Inf, from = NULL, to = NULL) 
+##     text_show: function (length = 500, from = NULL, to = NULL, coll = FALSE, 
+##     tokenize_data_lines: function (split = "\n", ignore.case = FALSE, fixed = FALSE, perl = FALSE, 
+##     tokenize_data_regex: function (split = NULL, ignore.case = FALSE, fixed = FALSE, perl = FALSE, 
+##     tokenize_data_sequences: function (token, join = c("full", "left", "right", ""), aggregate_function = NULL, 
+##     tokenize_data_words: function (split = "\\W+", ignore.case = FALSE, fixed = FALSE, 
+##     warning: function (x, ...) 
+##   Private:
+##     char: T h i s   p a r t   o f   t h e 
+##      d o c u m e n t   h a  ...
+##     char_data: list
+##     execute_load: function (tmp) 
+##     hash: function (name = NULL) 
+##     hashed: function (name = NULL) 
+##     hashes: list
+##     prepare_save: function (id = NULL) 
+##     text: function () 
+## 
+## $version2
+## <rtext>
+##   Inherits from: <rtext_tokenize>
+##   Public:
+##     char_add: function (what = NULL, after = NULL) 
+##     char_data_get: function (from = 1, to = Inf, x = NULL, full = FALSE) 
+##     char_data_set: function (x = NULL, i = NULL, val = NA, hl = 0) 
+##     char_data_set_regex: function (x = NULL, pattern = NULL, val = NA, hl = 0, ...) 
+##     char_delete: function (n = NULL, from = NULL, to = NULL) 
+##     char_get: function (length = Inf, from = NULL, to = NULL, raw = FALSE) 
+##     char_length: function () 
+##     char_replace: function (from = NULL, to = NULL, by = NULL) 
+##     clone: function (deep = FALSE) 
+##     debug: function (pos = 1) 
+##     encoding: UTF-8
+##     export_csv: function (folder_name = "") 
+##     export_sqlite: function (db_name = "") 
+##     get: function (name = NULL) 
+##     hash_get: function (name = "") 
+##     id: 81edb193c9f94610
+##     import_csv: function (folder_name = "") 
+##     import_sqlite: function (db_name = "") 
+##     info: function () 
+##     initialize: function (text = NULL, text_file = NULL, encoding = "UTF-8", 
+##     load: function (file = NULL) 
+##     ls: function (what = c("self", "private"), class = NULL) 
+##     message: function (x, ...) 
+##     options: list
+##     save: function (file = NULL, id = NULL) 
+##     save_file: NA
+##     sourcetype: text
+##     text_file: NA
+##     text_get: function (length = Inf, from = NULL, to = NULL, split = NULL) 
+##     text_get_lines: function (length = Inf, from = NULL, to = NULL) 
+##     text_show: function (length = 500, from = NULL, to = NULL, coll = FALSE, 
+##     tokenize_data_lines: function (split = "\n", ignore.case = FALSE, fixed = FALSE, perl = FALSE, 
+##     tokenize_data_regex: function (split = NULL, ignore.case = FALSE, fixed = FALSE, perl = FALSE, 
+##     tokenize_data_sequences: function (token, join = c("full", "left", "right", ""), aggregate_function = NULL, 
+##     tokenize_data_words: function (split = "\\W+", ignore.case = FALSE, fixed = FALSE, 
+##     warning: function (x, ...) 
+##   Private:
+##     char: T h i s   i s   a n   i m p o r t a n t 
+##      n o t i c e !  ...
+##     char_data: list
+##     execute_load: function (tmp) 
+##     hash: function (name = NULL) 
+##     hashed: function (name = NULL) 
+##     hashes: list
+##     prepare_save: function (id = NULL) 
+##     text: function ()
+```
 
 
 
@@ -654,11 +761,65 @@ names(dp$text)
 
 
 
+# Technicalities
+
+<br><br>
+
+## Naming Conventions and General Structure of Methods and Data
+
+The methods and data fields of diffrprojects can be categorized into five realms - *cursive*: methods; (paratheses): private; rest: data: 
+
+- **text**: everything related to individual texts starts with text 
+    - text, *text_add*, *text_delete*, *text_align*, *text_code*, *text_code_alignment_token*, *text_code_alignment_token_regex*, *text_code_regex*, 
+    - *text_data*, *text_data_inherit*, *tokenize_text_data_lines*, *tokenize_text_data_regex*, *tokenize_text_data_words*
+    - text_meta_data
+- **alignment**: everything that concerns the relation between two texts
+    - alignment, *alignment_add*, *alignment_code*, *alignment_delete*, *alignemtn_data_full*, *alignment_data_set*
+    - text_link, *link*
+- **misc**:
+    - meta, options, *load*, *save*, *export_sqlite*, *import_sqlite*, (*execute_load*), (*prepare_save*)
+- **inherited from R6_rtext_extended**:
+    - options, *message*, *warning*, (*hash*), (hashed), (hashes)
+- **inherited from R6**:
+    - *clone*, *initialize*
 
 
 
+## Data formats 
 
 
+### meta
+
+Meta is a list with only a few items providing/storing general information for the whole project - i.e. time stamp the project was created, path to store data, path to export data, an project id.
+
+
+### text
+
+Text is a list of rtext instances. Each rtext instances stores text's actual text as data gathered on the text. 
+
+The text_data method will return a data.frame containing all text data, while tokenize_text_data_xxx mehtods will aggregate text data to specific token levels: words, lines or user defined patterns. 
+
+
+### link
+
+Link is a list of links between texts. Link defines for which text combination alignments should be calcualted. Each list item hold a from and to field which stores the names of texts to be aligned. The method to create links is text_link, it also allows to delete specific links. 
+
+Link data can be transformed to one big data.frame via: as.data.frame function. 
+
+
+### alignment 
+
+Alignment is a list of data.frames. Each alignment list item stores the which part (character span) of one text is connected to which part (character span) of another text. 
+
+The list of alignments can be transformed to one big data.frame via: as.data.frame function. 
+
+
+### alignment_data
+
+The list of alignment_data can be transformed to one big data.frame via: as.data.frame function. 
+
+
+[[[???!!!]]]
 
 
 
