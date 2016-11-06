@@ -17,65 +17,93 @@ class for diffrproject
 \section{The diffrprojects class family}{
 
 
-Diffrproject consists of an set of R6 classes that are conencted by inheritance.
-Each class handles a different set of functionalities that are modular.
+  Diffrproject consists of an set of R6 classes that are conencted by
+  inheritance. Each class handles a different set of functionalities that are
+  modular.
 
-\describe{
-   \item{R6_rtext_extended}{
-     A class that has nothing to do per se with diffrprojects.
-     It merely adds some basic features to the base R6 class (debugging,
-     hashing, getting fields and handling warnings and messages as well as
-     listing content). This class is imported from rtext package
-   }
+  \describe{ \item{R6_rtext_extended}{ A class that has nothing to do per se
+  with diffrprojects. It merely adds some basic features to the base R6 class
+  (debugging, hashing, getting fields and handling warnings and messages as
+  well as listing content). This class is imported from rtext package }
 
-   \item{dp_base}{
-     [inherits from rtext::R6_rtext_extended]
-     This class forms the foundation of all diffrpojects (dp_xxx) classes by
-     implementing data fields for meta data, texts, data on texts,
-     links between texts, alignment of text tokens, and data on the alignment
-     of text tokens. Furthermore it implements methods add, delete, code, and
-     link texts or to aggregate text data on text token level.
-   }
+  \item{dp_base}{ [inherits from rtext::R6_rtext_extended] This class forms
+  the foundation of all diffrpojects (dp_xxx) classes by implementing data
+  fields for meta data, texts, data on texts, links between texts, alignment
+  of text tokens, and data on the alignment of text tokens. Furthermore it
+  implements methods add, delete, code, and link texts or to aggregate text
+  data on text token level. }
 
-   \item{dp_loadsave}{
-     [inherits from dp_base]
-     This class allows for loading and saving diffrprojects from and to Rdata
-     files.
-   }
+  \item{dp_loadsave}{ [inherits from dp_base] This class allows for loading
+  and saving diffrprojects from and to Rdata files. }
 
-   \item{dp_export}{
-     [inherits from dp_loadsave]
-     This class provides methods for exporting and importing to and from
-     RSQLite.
-   }
+  \item{dp_export}{ [inherits from dp_loadsave] This class provides methods
+  for exporting and importing to and from RSQLite. }
 
-   \item{dp_align}{
-     [inherits from dp_export]
-     This is one of the workhorses of diffrprojects. The methods of this class
-     allow for adding, deleting or computing alignments between text tokens
-     (e.g. words or lines or sentences or characters or paragraphs, or some
-     other way to split text into chunks). Furthermore it allows to also
-     assign data to individual alignments (a connection beween two token of
-     text from different text versions).
-   }
+  \item{dp_align}{ [inherits from dp_export] This is one of the workhorses of
+  diffrprojects. The methods of this class allow for adding, deleting or
+  computing alignments between text tokens (e.g. words or lines or sentences
+  or characters or paragraphs, or some other way to split text into chunks).
+  Furthermore it allows to also assign data to individual alignments (a
+  connection beween two token of text from different text versions). }
 
-   \item{dp_inherit}{
-     [inherits from dp_align]
-     The text_data_inherit method added by this class allows to copy text
-     data from one token of a text version to another token of another text
-     version channeled through aligments with zero distance. Conflicting
-     codings (a text might have multiple codings stemming from several links
-     and from direct coding of the text) are resolved by the fact that text
-     codings are accompanied by a hierarchy level that defaults to zero and
-     gets decreased by one every time the coding is inherited by a token.
-   }
+  \item{dp_inherit}{ [inherits from dp_align] The text_data_inherit method
+  added by this class allows to copy text data from one token of a text
+  version to another token of another text version channeled through
+  aligments with zero distance. Conflicting codings (a text might have
+  multiple codings stemming from several links and from direct coding of the
+  text) are resolved by the fact that text codings are accompanied by a
+  hierarchy level that defaults to zero and gets decreased by one every time
+  the coding is inherited by a token. }
 
-   \item{diffrproject}{
-     [inherits from dp_inherit]
-     Just a wrapper inheriting from dp_inherit to have a less technical name
-     at the end of the inheritance chain.
-   }
+  \item{diffrproject}{ [inherits from dp_inherit] Just a wrapper inheriting
+  from dp_inherit to have a less technical name at the end of the inheritance
+  chain. } }
 }
+\examples{
+
+
+## Creating a Diffrprojects Instance
+
+# To create a diffrproject we use the diffrproject creator object -
+# its simply an object with an function that knows how to create a project.
+
+# Creating a project looks like this:
+
+library(diffrprojects)
+dp <- diffrproject$new()
+
+
+# Et viola - we created a first, for now empty, project that we will
+# use throughout the tutorial.
+
+
+
+## Some Help Please
+
+# To get a better idea about what this thing called *diffrproject* really is
+# you can consult its help page which gives a broad overview over its
+# capabilities:
+
+?diffrproject
+
+
+# Another way is to call the ls() method. This will present us with a
+# data frame listing all fields where data is stored and all the methods
+# (aka object specific functions) of our diffrprojects instance.
+# Those methods and fields located in *private* are not for the user
+# to mess around with while non-private (*self* aka public) data fields
+# can be read by the user and public methods can be triggered by the
+# user to manipulate the data or retrieve data in a specific format.
+
+
+dp$ls()
+
+
+# The base R class() function furthermore reveals from which classes the
+# diffrproject class inherits:
+
+class(dp)
+
 }
 \keyword{data}
 

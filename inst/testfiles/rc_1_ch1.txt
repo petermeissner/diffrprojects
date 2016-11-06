@@ -60,7 +60,7 @@ email ccx074@pglaf.org
 
 
 
-CHAPTER I—START IN LIFE
+CHAPTER I\u2014START IN LIFE
 
 
 I was born in the year 1632, in the city of York, of a good family,
@@ -69,8 +69,8 @@ settled first at Hull.  He got a good estate by merchandise, and leaving
 off his trade, lived afterwards at York, from whence he had married my
 mother, whose relations were named Robinson, a very good family in that
 country, and from whom I was called Robinson Kreutznaer; but, by the
-usual corruption of words in England, we are now called—nay we call
-ourselves and write our name—Crusoe; and so my companions always called
+usual corruption of words in England, we are now called\u2014nay we call
+ourselves and write our name\u2014Crusoe; and so my companions always called
 me.
 
 I had two elder brothers, one of whom was lieutenant-colonel to an
@@ -94,7 +94,7 @@ My father, a wise and grave man, gave me serious and excellent counsel
 against what he foresaw was my design.  He called me one morning into his
 chamber, where he was confined by the gout, and expostulated very warmly
 with me upon this subject.  He asked me what reasons, more than a mere
-wandering inclination, I had for leaving father’s house and my native
+wandering inclination, I had for leaving father\u2019s house and my native
 country, where I might be well introduced, and had a prospect of raising
 my fortune by application and industry, with a life of ease and pleasure.
 He told me it was men of desperate fortunes on one hand, or of aspiring,
@@ -107,7 +107,7 @@ was the best state in the world, the most suited to human happiness, not
 exposed to the miseries and hardships, the labour and sufferings of the
 mechanic part of mankind, and not embarrassed with the pride, luxury,
 ambition, and envy of the upper part of mankind.  He told me I might
-judge of the happiness of this state by this one thing—viz. that this was
+judge of the happiness of this state by this one thing\u2014viz. that this was
 the state of life which all other people envied; that kings have
 frequently lamented the miserable consequence of being born to great
 things, and wished they had been placed in the middle of the two
@@ -136,7 +136,7 @@ soul of peace and the body of rest, nor enraged with the passion of envy,
 or the secret burning lust of ambition for great things; but, in easy
 circumstances, sliding gently through the world, and sensibly tasting the
 sweets of living, without the bitter; feeling that they are happy, and
-learning by every day’s experience to know it more sensibly.
+learning by every day\u2019s experience to know it more sensibly.
 
 After this he pressed me earnestly, and in the most affectionate manner,
 not to play the young man, nor to precipitate myself into miseries which
@@ -160,7 +160,7 @@ have leisure hereafter to reflect upon having neglected his counsel when
 there might be none to assist in my recovery.
 
 I observed in this last part of his discourse, which was truly prophetic,
-though I suppose my father did not know it to be so himself—I say, I
+though I suppose my father did not know it to be so himself\u2014I say, I
 observed the tears run down his face very plentifully, especially when he
 spoke of my brother who was killed: and that when he spoke of my having
 leisure to repent, and none to assist me, he was so moved that he broke
@@ -169,8 +169,8 @@ to me.
 
 I was sincerely affected with this discourse, and, indeed, who could be
 otherwise? and I resolved not to think of going abroad any more, but to
-settle at home according to my father’s desire.  But alas! a few days
-wore it all off; and, in short, to prevent any of my father’s further
+settle at home according to my father\u2019s desire.  But alas! a few days
+wore it all off; and, in short, to prevent any of my father\u2019s further
 importunities, in a few weeks after I resolved to run quite away from
 him.  However, I did not act quite so hastily as the first heat of my
 resolution prompted; but I took my mother at a time when I thought her a
@@ -199,9 +199,9 @@ that my mother was willing when my father was not.
 
 Though my mother refused to move it to my father, yet I heard afterwards
 that she reported all the discourse to him, and that my father, after
-showing a great concern at it, said to her, with a sigh, “That boy might
+showing a great concern at it, said to her, with a sigh, \u201CThat boy might
 be happy if he would stay at home; but if he goes abroad, he will be the
-most miserable wretch that ever was born: I can give no consent to it.”
+most miserable wretch that ever was born: I can give no consent to it.\u201D
 
 It was not till almost a year after this that I broke loose, though, in
 the meantime, I continued obstinately deaf to all proposals of settling
@@ -210,21 +210,21 @@ their being so positively determined against what they knew my
 inclinations prompted me to.  But being one day at Hull, where I went
 casually, and without any purpose of making an elopement at that time;
 but, I say, being there, and one of my companions being about to sail to
-London in his father’s ship, and prompting me to go with them with the
+London in his father\u2019s ship, and prompting me to go with them with the
 common allurement of seafaring men, that it should cost me nothing for my
 passage, I consulted neither father nor mother any more, nor so much as
 sent them word of it; but leaving them to hear of it as they might,
-without asking God’s blessing or my father’s, without any consideration
+without asking God\u2019s blessing or my father\u2019s, without any consideration
 of circumstances or consequences, and in an ill hour, God knows, on the
 1st of September 1651, I went on board a ship bound for London.  Never
-any young adventurer’s misfortunes, I believe, began sooner, or continued
+any young adventurer\u2019s misfortunes, I believe, began sooner, or continued
 longer than mine.  The ship was no sooner out of the Humber than the wind
 began to blow and the sea to rise in a most frightful manner; and, as I
 had never been at sea before, I was most inexpressibly sick in body and
 terrified in mind.  I began now seriously to reflect upon what I had
 done, and how justly I was overtaken by the judgment of Heaven for my
-wicked leaving my father’s house, and abandoning my duty.  All the good
-counsels of my parents, my father’s tears and my mother’s entreaties,
+wicked leaving my father\u2019s house, and abandoning my duty.  All the good
+counsels of my parents, my father\u2019s tears and my mother\u2019s entreaties,
 came now fresh into my mind; and my conscience, which was not yet come to
 the pitch of hardness to which it has since, reproached me with the
 contempt of advice, and the breach of my duty to God and my father.
@@ -259,17 +259,17 @@ I had slept well in the night, and was now no more sea-sick, but very
 cheerful, looking with wonder upon the sea that was so rough and terrible
 the day before, and could be so calm and so pleasant in so little a time
 after.  And now, lest my good resolutions should continue, my companion,
-who had enticed me away, comes to me; “Well, Bob,” says he, clapping me
-upon the shoulder, “how do you do after it?  I warrant you were frighted,
-wer’n’t you, last night, when it blew but a capful of wind?”  “A capful
-d’you call it?” said I; “’twas a terrible storm.”  “A storm, you fool
-you,” replies he; “do you call that a storm? why, it was nothing at all;
+who had enticed me away, comes to me; \u201CWell, Bob,\u201D says he, clapping me
+upon the shoulder, \u201Chow do you do after it?  I warrant you were frighted,
+wer\u2019n\u2019t you, last night, when it blew but a capful of wind?\u201D  \u201CA capful
+d\u2019you call it?\u201D said I; \u201C\u2019twas a terrible storm.\u201D  \u201CA storm, you fool
+you,\u201D replies he; \u201Cdo you call that a storm? why, it was nothing at all;
 give us but a good ship and sea-room, and we think nothing of such a
-squall of wind as that; but you’re but a fresh-water sailor, Bob.  Come,
-let us make a bowl of punch, and we’ll forget all that; d’ye see what
-charming weather ’tis now?”  To make short this sad part of my story, we
+squall of wind as that; but you\u2019re but a fresh-water sailor, Bob.  Come,
+let us make a bowl of punch, and we\u2019ll forget all that; d\u2019ye see what
+charming weather \u2019tis now?\u201D  To make short this sad part of my story, we
 went the way of all sailors; the punch was made and I was made half drunk
-with it: and in that one night’s wickedness I drowned all my repentance,
+with it: and in that one night\u2019s wickedness I drowned all my repentance,
 all my reflections upon my past conduct, all my resolutions for the
 future.  In a word, as the sea was returned to its smoothness of surface
 and settled calmness by the abatement of that storm, so the hurry of my
@@ -280,7 +280,7 @@ found, indeed, some intervals of reflection; and the serious thoughts
 did, as it were, endeavour to return again sometimes; but I shook them
 off, and roused myself from them as it were from a distemper, and
 applying myself to drinking and company, soon mastered the return of
-those fits—for so I called them; and I had in five or six days got as
+those fits\u2014for so I called them; and I had in five or six days got as
 complete a victory over conscience as any young fellow that resolved not
 to be troubled with it could desire.  But I was to have another trial for
 it still; and Providence, as in such cases generally it does, resolved to
@@ -291,7 +291,7 @@ wretch among us would confess both the danger and the mercy of.
 The sixth day of our being at sea we came into Yarmouth Roads; the wind
 having been contrary and the weather calm, we had made but little way
 since the storm.  Here we were obliged to come to an anchor, and here we
-lay, the wind continuing contrary—viz. at south-west—for seven or eight
+lay, the wind continuing contrary\u2014viz. at south-west\u2014for seven or eight
 days, during which time a great many ships from Newcastle came into the
 same Roads, as the common harbour where the ships might wait for a wind
 for the river.
@@ -314,8 +314,8 @@ By this time it blew a terrible storm indeed; and now I began to see
 terror and amazement in the faces even of the seamen themselves.  The
 master, though vigilant in the business of preserving the ship, yet as he
 went in and out of his cabin by me, I could hear him softly to himself
-say, several times, “Lord be merciful to us! we shall be all lost! we
-shall be all undone!” and the like.  During these first hurries I was
+say, several times, \u201CLord be merciful to us! we shall be all lost! we
+shall be all undone!\u201D and the like.  During these first hurries I was
 stupid, lying still in my cabin, which was in the steerage, and cannot
 describe my temper: I could ill resume the first penitence which I had so
 apparently trampled upon and hardened myself against: I thought the
@@ -380,7 +380,7 @@ it was not possible she could swim till we might run into any port; so
 the master continued firing guns for help; and a light ship, who had rid
 it out just ahead of us, ventured a boat out to help us.  It was with the
 utmost hazard the boat came near us; but it was impossible for us to get
-on board, or for the boat to lie near the ship’s side, till at last the
+on board, or for the boat to lie near the ship\u2019s side, till at last the
 men rowing very heartily, and venturing their lives to save ours, our men
 cast them a rope over the stern with a buoy to it, and then veered it out
 a great length, which they, after much labour and hazard, took hold of,
@@ -400,8 +400,8 @@ they rather put me into the boat than that I might be said to go in, my
 heart was, as it were, dead within me, partly with fright, partly with
 horror of mind, and the thoughts of what was yet before me.
 
-While we were in this condition—the men yet labouring at the oar to bring
-the boat near the shore—we could see (when, our boat mounting the waves,
+While we were in this condition\u2014the men yet labouring at the oar to bring
+the boat near the shore\u2014we could see (when, our boat mounting the waves,
 we were able to see the shore) a great many people running along the
 strand to assist us when we should come near; but we made but slow way
 towards the shore; nor were we able to reach the shore till, being past
@@ -415,7 +415,7 @@ owners of ships, and had money given us sufficient to carry us either to
 London or back to Hull as we thought fit.
 
 Had I now had the sense to have gone back to Hull, and have gone home, I
-had been happy, and my father, as in our blessed Saviour’s parable, had
+had been happy, and my father, as in our blessed Saviour\u2019s parable, had
 even killed the fatted calf for me; for hearing the ship I went away in
 was cast away in Yarmouth Roads, it was a great while before he had any
 assurances that I was not drowned.
@@ -431,7 +431,7 @@ impossible for me to escape, could have pushed me forward against the
 calm reasonings and persuasions of my most retired thoughts, and against
 two such visible instructions as I had met with in my first attempt.
 
-My comrade, who had helped to harden me before, and who was the master’s
+My comrade, who had helped to harden me before, and who was the master\u2019s
 son, was now less forward than I.  The first time he spoke to me after we
 were at Yarmouth, which was not till two or three days, for we were
 separated in the town to several quarters; I say, the first time he saw
@@ -439,26 +439,26 @@ me, it appeared his tone was altered; and, looking very melancholy, and
 shaking his head, he asked me how I did, and telling his father who I
 was, and how I had come this voyage only for a trial, in order to go
 further abroad, his father, turning to me with a very grave and concerned
-tone “Young man,” says he, “you ought never to go to sea any more; you
+tone \u201CYoung man,\u201D says he, \u201Cyou ought never to go to sea any more; you
 ought to take this for a plain and visible token that you are not to be a
-seafaring man.”  “Why, sir,” said I, “will you go to sea no more?”  “That
-is another case,” said he; “it is my calling, and therefore my duty; but
+seafaring man.\u201D  \u201CWhy, sir,\u201D said I, \u201Cwill you go to sea no more?\u201D  \u201CThat
+is another case,\u201D said he; \u201Cit is my calling, and therefore my duty; but
 as you made this voyage on trial, you see what a taste Heaven has given
 you of what you are to expect if you persist.  Perhaps this has all
-befallen us on your account, like Jonah in the ship of Tarshish.  Pray,”
-continues he, “what are you; and on what account did you go to sea?”
+befallen us on your account, like Jonah in the ship of Tarshish.  Pray,\u201D
+continues he, \u201Cwhat are you; and on what account did you go to sea?\u201D
 Upon that I told him some of my story; at the end of which he burst out
-into a strange kind of passion: “What had I done,” says he, “that such an
+into a strange kind of passion: \u201CWhat had I done,\u201D says he, \u201Cthat such an
 unhappy wretch should come into my ship?  I would not set my foot in the
-same ship with thee again for a thousand pounds.”  This indeed was, as I
+same ship with thee again for a thousand pounds.\u201D  This indeed was, as I
 said, an excursion of his spirits, which were yet agitated by the sense
 of his loss, and was farther than he could have authority to go.
 However, he afterwards talked very gravely to me, exhorting me to go back
 to my father, and not tempt Providence to my ruin, telling me I might see
-a visible hand of Heaven against me.  “And, young man,” said he, “depend
+a visible hand of Heaven against me.  \u201CAnd, young man,\u201D said he, \u201Cdepend
 upon it, if you do not go back, wherever you go, you will meet with
-nothing but disasters and disappointments, till your father’s words are
-fulfilled upon you.”
+nothing but disasters and disappointments, till your father\u2019s words are
+fulfilled upon you.\u201D
 
 We parted soon after; for I made him little answer, and I saw him no
 more; which way he went I knew not.  As for me, having some money in my
@@ -472,7 +472,7 @@ among the neighbours, and should be ashamed to see, not my father and
 mother only, but even everybody else; from whence I have since often
 observed, how incongruous and irrational the common temper of mankind is,
 especially of youth, to that reason which ought to guide them in such
-cases—viz. that they are not ashamed to sin, and yet are ashamed to
+cases\u2014viz. that they are not ashamed to sin, and yet are ashamed to
 repent; not ashamed of the action for which they ought justly to be
 esteemed fools, but are ashamed of the returning, which only can make
 them be esteemed wise men.
