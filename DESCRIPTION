@@ -34,19 +34,16 @@ Imports:
     hellno (>= 0.0.1),
     dplyr(>= 0.5.0),
     data.table (>= 1.9.6),
-    dtplyr (>= 0.0.1),
     Rcpp (>= 0.12.6),
     stringdist (>= 0.9.4.1),
-    tidyr(>= 0.6.0),
     RSQLite (>= 1.0.0),
     magrittr,
-    stats,
-    graphics
+    stats
 Suggests:
     testthat,
     knitr,
     rmarkdown
 BugReports: https://github.com/petermeissner/diffrprojects/issues
 URL: https://github.com/petermeissner/diffrprojects
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 5.0.1
 LinkingTo: Rcpp
