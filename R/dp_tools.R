@@ -51,8 +51,8 @@ text_add_worker = function(self, rtext=NULL, name = NULL ){
         basename(rtext$text_file), error=function(e){NA}
       )
     if( is.na(name) ){
-      next_num <- max(c(as.numeric(text_extract(names, "\\d+")),0))+1
-      name     <- text_c( "noname_", next_num)
+      next_num <- max(c(as.numeric(stringb::text_extract(names, "\\d+")),0))+1
+      name     <- stringb::text_c( "noname_", next_num)
     }
   }
   self$text[[name]]    <- rtext

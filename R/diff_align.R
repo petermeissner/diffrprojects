@@ -66,8 +66,8 @@ diff_align <- function(
   if( is.null(tokenizer) ){ tokenizer <- stringb::text_tokenize_lines }
   if( is.null(clean) ){     clean     <- function(x){x} }
   if( is.null(ignore) ){    ignore    <- function(x){x} }
-  if( length(text1) > 1){ text1 <- text_collapse(text1) }
-  if( length(text2) > 1){ text2 <- text_collapse(text2) }
+  if( length(text1) > 1){ text1 <- stringb::text_collapse(text1) }
+  if( length(text2) > 1){ text2 <- stringb::text_collapse(text2) }
   distance <- distance[1]
   if(maxDist == 0){ maxDist <- 1e-150}
 

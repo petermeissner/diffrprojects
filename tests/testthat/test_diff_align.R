@@ -58,8 +58,8 @@ test_that("diff_align works with ignore option", {
   expect_true({
     d <-
       diff_align(
-        text_c(letters[1:10], "\n"),
-        text_c(letters[7:12], "\n"),
+        stringb::text_c(letters[1:10], "\n"),
+        stringb::text_c(letters[7:12], "\n"),
         ignore = function(x){x[1,]}
       )
     all(sort(table(d$type)) == c(1,1,14))
@@ -70,8 +70,8 @@ test_that("diff_align works with clean option", {
   expect_true({
     d <-
       diff_align(
-        text1 = text_c(text_c("a",letters[1:10]), "\n"),
-        text2 = text_c(text_c("b",letters[7:12]), "\n"),
+        text1 = stringb::text_c(stringb::text_c("a",letters[1:10]), "\n"),
+        text2 = stringb::text_c(stringb::text_c("b",letters[7:12]), "\n"),
         clean = function(x){text_replace(x,"\\w","")}
       )
     all(  grepl("^a",d$token_1) | is.na(d$token_1) ) &

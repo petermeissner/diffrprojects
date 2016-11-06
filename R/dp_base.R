@@ -294,7 +294,7 @@ dp_base <-
         from <- names(self$text[from])
         to   <- names(self$text[to])
         linker <- function(from, to, delete){
-          name <- text_c(from, "~", to)
+          name <- stringb::text_c(from, "~", to)
           if(delete){
             self$link[name] <- NULL
           }else{
