@@ -4,6 +4,7 @@ NEWS diffrprojects
 
 
 version 0.1.12 // 2016-11-01 ...
+--------------------------------------------------------------------------
 
 * FEATURE
     - extended documentation
@@ -15,7 +16,10 @@ version 0.1.12 // 2016-11-01 ...
     - as.data.frame method for alignment_data would fail in case of no data
 
 
+
+
 version 0.1.11 // 2016-10-25 ...
+--------------------------------------------------------------------------
 
 * BUGFIXES
     - using reserved name for alignment coding now gives more informative error message
@@ -24,9 +28,12 @@ version 0.1.11 // 2016-10-25 ...
 
 
 version 0.1.10 // 2016-10-20 ...
+--------------------------------------------------------------------------
 
 * FEATURE 
     - sort_alignment()
+
+
 
 
 version 0.1.9 // 2016-10-02 ... 

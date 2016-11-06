@@ -1,13 +1,13 @@
 ---
 title: "Projects for Text Version Comparison and Analytics in R"
 output:
-  pdf_document:
-    number_sections: yes
-    toc: yes
   html_document:
     keep_md: yes
     number_sections: yes
     self_contained: yes
+    toc: yes
+  pdf_document:
+    number_sections: yes
     toc: yes
 ---
 
@@ -151,7 +151,7 @@ library(rtext)
 
 **Contribution**
 
-Note, that this package uses a Contributor Code of Conduct. By participating in this project you agree to abide by its terms: http://contributor-covenant.org/version/1/0/0/ (basically this should be a place were people get along with each other respectful and nice because it's simply more fun that way for everybody)
+Note, that this package uses a Contributor Code of Conduct. By participating in this project you agree to abide by its terms: http://contributor-covenant.org/version/1/0/0/ (basically this should be a place where people get along with each other respectfully and nicely, because it's simply more fun that way for everybody)
 
 Contributions are very much welcome, e.g. in the form of:
 
@@ -220,7 +220,7 @@ dp$alignment[[1]] %>% head(30)
    
 ## Creating a Diffrprojects Instance
 
-To create a diffrproject we use the diffrproject creator object - its simply an object with an function that knows how to create a project. 
+To create a diffrproject we use the diffrproject creator object - it´s simply an object with a function that knows how to create a project. 
 
 Creating a project looks like this:
 
@@ -240,13 +240,13 @@ Et violà - we created a first, for now empty, project that we will use througho
 
 ## Some Help Please 
 
-To get a better idea about what this thing called *diffrproject* really is you can consult its help page which gives a broad overview over its capabilities:
+To get a better idea about what this thing called *diffrproject* really is, you can consult its help page which gives a broad overview over its capabilities:
 
 ```{r getting help, eval=FALSE}
 ?diffrproject
 ```
 
-Another way is to call the ls() method. This will present us with a data frame listing all fields where data is stored and all the methods (aka object specific functions) of our diffrprojects instance. Those methods and fields located in *private* are not for the user to mess around with while non-private (*self* aka public) data fields can be read by the user and public methods can be triggered by the user to manipulate the data or retrieve data in a specific format. 
+Another way is to call the ls() method. This will present us with a data frame listing, all fields where data is stored and all the methods (aka object specific functions) of our diffrprojects instance. Those methods and fields located in *private* are not for the user to mess around with while non-private (*self* aka public) data fields can be read by the user and public methods can be triggered by the user to manipulate the data or retrieve data in a specific format. 
 
 ```{r ls method}
 dp$ls()
@@ -266,7 +266,7 @@ class(dp)
 
 ## Adding Texts to Projects
 
-Our diffrproject (`dp`) has one method called `text_add()` that allows to add texts to the project. Basically the method can be used in three different flavors: adding character vectors, adding texts stored on disk, or by adding rtext objects (see rtext package:  https://CRAN.R-project.org/package=rtext; rtext objects are the way individual texts are represented within diffrprojects). For each of these use cases there is one option: `text`, `text_file`, `rtext`; respectively. 
+Our diffrproject (`dp`) has one method called `text_add()` that allows to add texts to the project. Basically the method can be used in three different flavors: adding character vectors, adding texts stored on disk, or by adding rtext objects (see rtext package:  https://CRAN.R-project.org/package=rtext; rtext objects are the way individual texts are represented within diffrprojects). For each of these used cases there is one option: `text`, `text_file`, `rtext`; respectively. 
 
 Below are shown examples using each of these methods:
 
@@ -310,9 +310,9 @@ readLines() or text_read() read in texts such that each line corresponds to one 
 
 
 
-## Piping methods 
+## Piping Methods 
 
-Now is a good time to mention a feature of diffrprojects that comes in handy: All functions that do not explicitly extract data (those usually have some 'get' as part of their name) do return return the object itself so that one can pipe together a series of method calls.
+Now is a good time to mention a feature of diffrprojects that comes in handy: All functions that do not explicitly extract data (those usually have some 'get' as part of their name) do return the object itself so that one can pipe together a series of method calls.
 
 Consider the following example where we initiate a new diffrprojects instance and add two texts in just one pipe:
 
@@ -331,7 +331,7 @@ length(dp$text)
 
 ## Getting Infos About Texts 
 
-If we want to get some general overview about the texts gathered in our project we can use the text_meta_data() method to do so. The method has no parameters and return a data.frame with several variables informing us about its source, length, encoding used for storage, and its name. 
+If we want to get some general overview about the texts gathered in our project, we can use the text_meta_data() method to do so. The method has no parameters and returns a data.frame with several variables informing us about its source, length, encoding used for storage, and its name. 
 
 ```{r text meta data}
 dp$text_meta_data()
@@ -341,7 +341,7 @@ dp$text_meta_data()
 
 ## Showing Text
 
-If you want to have a look at your texts you may do so by using the text's own text_show methods. Per default this method only shows the first 500 characters but it can be set to higher numbers as well. 
+If you want to have a look at your texts you may do so by using the text's own text_show methods. Per default this method only shows the first 500 characters, but it can be set to higher numbers as well. 
 
 ```{r}
 dp$text$version1$text_show(length=1000)
@@ -354,7 +354,7 @@ dp$text$version2$text_show(length=1000)
 
 Similar to the text_meta_data() method we can access the projects meta data via data fields meta and options. But contrary to the text_meta_data() method that gathers data from all the texts within the project and does not allow for manipulation of the data, the data fields allow reading and writing. 
 
-First let us have a look and thereafter turn of the message notification service:
+First let us have a look and thereafter turn off the message notification service:
 
 **getting data fields**
 ```{r options get}
@@ -368,9 +368,9 @@ dp$options$verbose <- FALSE
 
 (note, ask is deprecated and only remains for compatibility reasons but has no function anymore)
 
-Now its time to have a look at the projects meta data. It tells us when the project was created, which path to use for SQLite exports, which path to use for saving data as in RData format and what is the projects id. The id is a hash of a time stamp as well as session information which should ensure uniqueness across space and time. 
+Now it's time to have a look at the projects meta data. It tells us when the project was created, which path to use for SQLite exports, which path to use for saving data as in RData format and what is the projects id. The id is a hash of a time stamp as well as session information which should ensure uniqueness across space and time. 
 
-All these values can manipulated by the user to her liking. 
+All these values can be manipulated by the user to her liking. 
 
 ```{r meta}
 dp$meta
@@ -409,7 +409,7 @@ names(dp$text)
 
 ## Defining Relationships Between Texts: Linking
 
-The purpose of diffrprojects is to enable data collection on the difference of texts. Having filled a project with various texts there are endless possibilities to form pairs of text for comparison and change measurement - where endless actually is equal to: $n^2-n$. 
+The purpose of diffrprojects is to enable data collection on the difference of texts. Having filled a project with various texts, there are endless possibilities to form pairs of text for comparison and change measurement - where endless actually is equal to: $n^2-n$. 
 
 Linking can be done via the text_link method which accepts either index numbers or text names for its from and to arguments (a third argument delete will delete a specified link if set to TRUE).
 
@@ -418,14 +418,14 @@ dp$text_link(from = 1, to = 2)
 dp$text_link(from = 1, to = 2, delete = TRUE)
 ```
 
-If no arguments are specified text_link will linkthe first text to the second, the third to th fourth, the fourth to the fifths and so on.
+If no arguments are specified, text_link will link the first text to the second, the third to the fourth, the fourth to the fifths and so on.
 
 ```{r}
 dp$text_link()
 ```
 
 
-To get an idea of what links are currently specified we can directly access the link data field or/and ask R to transforme the list found there into a data.frame. 
+To get an idea of what links are currently specified, we can directly access the link data field or/and ask R to transform the list found there into a data.frame. 
 
 ```{r}
 dp$link
@@ -444,11 +444,11 @@ dp$link %>% as.data.frame()
 
 At the heart of each diffrproject lies the text_align method. This method compares two texts and tries to align parts of one text with parts of the other text. The first two arguments (`t1` and `t2`) are for specifying which pair of texts to compare - if left as-is, all text pairs that are specified within the link data field will be aligned. 
 
-Text parts are arbitrary character spans defined by the `tokenizer` argument. This argument expects a function splitting text into a token data.frame. If the tokenizer argument is left as-is it will default to text_tokenize_lines function from the stringb package. 
+Text parts are arbitrary character spans defined by the `tokenizer` argument. This argument expects a function splitting text into a token data.frame. If the tokenizer argument is left as-is, it will default to text_tokenize_lines function from the stringb package. 
 
 Text tokens can be pre-processed before alignment. The `clean` argument allows to hand over a function tranforming a charactr vector of text tokens into their clean counterparts. 
 
-The `ignore` arguments expects a function that is able to transform a character vector of tokens into a logical vector of same length indicating which tokens to ignore throughout the alignment process and which to consider. 
+The `ignore` arguments expects a function that is able to transform a character vector of tokens into a logical vector of same length, indicating which tokens to ignore throughout the alignment process and which to consider. 
 
 The next argument - `distance` - specifies which distance metrics to use to calculate distances between strings. 
 
@@ -485,7 +485,7 @@ lapply( dp$alignment, sum_up_changes)
 
 Now let us put some data into our diffrproject. 
 
-The most basic method to do so is simply called text_code. Text_code takes up to five arguments (the first three are mandatory) where one specifies the text to be coded (`text`, either by index number or by name), how the variable to store the information is called (`x`), and the index number or a vector of those indicating which characters of the text should be coded. The last two parameters are optional and specify which value the variable should hold (`val`) and at which hierarchy level the coding is placed (`hl`, higher or equal hierarchy levels will overwrite existing codings of lower hierarchy level for the same text, character span, and variable). 
+The most basic method to do so is simply called text_code. Text_code takes up to five arguments (the first three are mandatory), where one specifies the text to be coded (`text`, either by index number or by name), how the variable to store the information is called (`x`), and the index number or a vector of those indicating which characters of the text should be coded. The last two parameters are optional and specify which value the variable should hold (`val`) and at which hierarchy level the coding is placed (`hl`, higher or equal hierarchy levels will overwrite existing codings of lower hierarchy level for the same text, character span, and variable). 
 
 ```{r}
 dp$text_code(text = 1, x = "start", i=1:5, val = TRUE, hl = 0)
@@ -496,13 +496,13 @@ The text_code method is quite verbose and in most cases more suited to be access
 
 The text_code_regex method allows to search for text patterns and code a whole pattern instead of assigning codes character by character - the `i` argument of text_code gets replaced by a `pattern` argument. The in addition further arguments can be passed to the pattern search functions via `...` - see e.g. `?grep` for possible further arguments and https://stat.ethz.ch/R-manual/R-devel/library/base/html/regex.html for a description of regular expressions in R. 
 
-In this example we are searching for the word *"it"* in text 1 an code each instance. 
+In this example we are searching for the word *"it"* in text 1 and code each instance. 
 
 ```{r}
 dp$text_code_regex(text = 1, x = "it", pattern = "\\bit\\b", ignore.case=TRUE)
 ```
 
-Another variant of coding text is by using alignment tokens. Having alignment data availible this allows for selecting: link, alignment and text while the other arguments from above stay the same. 
+Another variant of coding text is by using alignment tokens. Having alignment data availible, this allows for selecting: link, alignment and text while the other arguments from above stay the same. 
 
 
 ```{r}
@@ -529,7 +529,7 @@ dp$text_code_alignment_token(
 
 ## Getting Text Codings
 
-The most basic way to get text data is to use the text_data method. This method will go through all or only slected texts, gather all the data stored there and put it into a neat data.frame where name identifies the text from which the data comes per name, char informs us about the character that was coded, and i refers to the characters position within the text. All other variables hold the data we added during the examples above. 
+The most basic way to get text data is to use the text_data method. This method will go through all or only selected texts, gather all the data stored there and put it into a neat data.frame where name identifies the text from which the data comes per name, char informs us about the character that was coded, and i refers to the characters position within the text. All other variables hold the data we added during the examples above. 
 
 ```{r}
 dp$text_data(text = 1) %>% head()
@@ -541,11 +541,11 @@ dp$text_data(text = 1) %>% head()
 
 ## Aggregating Text Codings
 
-The usage of text_data has its merits but often one is more interested in text data aggregated to a specific level. The following three aggregation function offer a solution to this problem: tokenize_text_data_lines, tokenize_text_data_words, and tokenize_text_data_regex. These three methods make use of the similiary named methods provided by the rtext package. 
+The usage of text_data has its merits but often one is more interested in text data aggregated to a specific level. The following three aggregation functions offer a solution to this problem: tokenize_text_data_lines, tokenize_text_data_words, and tokenize_text_data_regex. These three methods make use of the similiary named methods provided by the rtext package. 
 
-One important thing to keep in mind is that using these methods implies aggregating several data values on character level into one data value at token level. Therefore there has to be some aggregation function to be invoved. The default is to use the value that occurs most often on character level, if more than one distinct values occur more than once the first is choosen. 
+One important thing to keep in mind is that using these methods implies aggregating several data values on character level into one data value at token level. Therefore there has to be some aggregation function to be involved. The default is to use the value that occurs most often on character level, if more than one distinct values occur more than once the first is choosen. 
 
-The aggegation function can be changed to whatever function the user seems appropriate by passing it to `aggregate_function` - as long as it reduces a vector of values into a vector with only one value. 
+The aggregation function can be changed to whatever function the user seems appropriate by passing it to `aggregate_function` - as long as it reduces a vector of values into a vector with only one value. 
 
 The `join` argument allows to decide how text and data are joined into the resulting data.frame - left: all token, right: all data, full: token with or without data and data with or without token.
 
@@ -567,9 +567,9 @@ dp$tokenize_text_data_lines(
 
 ## Text Coding Inheritence
 
-Having aligned two texts via token pairs another functionality of diffrprojects becomes availible: text coding inheritance via no-change tokens. This means that text codings can get copied to those tokens they are aligned with given that they are considered the same - i.e. the distance equals zero and the change type therfore is no-change. 
+Having aligned two texts via token pairs another functionality of diffrprojects becomes availible: text coding inheritance via no-change tokens. This means that text codings can get copied to those tokens they are aligned with, given that they are considered the same - i.e. the distance equals zero and the change type therefore is no-change. 
 
-To show this feature we use the text_inherit method and we will start with a fresh example. A new project with two texts. The first text gets some codings, then they are aligned in a last step codings are transfered from from one text to the other via the text_data_inherit method. 
+To show this feature we use the text_inherit method and we will start with a fresh example. A new project with two texts. The first text gets some codings, then they are aligned, and in a last step codings are transfered from one text to the other via the text_data_inherit method. 
 
 
 ```{r}
@@ -608,7 +608,7 @@ dp$tokenize_text_data_lines(2)
 
 ## Saving and Loading Projects
 
-Diffrprojects also allow for storing and loading projaect to and from disk. 
+Diffrprojects also allow for storing and loading project to and from disk. 
 
 ```{r}
 # save to file
@@ -641,7 +641,7 @@ dpw <- dpw & wbs
 
 ```{r, eval=dpw}
 library(diffrprojectswidget)
-dp_table(dp, 1, height = 800)
+dp_table(dp, 1, height = 800, width = "100%")
 ```
 
 
@@ -689,7 +689,7 @@ Meta is a list with only a few items providing/storing general information for t
 
 ### text
 
-Text is a list of rtext instances. Each rtext instances stores text's actual text as data gathered on the text. 
+Text is a list of rtext instances. Each rtext instance stores text's actual text as data gathered on the text. 
 
 The text_data method will return a data.frame containing all text data, while tokenize_text_data_xxx methods will aggregate text data to specific token levels: words, lines or user defined patterns. 
 
@@ -710,29 +710,23 @@ The list of alignments can be transformed to one big data.frame via: as.data.fra
 
 ### alignment_data
 
-The list of alignment_data can be transformed to one big data.frame via: as.data.frame function. 
-
-
-[[[???!!!]]]
-
-
-
+Alignment_data is a list of dataframes. 
 
 
 
 
 ## The Diffrprojects Universe
 
-Diffrprojects has two other packages it relies heavily on and one package that add further features. 
+Diffrprojects has two other packages it relies heavily on and one package that adds further features. 
 
 
 ### Rtext
 
 Rtext is a package providing a data structure and accompanying methods to handle texts / strings / characters as well as data bound to these texts / strings / characters. All string manipulations are based upon the stringb package. All diffrproject texts are actually rtext instances. Unfortunate you cannot yet manipulate rtext objects once they are part of a diffrproject and expect that data on the relation between texts (i.e. alignment and alignment_data) gets updated as well - hence manipulating texts might lead to inconsistencies in alignments and alignment_data. 
 
-A strategy to implement such a feature would be to extend rtext in such a way that text manipulation methods would pass change information to a list of call back functions. Furthermore, diffrprojects need to methods that allow for handling shifts in the character sequences of texts. Those update methods can than be passed to rtext instances once they become part of a diffrproject. Then whenever e.g. some characters are deleted alignments as well as alignment data touching these character spans get deleted as well and character span information for all other alignments get shifted by the appropriate amount. 
+A strategy to implement such a feature would be to extend rtext in such a way that text manipulation methods would pass change information to a list of call back functions. Furthermore, diffrprojects need two methods that allow for handling shifts in the character sequences of texts. Those update methods can then be passed to rtext instances once they become part of a diffrproject. Then whenever e.g. some characters are deleted, alignments as well as alignment data touching these character spans get deleted as well and character span information for all other alignments get shifted by the appropriate amount. 
 
-For those preferring a version using stringi/stringr - go ahead - since rtext and diffrprojects provide tests for all respectively for all vital parts and stringb copied the function naming scheme from stringr anyways this should be a small matter. 
+For those preferring a version using stringi/stringr - go ahead - since rtext and diffrprojects provide tests for all respectively for all vital parts and stringb copied the function naming scheme from stringr anyways, this should be a small matter. 
 
 
 
@@ -754,25 +748,25 @@ HTMLwidgets (see: http://www.htmlwidgets.org/) are a framework that allows for i
 
 ## Two words or more about Objects / R6 / Classes / Instances
 
-Diffrprojects is written in object oriented programming style because it seemed adequate to do so. Why? Because in OOP in comparison to functional programming one does more stuff like in-place-modification of data, data and its modifiers (methods) come in one big bundle, its easier to work on the current state of the object / to only allow consistent states of the object. Yeap everything here could have done with FP as well - please go ahead. 
+Diffrprojects is written in object oriented programming style because it seemed adequate to do so. Why? Because in OOP in comparison to functional programming one does more stuff like in-place-modification of data, data and its modifiers (methods) come in one big bundle, it´s easier to work on the current state of the object / to only allow consistent states of the object. Yeap everything here could have done with FP as well - please go ahead. 
 
-The downside of using OOP in R is that what happens becomes much mor intrasparent and harder to reason about - I am sorry for that. 
+The downside of using OOP in R is that what happens becomes much more intrasparent and harder to reason about - I am sorry for that. 
 
 
 ### Classes and Instances
 
-Classes are object blueprints - a schema that describes how an object of this class should look like. Classes might be objects too but they are not the objects they describe. To get an object instance of an object - a manifestion of the idea of the object described in the class - one has to explicitly translate execute the instructions led out in the class, e.g. via: `diffrproject$new()`, or `rtext$new()`
+Classes are object blueprints - a schema that describes how an object of this class should look like. Classes might be objects too, but they are not the objects they describe. To get an object instance of an object - a manifestion of the idea of the object described in the class - one has to explicitly translate execute the instructions led out in the class, e.g. via: `diffrproject$new()`, or `rtext$new()`
 
 
 ### R6
 
-R6 is a package that provides a framework that makes it very very easy to build objects in R that are more like things known from traditional all purpose programming languages like say Java or C++.  
+R6 is a package that provides a framework that makes it very, very easy to build objects in R that are more like things known from traditional all purpose programming languages like Java or C++.  
 
 
 
 ### Methods
 
-Methods are exactly like functions only that they are not floating around loosely in your global environment or elsewhere but are bound to specific instances of an object. So there is not one text_add function that can be used with any diffrproject but there is one specific text_add method for each instance of an diffrproject. This quite strange right? Why the duplication? Well with that you can e.g. pass this method around, hand it over to a function that calls it or put it into another object maybe that than can decide to use it or not. A silly example: 
+Methods are exactly like functions, only that they are not floating around loosely in your global environment or elsewhere, but are bound to specific instances of an object. So there is not one text_add function that can be used with any diffrproject, but there is one specific text_add method for each instance of an diffrproject. This sounds quite strange, right? Why the duplication? Well, with that you can e.g. pass this method around, hand it over to a function that calls it or put it into another object maybe that than can decide to use it or not. A silly example: 
 
 
 ```{r}

@@ -20,3 +20,4 @@ sourcode.Rmd
 README_files
 README_files/*
 dp_save.RData
+^cran-comments\.md$
