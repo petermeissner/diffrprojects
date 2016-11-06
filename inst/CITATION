@@ -4,7 +4,7 @@ note <- sprintf("R package version %s", meta$Version)
 c(
   bibentry(
     bibtype = "Manual",
-    title = "diffrprojects: Using diffr for more than two texts",
+    title = "diffrprojects: Projects for Text Version Comparison and Analytics in R",
     author = c(person("Peter", "Mei\u00dfner")),
     year = year,
     note = note,

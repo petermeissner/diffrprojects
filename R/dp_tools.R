@@ -100,6 +100,7 @@ as.data.frame.named_df_list <- function(x, row.names=NULL, optional=FALSE, dfnam
   # prepare variable
   each <- unlist(lapply(x, dim1))
   var <- names(x)
+  if( is.null(var) ){ var <- ""}
   var <- unlist(mapply(rep, var, each, SIMPLIFY=FALSE))
   # doing-duty-to-do
   if( class(x[[1]])!="data.frame" ){
@@ -135,7 +136,8 @@ as.data.frame.alignment_list <- function(x, row.names=NULL, optional=FALSE, ...)
 #' @method as.data.frame alignment_data_list
 #' @export
 as.data.frame.alignment_data_list <- function(x, row.names=NULL, optional=FALSE, ...){
-  if(length(x) > 0 ){
+  x <- x[ !unlist(lapply(x, is.null)) ]
+  if( length(x) > 0 ){
     tmp <- as.data.frame.named_df_list(
       x,
       row.names = row.names,

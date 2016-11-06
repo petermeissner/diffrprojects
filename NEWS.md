@@ -11,14 +11,15 @@ version 0.1.12 // 2016-11-01 ...
     - usage section in README
     - CRAN submission
 
-
+* BUGFIXES 
+    - as.data.frame method for alignment_data would fail in case of no data
 
 
 version 0.1.11 // 2016-10-25 ...
 
 * BUGFIXES
     - using reserved name for alignment coding now gives more informative error message
-
+    
 
 
 

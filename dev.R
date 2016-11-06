@@ -61,16 +61,39 @@ dp <-
   text_link()$
   text_align( maxDist = 1 )
 
-dp$text_code_regex(text=1, x="you", pattern="du|Du", val=TRUE)
-dp$text_code_regex(text=1, x="me", pattern="ich|Ich", val=TRUE)
+# dp$text_code_regex(text=1, x="you", pattern="du|Du", val=TRUE)
+# dp$text_code_regex(text=1, x="me", pattern="ich|Ich", val=TRUE)
+#
+# dp$text_code_regex(text=2, x="you", pattern="du|Du", val=TRUE)
+# dp$text_code_regex(text=2, x="me", pattern="ich|Ich", val=TRUE)
+#
+# dp$alignment_code(1,1,"x", "muhaha")
+# dp$alignment_code(1,1,"dings", "check this out")
 
-dp$text_code_regex(text=2, x="you", pattern="du|Du", val=TRUE)
-dp$text_code_regex(text=2, x="me", pattern="ich|Ich", val=TRUE)
+ dp$debug()
 
-dp$alignment_code(1,1,"x", "muhaha")
-dp$alignment_code(1,1,"dings", "check this out")
 
-dp$debug()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

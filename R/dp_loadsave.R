@@ -97,6 +97,9 @@ dp_loadsave <-
         # alignment data
         self$alignment      <- tmp$alignment
 
+        # link
+        self$link           <- tmp$link
+
         # texts
         self$text <- list()
         text_names <- names(tmp$text)

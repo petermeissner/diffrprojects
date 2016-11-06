@@ -1,0 +1,56 @@
+---
+title: "sourcecode"
+output: pdf_document
+---
+
+```{r, echo=FALSE, results='asis'}
+stringb             <- 
+  c(
+    list.files("../stringb/R", full.names = TRUE),
+    list.files("../stringb/src", full.names = TRUE, pattern = "\\.cpp$")
+  )
+rtext               <- list.files("../rtext/R", full.names = TRUE)
+diffrprojects       <- list.files("../diffrprojects/R", full.names = TRUE)
+diffrprojectswidget <- list.files("../diffrprojectswidget/R", full.names = TRUE)
+
+cat("\\section{stringb}\n\n")
+for(i in seq_along(stringb) ){
+  cat(
+    stringr::str_replace_all(paste0("\\subsection{", basename(stringb[i]), "}\n\n"), "_", " ")
+  )
+  cat("\\begin{verbatim}\n")
+  cat(readLines(stringb[i]), sep="\n")
+  cat("\\end{verbatim}\n")
+}
+
+cat("\\section{rtext}\n\n")
+for(i in seq_along(rtext) ){
+  cat(
+    stringr::str_replace_all(paste0("\\subsection{", basename(rtext[i]), "}\n\n"), "_", " ")
+  )
+  cat("\\begin{verbatim}\n")
+  cat(readLines(rtext[i]), sep="\n")
+  cat("\\end{verbatim}\n")
+}
+
+cat("\\section{diffrprojects}\n\n")
+for(i in seq_along(diffrprojects) ){
+  cat(
+    stringr::str_replace_all(paste0("\\subsection{", basename(diffrprojects[i]), "}\n\n"), "_", " ")
+  )
+  cat("\\begin{verbatim}\n")
+  cat(readLines(diffrprojects[i]), sep="\n")
+  cat("\\end{verbatim}\n")
+}
+
+cat("\\section{diffrprojectswidget}\n\n")
+for(i in seq_along(diffrprojectswidget) ){
+  cat(
+    stringr::str_replace_all(paste0("\\subsection{", basename(diffrprojectswidget[i]), "}\n\n"), "_", " ")
+  )
+  cat("\\begin{verbatim}\n")
+  cat(readLines(diffrprojectswidget[i]), sep="\n")
+  cat("\\end{verbatim}\n")
+}
+```
+

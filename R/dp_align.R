@@ -472,10 +472,12 @@ dp_align <-
         link <- names(self$link)[link]
       }
 
+
+      iffer <- self$alignment[[link]]$alignment_i %in% alignment_i
       tbc <-
         self$alignment[[link]] %>%
           subset(
-            subset = self$alignment[[link]]$alignment_i %in% alignment_i,
+            subset = iffer,
             select = c("from_1","to_1", "from_2", "to_2")
           )
 
@@ -533,12 +535,6 @@ dp_align <-
       return(invisible(self))
     },
 
-
-    #### [ text_code_alignment_token_regex() ] =====================================================
-
-    text_code_alignment_token_regex = function(link=NULL, alignment_i, text1=TRUE, text2=TRUE, x=NULL, pattern=NULL, val=NA, hl=0, ...){
-
-    },
 
 
     #### [ alignment_data_full ] #### ................................................

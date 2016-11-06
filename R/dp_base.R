@@ -157,7 +157,7 @@ dp_base <-
 
 
       #### [ text_data() ] =====================================================
-      text_data = function(text=NULL, var){
+      text_data = function(text=NULL){
         tmp <- list()
         if( is.null(text) ){
           is <- seq_along(self$text)
@@ -166,7 +166,7 @@ dp_base <-
         }
         for(i in is){
           tmp[[i]] <- self$text[[i]]$char_data_get()
-          tmp[[i]]$name <- names(self$text)[i]
+          tmp[[i]]$name <- rep(names(self$text)[i], nrow(tmp[[i]]))
         }
         tmp <- do.call(rbind_fill, tmp)
         return(tmp)
@@ -185,7 +185,11 @@ dp_base <-
           is <- text
         }
         for(i in is){
-          tmp[[i]] <- self$text[[i]]$tokenize_data_lines()
+          tmp[[i]] <-
+            self$text[[i]]$tokenize_data_lines(
+              aggregate_function = aggregate_function,
+              join = join
+            )
           tmp[[i]]$name <- names(self$text)[i]
         }
         tmp <- do.call(rbind_fill, tmp)
@@ -244,8 +248,8 @@ dp_base <-
               perl        = FALSE,
               useBytes    = FALSE,
               non_token   = FALSE,
-              join        = c("full", "left", "right", ""),
-              aggregate_function = NULL
+              join        = join,
+              aggregate_function = aggregate_function
             )
           tmp[[i]]$name <- names(self$text)[i]
         }

@@ -72,12 +72,17 @@ dp_export <-
           RSQLite::dbWriteTable(con, "meta", meta, overwrite=TRUE)
 
           # link
-          link <- as.data.frame(tb_exported$link)
-          rownames(tb_exported$link) <- NULL
+          link <- lapply(tb_exported$link, as.data.frame)
+          link_names <- names(link)
+          link <- do.call(rbind, link)
+          link$name <- link_names
+          rownames(link) <- NULL
           RSQLite::dbWriteTable(con, "link", link, overwrite=TRUE)
 
           # alignment
-          alignment <- as.data.frame(tb_exported$alignment)
+          alignment_names <- names(tb_exported$alignment)
+          alignment <- do.call(rbind, tb_exported$alignment)
+          alignment$link <- alignment_names
           rownames(alignment) <- NULL
           RSQLite::dbWriteTable(con, "alignment", alignment, overwrite=TRUE)
 
