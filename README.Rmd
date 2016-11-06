@@ -1,13 +1,13 @@
 ---
 title: "Projects for Text Version Comparison and Analytics in R"
 output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
   html_document:
     keep_md: yes
     number_sections: yes
     self_contained: yes
-    toc: yes
-  pdf_document:
-    number_sections: yes
     toc: yes
 ---
 
@@ -610,7 +610,7 @@ dp$tokenize_text_data_lines(2)
 
 Diffrprojects also allow for storing and loading project to and from disk. 
 
-```{r}
+```{r, eval=FALSE}
 # save to file
 dp$save(file = "dp_save.RData")
 
@@ -620,6 +620,9 @@ rm(dp)
 # create new object and load saved data into new object
 dp <- diffrproject$new()
 dp$load("dp_save.RData")
+```
+
+```{r}
 dp$tokenize_text_data_lines(2)
 ```
 
