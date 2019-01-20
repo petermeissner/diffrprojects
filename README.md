@@ -1,4 +1,15 @@
-# Projects for Text Version Comparison and Analytics in R
+---
+title: "Projects for Text Version Comparison and Analytics in R"
+output:
+  html_document:
+    keep_md: yes
+    number_sections: yes
+    self_contained: yes
+    toc: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+---
 
 
 
@@ -24,8 +35,8 @@
 
 
 
-*R code:* 1625<br> 
-*C++ code:* 112<br> 
+*R code:* 1626<br> 
+*C++ code:* 122<br> 
 *test code:* 1010
 
 
@@ -34,7 +45,7 @@
 
 **Version**
 
-0.1.12
+0.1.14
 
 
 
@@ -42,8 +53,9 @@
 
 **Description**
 
-Provides data structures and methods for manual as wells as
-    automated R based text comparison and text as well as change coding.
+Provides data structures and methods for measuring, coding, 
+    and analysing text within text corpora. The package allows for manual as 
+    well computer aided coding on character, token and text pair level. 
 
 
 
@@ -67,12 +79,15 @@ MIT + file LICENSE <br>Peter Meissner <retep.meissner@gmail.com> [aut, cre] Ulri
 
 
 Meißner P (2016). _diffrprojects: Projects for Text Version Comparison and Analytics in
-R_. R package version 0.1.12, <URL: https://github.com/petermeissner/diffrprojects>.
+R_. R package version 0.1.14, <URL: https://github.com/petermeissner/diffrprojects>.
 
-Sieberer U, Meißner P, Keh J and Müller W (2016). "Mapping and Explaining Parliamentary
-Rule Changes in Europe: A Research Program." _Legislative Studies Quarterly_, *41*(1),
-pp. 61-88. ISSN 1939-9162, doi: 10.1111/lsq.12106 (URL:
-http://doi.org/10.1111/lsq.12106), <URL: http://dx.doi.org/10.1111/lsq.12106>.
+Sieberer U, Meißner P, Keh J, Müller W (2016). "Mapping and Explaining Parliamentary Rule
+Changes in Europe: A Research Program." _Legislative Studies Quarterly_, *41*(1), 61-88.
+ISSN 1939-9162, doi: 10.1111/lsq.12106 (URL: http://doi.org/10.1111/lsq.12106), <URL:
+http://dx.doi.org/10.1111/lsq.12106>.
+
+To see these entries in BibTeX format, use 'print(<citation>, bibtex=TRUE)',
+'toBibtex(.)', or set 'options(citation.bibtex.max=999)'.
 
 **BibTex for citing**
 
@@ -247,13 +262,6 @@ Creating a project looks like this:
 
 ```r
 library(diffrprojects)
-```
-
-```
-## Warning: package 'rtext' was built under R version 3.3.2
-```
-
-```r
 dp <- diffrproject$new()
 ```
 
@@ -552,7 +560,7 @@ dp$meta
 
 ```
 ## $ts_created
-## [1] "2016-11-06 11:58:37 UTC"
+## [1] "2019-01-20 20:16:40 UTC"
 ## 
 ## $db_path
 ## [1] "./diffrproject.db"
@@ -561,7 +569,7 @@ dp$meta
 ## [1] ""
 ## 
 ## $project_id
-## [1] "2e88babb177638e5f4368a2c8fe3fb5f"
+## [1] "7021272f20f35f96963c67897374cd30"
 ```
 
 ```r
@@ -741,11 +749,11 @@ lapply( dp$alignment, sum_up_changes)
 
 ```
 ## $`version1~version2`
-## # A tibble: 4 × 2
-##        type sum_of_change
-##       <chr>         <dbl>
-## 1    change            47
-## 2  deletion            25
+## # A tibble: 4 x 2
+##   type      sum_of_change
+##   <chr>             <dbl>
+## 1 change               47
+## 2 deletion             25
 ## 3 insertion           104
 ## 4 no-change             0
 ```
@@ -983,6 +991,10 @@ rm(dp)
 # create new object and load saved data into new object
 dp <- diffrproject$new()
 dp$load("dp_save.RData")
+```
+
+
+```r
 dp$tokenize_text_data_lines(2)
 ```
 
@@ -1033,8 +1045,8 @@ library(diffrprojectswidget)
 dp_table(dp, 1, height = 800, width = "100%")
 ```
 
-<!--html_preserve--><div id="htmlwidget-12a40978df0f1fcc8402" style="width:100%;height:800px;" class="dp_table html-widget"></div>
-<script type="application/json" data-for="htmlwidget-12a40978df0f1fcc8402">{"x":{"alignment":{"alignment_i":[1,23,2,24,3,25,4,26,5,27,6,7,8,9,10,11,12,13,28,14,15,29,16,17,18,19,20,21,22,30,31],"token_i_1":[1,null,2,null,3,null,4,null,5,null,6,7,8,9,10,11,12,13,null,14,15,null,16,17,18,19,20,21,22,null,null],"token_i_2":[6,1,7,2,8,3,9,4,10,5,11,12,null,null,23,null,null,null,13,14,null,15,16,17,18,19,20,21,22,24,25],"distance":[0,20,0,17,0,23,0,21,0,9,0,0,24,8,0,22,25,12,18,0,23,23,0,0,0,0,0,0,0,23,17],"type":["no-change","insertion","no-change","insertion","no-change","insertion","no-change","insertion","no-change","insertion","no-change","no-change","deletion","deletion","no-change","deletion","deletion","deletion","insertion","no-change","deletion","insertion","no-change","no-change","no-change","no-change","no-change","no-change","no-change","insertion","insertion"],"from_1":[1,null,18,null,42,null,63,null,86,null,109,134,158,183,193,217,240,266,null,280,305,null,329,347,369,391,414,438,461,null,null],"to_1":[16,null,40,null,61,null,84,null,107,null,132,156,181,190,215,238,264,277,null,303,327,null,345,367,389,412,436,459,478,null,null],"from_2":[97,1,114,22,138,40,159,64,182,86,205,230,null,null,475,null,null,null,254,274,null,299,323,341,363,385,408,432,455,499,523],"to_2":[112,20,136,38,157,62,180,84,203,94,228,252,null,null,497,null,null,null,271,297,null,321,339,361,383,406,430,453,472,521,539]},"alignment_vars":["alignment_i","token_i_1","token_i_2","distance","type","from_1","to_1","from_2","to_2"],"text1":"This part of the\ndocument has stayed the\nsame from version to\nversion.  It shouldn't\nbe shown if it doesn't\nchange.  Otherwise, that\nwould not be helping to\ncompress the size of the\nchanges.\n\nThis paragraph contains\ntext that is outdated.\nIt will be deleted in the\nnear future.\n\nIt is important to spell\ncheck this dokument. On\nthe other hand, a\nmisspelled word isn't\nthe end of the world.\nNothing in the rest of\nthis paragraph needs to\nbe changed. Things can\nbe added after it.\n","text2":"This is an important\nnotice! It should\ntherefore be located at\nthe beginning of this\ndocument!\n\nThis part of the\ndocument has stayed the\nsame from version to\nversion.  It shouldn't\nbe shown if it doesn't\nchange.  Otherwise, that\nwould not be helping to\ncompress anything.\n\nIt is important to spell\ncheck this document. On\nthe other hand, a\nmisspelled word isn't\nthe end of the world.\nNothing in the rest of\nthis paragraph needs to\nbe changed. Things can\nbe added after it.\n\nThis paragraph contains\nimportant new additions\nto this document.","alignment_data":{},"alignment_data_vars":[],"alignment_text1_data":{},"alignment_text2_data":{},"alignment_text_data_vars":[],"options":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f112a40978df0f1fcc84" style="width:100%;height:800px;" class="dp_table html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f112a40978df0f1fcc84">{"x":{"alignment":{"alignment_i":[1,23,2,24,3,25,4,26,5,27,6,7,8,9,10,11,12,13,28,14,15,29,16,17,18,19,20,21,22,30,31],"token_i_1":[1,null,2,null,3,null,4,null,5,null,6,7,8,9,10,11,12,13,null,14,15,null,16,17,18,19,20,21,22,null,null],"token_i_2":[6,1,7,2,8,3,9,4,10,5,11,12,null,null,23,null,null,null,13,14,null,15,16,17,18,19,20,21,22,24,25],"distance":[0,20,0,17,0,23,0,21,0,9,0,0,24,8,0,22,25,12,18,0,23,23,0,0,0,0,0,0,0,23,17],"type":["no-change","insertion","no-change","insertion","no-change","insertion","no-change","insertion","no-change","insertion","no-change","no-change","deletion","deletion","no-change","deletion","deletion","deletion","insertion","no-change","deletion","insertion","no-change","no-change","no-change","no-change","no-change","no-change","no-change","insertion","insertion"],"from_1":[1,null,18,null,42,null,63,null,86,null,109,134,158,183,193,217,240,266,null,280,305,null,329,347,369,391,414,438,461,null,null],"to_1":[16,null,40,null,61,null,84,null,107,null,132,156,181,190,215,238,264,277,null,303,327,null,345,367,389,412,436,459,478,null,null],"from_2":[97,1,114,22,138,40,159,64,182,86,205,230,null,null,475,null,null,null,254,274,null,299,323,341,363,385,408,432,455,499,523],"to_2":[112,20,136,38,157,62,180,84,203,94,228,252,null,null,497,null,null,null,271,297,null,321,339,361,383,406,430,453,472,521,539]},"alignment_vars":["alignment_i","token_i_1","token_i_2","distance","type","from_1","to_1","from_2","to_2"],"text1":"This part of the\ndocument has stayed the\nsame from version to\nversion.  It shouldn't\nbe shown if it doesn't\nchange.  Otherwise, that\nwould not be helping to\ncompress the size of the\nchanges.\n\nThis paragraph contains\ntext that is outdated.\nIt will be deleted in the\nnear future.\n\nIt is important to spell\ncheck this dokument. On\nthe other hand, a\nmisspelled word isn't\nthe end of the world.\nNothing in the rest of\nthis paragraph needs to\nbe changed. Things can\nbe added after it.\n","text2":"This is an important\nnotice! It should\ntherefore be located at\nthe beginning of this\ndocument!\n\nThis part of the\ndocument has stayed the\nsame from version to\nversion.  It shouldn't\nbe shown if it doesn't\nchange.  Otherwise, that\nwould not be helping to\ncompress anything.\n\nIt is important to spell\ncheck this document. On\nthe other hand, a\nmisspelled word isn't\nthe end of the world.\nNothing in the rest of\nthis paragraph needs to\nbe changed. Things can\nbe added after it.\n\nThis paragraph contains\nimportant new additions\nto this document.","alignment_data":{},"alignment_data_vars":[],"alignment_text1_data":{},"alignment_text2_data":{},"alignment_text_data_vars":[],"options":[]},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 
@@ -1043,8 +1055,8 @@ library(diffrprojectswidget)
 dp_vis(dp, 1, height = 300)
 ```
 
-<!--html_preserve--><div id="htmlwidget-df1aa2e87159615da0ee" style="width:100%;height:300px;" class="dp_vis html-widget"></div>
-<script type="application/json" data-for="htmlwidget-df1aa2e87159615da0ee">{"x":{"alignment":"[[1,6,0,\"no-change\"],[null,1,20,\"insertion\"],[2,7,0,\"no-change\"],[null,2,17,\"insertion\"],[3,8,0,\"no-change\"],[null,3,23,\"insertion\"],[4,9,0,\"no-change\"],[null,4,21,\"insertion\"],[5,10,0,\"no-change\"],[null,5,9,\"insertion\"],[6,11,0,\"no-change\"],[7,12,0,\"no-change\"],[8,null,24,\"deletion\"],[9,null,8,\"deletion\"],[10,23,0,\"no-change\"],[11,null,22,\"deletion\"],[12,null,25,\"deletion\"],[13,null,12,\"deletion\"],[null,13,18,\"insertion\"],[14,14,0,\"no-change\"],[15,null,23,\"deletion\"],[null,15,23,\"insertion\"],[16,16,0,\"no-change\"],[17,17,0,\"no-change\"],[18,18,0,\"no-change\"],[19,19,0,\"no-change\"],[20,20,0,\"no-change\"],[21,21,0,\"no-change\"],[22,22,0,\"no-change\"],[null,24,23,\"insertion\"],[null,25,17,\"insertion\"]]","alignment_vars":"[\"token_i_1\",\"token_i_2\",\"distance\",\"type\"]","text":"[[1,1,16,\"This part of the\",1],[2,18,40,\"document has stayed the\",1],[3,42,61,\"same from version to\",1],[4,63,84,\"version.  It shouldn't\",1],[5,86,107,\"be shown if it doesn't\",1],[6,109,132,\"change.  Otherwise, that\",1],[7,134,156,\"would not be helping to\",1],[8,158,181,\"compress the size of the\",1],[9,183,190,\"changes.\",1],[10,193,215,\"This paragraph contains\",1],[11,217,238,\"text that is outdated.\",1],[12,240,264,\"It will be deleted in the\",1],[13,266,277,\"near future.\",1],[14,280,303,\"It is important to spell\",1],[15,305,327,\"check this dokument. On\",1],[16,329,345,\"the other hand, a\",1],[17,347,367,\"misspelled word isn't\",1],[18,369,389,\"the end of the world.\",1],[19,391,412,\"Nothing in the rest of\",1],[20,414,436,\"this paragraph needs to\",1],[21,438,459,\"be changed. Things can\",1],[22,461,478,\"be added after it.\",1],[1,1,20,\"This is an important\",2],[2,22,38,\"notice! It should\",2],[3,40,62,\"therefore be located at\",2],[4,64,84,\"the beginning of this\",2],[5,86,94,\"document!\",2],[6,97,112,\"This part of the\",2],[7,114,136,\"document has stayed the\",2],[8,138,157,\"same from version to\",2],[9,159,180,\"version.  It shouldn't\",2],[10,182,203,\"be shown if it doesn't\",2],[11,205,228,\"change.  Otherwise, that\",2],[12,230,252,\"would not be helping to\",2],[13,254,271,\"compress anything.\",2],[14,274,297,\"It is important to spell\",2],[15,299,321,\"check this document. On\",2],[16,323,339,\"the other hand, a\",2],[17,341,361,\"misspelled word isn't\",2],[18,363,383,\"the end of the world.\",2],[19,385,406,\"Nothing in the rest of\",2],[20,408,430,\"this paragraph needs to\",2],[21,432,453,\"be changed. Things can\",2],[22,455,472,\"be added after it.\",2],[23,475,497,\"This paragraph contains\",2],[24,499,521,\"important new additions\",2],[25,523,539,\"to this document.\",2]]","text_vars":"[\"token_i\",\"from\",\"to\",\"text\",\"tnr\"]","alignment_data":"[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]","alignment_data_vars":"[]","text1_data":"[[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]]","text2_data":"[[null,null],[null,null],[null,null],[null,null],[null,null],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[\"inherited\",\"inherited\"],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null],[null,null]]","text_data_vars":"[\"test1\",\"test2\"]","options":[]},"evals":["alignment","alignment_vars","text","text_vars","alignment_data","alignment_data_vars","text1_data","text2_data","text_data_vars"],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-02df1aa2e87159615da0" style="width:100%;height:300px;" class="dp_vis html-widget"></div>
+<script type="application/json" data-for="htmlwidget-02df1aa2e87159615da0">{"x":{"alignment":"[[1,6,0,\"no-change\"],[null,1,20,\"insertion\"],[2,7,0,\"no-change\"],[null,2,17,\"insertion\"],[3,8,0,\"no-change\"],[null,3,23,\"insertion\"],[4,9,0,\"no-change\"],[null,4,21,\"insertion\"],[5,10,0,\"no-change\"],[null,5,9,\"insertion\"],[6,11,0,\"no-change\"],[7,12,0,\"no-change\"],[8,null,24,\"deletion\"],[9,null,8,\"deletion\"],[10,23,0,\"no-change\"],[11,null,22,\"deletion\"],[12,null,25,\"deletion\"],[13,null,12,\"deletion\"],[null,13,18,\"insertion\"],[14,14,0,\"no-change\"],[15,null,23,\"deletion\"],[null,15,23,\"insertion\"],[16,16,0,\"no-change\"],[17,17,0,\"no-change\"],[18,18,0,\"no-change\"],[19,19,0,\"no-change\"],[20,20,0,\"no-change\"],[21,21,0,\"no-change\"],[22,22,0,\"no-change\"],[null,24,23,\"insertion\"],[null,25,17,\"insertion\"]]","alignment_data":"[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]","alignment_vars":"[\"token_i_1\",\"token_i_2\",\"distance\",\"type\"]","alignment_data_vars":"[]","text":"[[1,1,16,\"This part of the\",1,\"inherited\",\"inherited\"],[2,18,40,\"document has stayed the\",1,\"inherited\",\"inherited\"],[3,42,61,\"same from version to\",1,\"inherited\",\"inherited\"],[4,63,84,\"version.  It shouldn't\",1,\"inherited\",\"inherited\"],[5,86,107,\"be shown if it doesn't\",1,\"inherited\",\"inherited\"],[6,109,132,\"change.  Otherwise, that\",1,\"inherited\",\"inherited\"],[7,134,156,\"would not be helping to\",1,null,null],[8,158,181,\"compress the size of the\",1,null,null],[9,183,190,\"changes.\",1,null,null],[10,193,215,\"This paragraph contains\",1,null,null],[11,217,238,\"text that is outdated.\",1,null,null],[12,240,264,\"It will be deleted in the\",1,null,null],[13,266,277,\"near future.\",1,null,null],[14,280,303,\"It is important to spell\",1,null,null],[15,305,327,\"check this dokument. On\",1,null,null],[16,329,345,\"the other hand, a\",1,null,null],[17,347,367,\"misspelled word isn't\",1,null,null],[18,369,389,\"the end of the world.\",1,null,null],[19,391,412,\"Nothing in the rest of\",1,null,null],[20,414,436,\"this paragraph needs to\",1,null,null],[21,438,459,\"be changed. Things can\",1,null,null],[22,461,478,\"be added after it.\",1,null,null],[1,1,20,\"This is an important\",2,null,null],[2,22,38,\"notice! It should\",2,null,null],[3,40,62,\"therefore be located at\",2,null,null],[4,64,84,\"the beginning of this\",2,null,null],[5,86,94,\"document!\",2,null,null],[6,97,112,\"This part of the\",2,\"inherited\",\"inherited\"],[7,114,136,\"document has stayed the\",2,\"inherited\",\"inherited\"],[8,138,157,\"same from version to\",2,\"inherited\",\"inherited\"],[9,159,180,\"version.  It shouldn't\",2,\"inherited\",\"inherited\"],[10,182,203,\"be shown if it doesn't\",2,\"inherited\",\"inherited\"],[11,205,228,\"change.  Otherwise, that\",2,\"inherited\",\"inherited\"],[12,230,252,\"would not be helping to\",2,null,null],[13,254,271,\"compress anything.\",2,null,null],[14,274,297,\"It is important to spell\",2,null,null],[15,299,321,\"check this document. On\",2,null,null],[16,323,339,\"the other hand, a\",2,null,null],[17,341,361,\"misspelled word isn't\",2,null,null],[18,363,383,\"the end of the world.\",2,null,null],[19,385,406,\"Nothing in the rest of\",2,null,null],[20,408,430,\"this paragraph needs to\",2,null,null],[21,432,453,\"be changed. Things can\",2,null,null],[22,455,472,\"be added after it.\",2,null,null],[23,475,497,\"This paragraph contains\",2,null,null],[24,499,521,\"important new additions\",2,null,null],[25,523,539,\"to this document.\",2,null,null]]","text_vars":"[\"token_i\",\"from\",\"to\",\"text\",\"tnr\"]","text_data_vars":"[\"test1\",\"test2\"]","options":[]},"evals":["alignment","alignment_data","alignment_vars","alignment_data_vars","text","text_vars","text_data_vars"],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 

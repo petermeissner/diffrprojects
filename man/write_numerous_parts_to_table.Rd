@@ -18,4 +18,3 @@ write_numerous_parts_to_table(x, con, table_name, meta = data.frame())
 \description{
 function writing numerous parts of table to database
 }
-

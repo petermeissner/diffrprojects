@@ -32,6 +32,7 @@ if(getRversion() >= "2.15.1"){
 #'        \link[stringdist]{stringdist-metrics}, \link[stringdist]{stringdist}
 #' @param ... further arguments passed through to distance function
 #' @param verbose should function report on its doings via messages or not
+#' @param maxDist maximum amount of distance before no matching will be done anymore
 #' @inheritParams stringdist::stringdist
 #'
 #' @return dataframe with tokens aligned according to distance

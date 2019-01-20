@@ -12,4 +12,3 @@ dp_text_base_data(dp)
 \description{
 function providing basic information on texts within diffrproject
 }
-

@@ -18,4 +18,3 @@ class for dp_align
 \code{\link{diffrproject}}
 }
 \keyword{data}
-

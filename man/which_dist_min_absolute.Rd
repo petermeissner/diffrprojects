@@ -19,4 +19,3 @@ takes vector of size n and vector of size m and gives back list with
 vectors of size n (minimum distance and location of minimum in y)
 }
 \keyword{internal}
-

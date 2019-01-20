@@ -13,4 +13,3 @@ alignment_data_to_data_frame(x)
 transform alignment_data list into data.frame
 }
 \keyword{internal}
-

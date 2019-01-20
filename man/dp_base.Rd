@@ -18,4 +18,3 @@ class for dp_base
 \code{\link{diffrproject}}
 }
 \keyword{data}
-

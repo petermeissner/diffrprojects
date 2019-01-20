@@ -17,4 +17,3 @@ dist_mat_absolute(x, y)
 takes vector of size n and vector of size m and gives back matrix of n rows and m columns
 }
 \keyword{internal}
-

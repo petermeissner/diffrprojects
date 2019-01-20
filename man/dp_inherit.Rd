@@ -18,4 +18,3 @@ class for dp_inherit
 \code{\link{diffrproject}}
 }
 \keyword{data}
-

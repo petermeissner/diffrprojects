@@ -4,8 +4,9 @@
 \alias{push_text_char_data}
 \title{push char_data of one rtext objet to another}
 \usage{
-push_text_char_data(from_text = NULL, to_text = NULL, from_token = NULL,
-  to_token = NULL, from_i = NULL, to_i = NULL, x = NULL, warn = TRUE)
+push_text_char_data(from_text = NULL, to_text = NULL,
+  from_token = NULL, to_token = NULL, from_i = NULL, to_i = NULL,
+  x = NULL, warn = TRUE)
 }
 \arguments{
 \item{from_text}{text to pull data from}
@@ -47,4 +48,3 @@ non uniform value sequences in value sequnces of differing length. Note, that
 of cause the values might differ between char_data variables but not within.
 In case of non-uniformity the function will simply do nothing.
 }
-

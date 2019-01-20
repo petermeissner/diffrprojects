@@ -24,4 +24,3 @@ as second token index}
 \description{
 function sorting alignment data according to token index
 }
-

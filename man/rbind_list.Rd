@@ -13,4 +13,3 @@ rbind_list(l)
 function rbinding list elements
 }
 \keyword{internal}
-

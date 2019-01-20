@@ -15,4 +15,3 @@ is_minimum(x, unique = FALSE)
 which are minima in vector
 }
 \keyword{internal}
-

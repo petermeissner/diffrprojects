@@ -1,13 +1,13 @@
 ---
 title: "Projects for Text Version Comparison and Analytics in R"
 output:
-  pdf_document:
-    number_sections: yes
-    toc: yes
   html_document:
     keep_md: yes
     number_sections: yes
     self_contained: yes
+    toc: yes
+  pdf_document:
+    number_sections: yes
     toc: yes
 ---
 
@@ -20,7 +20,6 @@ library(knitr)
 options("width"=101)
 tmp <- devtools:::read_dcf("DESCRIPTION")
 knitr::opts_chunk$set(message=FALSE)
-doc_type <- opts_knit$get("rmarkdown.pandoc.to")
 ```
 
 ```{r title, results='asis', echo=FALSE, include=FALSE}
@@ -32,6 +31,7 @@ cat("#", tmp$Title)
 **Status**
 
 ```{r, echo=FALSE, results='asis'}
+doc_type <- opts_knit$get("rmarkdown.pandoc.to")
 if( !is.null(doc_type) && doc_type=="html" ){
 cat(
 '

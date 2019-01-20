@@ -18,4 +18,3 @@ R6 class - linking text and data
 \code{\link{diffrproject}}
 }
 \keyword{data}
-

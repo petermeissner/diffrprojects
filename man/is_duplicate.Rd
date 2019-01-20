@@ -13,4 +13,3 @@ is_duplicate(x)
 checking if value is duplicated in set
 }
 \keyword{internal}
-

@@ -15,4 +15,3 @@ get_private(x)
 \description{
 accessing private from R6 object
 }
-

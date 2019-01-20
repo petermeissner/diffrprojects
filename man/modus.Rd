@@ -17,4 +17,3 @@ modus(x, multimodal = FALSE, warn = TRUE)
 function giving back the mode
 }
 \keyword{internal}
-

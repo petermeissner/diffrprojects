@@ -20,4 +20,3 @@ not given it will get the name noname_x where x is a running integer}
 function adding rtext objects to diffrprojects
 }
 \keyword{internal}
-

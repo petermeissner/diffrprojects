@@ -4,11 +4,12 @@
 \alias{diff_align}
 \title{algining texts}
 \usage{
-diff_align(text1 = NULL, text2 = NULL, tokenizer = NULL, ignore = NULL,
-  clean = NULL, distance = c("lv", "osa", "dl", "hamming", "lcs", "qgram",
-  "cosine", "jaccard", "jw", "soundex"), useBytes = FALSE, weight = c(d = 1,
-  i = 1, s = 1, t = 1), maxDist = 0, q = 1, p = 0,
-  nthread = getOption("sd_num_thread"), verbose = TRUE, ...)
+diff_align(text1 = NULL, text2 = NULL, tokenizer = NULL,
+  ignore = NULL, clean = NULL, distance = c("lv", "osa", "dl",
+  "hamming", "lcs", "qgram", "cosine", "jaccard", "jw", "soundex"),
+  useBytes = FALSE, weight = c(d = 1, i = 1, s = 1, t = 1),
+  maxDist = 0, q = 1, p = 0, nthread = getOption("sd_num_thread"),
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{text1}{first text}
@@ -45,10 +46,7 @@ Weights must be positive and not exceed 1. \code{weight} is ignored
 completely when \code{method='hamming'}, \code{'qgram'}, \code{'cosine'},
 \code{'Jaccard'}, \code{'lcs'}, or \code{soundex}.}
 
-\item{maxDist}{[DEPRECATED AND WILL BE REMOVED|2016] Currently kept for
-backward compatibility. It does not offer any speed gain. (In fact, it
-currently slows things down when set to anything different from
-\code{Inf}).}
+\item{maxDist}{maximum amount of distance before no matching will be done anymore}
 
 \item{q}{Size of the \eqn{q}-gram; must be nonnegative. Only applies to
 \code{method='qgram'}, \code{'jaccard'} or \code{'cosine'}.}
@@ -71,4 +69,3 @@ dataframe with tokens aligned according to distance
 Function aligns two texts side by side as a data.frame with change type and
 distance given as well
 }
-

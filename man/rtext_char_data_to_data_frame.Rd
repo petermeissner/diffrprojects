@@ -13,4 +13,3 @@ rtext_char_data_to_data_frame(x)
 transform rtext text data into a data.frame
 }
 \keyword{internal}
-

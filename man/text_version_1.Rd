@@ -15,4 +15,3 @@ text_version_1
 text_version_1 a first version of a text
 }
 \keyword{datasets}
-

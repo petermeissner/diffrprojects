@@ -59,6 +59,7 @@ class for diffrproject
   from dp_inherit to have a less technical name at the end of the inheritance
   chain. } }
 }
+
 \examples{
 
 
@@ -599,4 +600,3 @@ dp$tokenize_text_data_lines(2)
 
 }
 \keyword{data}
-

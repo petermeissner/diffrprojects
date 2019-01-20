@@ -4,8 +4,8 @@
 \alias{as.data.frame.named_df_list}
 \title{as.data.frame method for for named lists of data.frames}
 \usage{
-\method{as.data.frame}{named_df_list}(x, row.names = NULL, optional = FALSE,
-  dfnamevar = "name", ...)
+\method{as.data.frame}{named_df_list}(x, row.names = NULL,
+  optional = FALSE, dfnamevar = "name", ...)
 }
 \arguments{
 \item{x}{any \R object.}
@@ -18,7 +18,8 @@
     \code{\link{make.names}}) is optional.  Note that all of \R's
     \pkg{base} package \code{as.data.frame()} methods use
     \code{optional} only for column names treatment, basically with the
-    meaning of \code{\link{data.frame}(*, check.names = !optional)}.}
+    meaning of \code{\link{data.frame}(*, check.names = !optional)}.
+    See also the \code{make.names} argument of the \code{matrix} method.}
 
 \item{dfnamevar}{in which variable should list item names be saved}
 
@@ -27,4 +28,3 @@
 \description{
 as.data.frame method for for named lists of data.frames
 }
-

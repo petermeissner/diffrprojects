@@ -1,7 +1,7 @@
 Package: diffrprojects
 Title: Projects for Text Version Comparison and Analytics in R
-Date: 2016-11-06
-Version: 0.1.13
+Date: 2018-01-20
+Version: 0.1.15
 Authors@R: c(
   person(
     "Peter", "Meissner",
@@ -21,8 +21,9 @@ Authors@R: c(
     comment = ""
   )
   )
-Description: Provides data structures and methods for manual as wells as
-    automated R based text comparison and text as well as change coding.
+Description: Provides data structures and methods for measuring, coding, 
+    and analysing text within text corpora. The package allows for manual as 
+    well computer aided coding on character, token and text pair level. 
 Depends:
     R (>= 3.0.0),
     stringb (>= 0.1.13),
@@ -44,5 +45,5 @@ Suggests:
     rmarkdown
 BugReports: https://github.com/petermeissner/diffrprojects/issues
 URL: https://github.com/petermeissner/diffrprojects
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1
 LinkingTo: Rcpp

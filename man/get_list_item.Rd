@@ -17,4 +17,3 @@ get_list_item(l, item, unlist = TRUE)
 extract specific item from each list element
 }
 \keyword{internal}
-

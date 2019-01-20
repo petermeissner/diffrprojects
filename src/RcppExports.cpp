@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // choose_options
 List choose_options(NumericVector toki1, NumericVector toki2, NumericVector res_token_i_1, NumericVector res_token_i_2);
-RcppExport SEXP diffrprojects_choose_options(SEXP toki1SEXP, SEXP toki2SEXP, SEXP res_token_i_1SEXP, SEXP res_token_i_2SEXP) {
+RcppExport SEXP _diffrprojects_choose_options(SEXP toki1SEXP, SEXP toki2SEXP, SEXP res_token_i_1SEXP, SEXP res_token_i_2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,7 +21,7 @@ END_RCPP
 }
 // dist_mat_absolute
 IntegerMatrix dist_mat_absolute(IntegerVector x, IntegerVector y);
-RcppExport SEXP diffrprojects_dist_mat_absolute(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _diffrprojects_dist_mat_absolute(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -33,7 +33,7 @@ END_RCPP
 }
 // which_dist_min_absolute
 List which_dist_min_absolute(IntegerVector x, IntegerVector y);
-RcppExport SEXP diffrprojects_which_dist_min_absolute(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _diffrprojects_which_dist_min_absolute(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -42,4 +42,16 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(which_dist_min_absolute(x, y));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_diffrprojects_choose_options", (DL_FUNC) &_diffrprojects_choose_options, 4},
+    {"_diffrprojects_dist_mat_absolute", (DL_FUNC) &_diffrprojects_dist_mat_absolute, 2},
+    {"_diffrprojects_which_dist_min_absolute", (DL_FUNC) &_diffrprojects_which_dist_min_absolute, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_diffrprojects(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

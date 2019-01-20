@@ -11,7 +11,7 @@
 #' @param res_token_i_2 already used second numbers
 #' // @keywords internal
 choose_options <- function(toki1, toki2, res_token_i_1, res_token_i_2) {
-    .Call('diffrprojects_choose_options', PACKAGE = 'diffrprojects', toki1, toki2, res_token_i_1, res_token_i_2)
+    .Call('_diffrprojects_choose_options', PACKAGE = 'diffrprojects', toki1, toki2, res_token_i_1, res_token_i_2)
 }
 
 #' (function to calculate distance matrix of integers)
@@ -20,7 +20,7 @@ choose_options <- function(toki1, toki2, res_token_i_1, res_token_i_2) {
 #' @param y a vector of type numeric
 #' @keywords internal
 dist_mat_absolute <- function(x, y) {
-    .Call('diffrprojects_dist_mat_absolute', PACKAGE = 'diffrprojects', x, y)
+    .Call('_diffrprojects_dist_mat_absolute', PACKAGE = 'diffrprojects', x, y)
 }
 
 #' (function to calculate minimum and position of minimum)
@@ -30,6 +30,6 @@ dist_mat_absolute <- function(x, y) {
 #' @param y a vector of type integer
 #' @keywords internal
 which_dist_min_absolute <- function(x, y) {
-    .Call('diffrprojects_which_dist_min_absolute', PACKAGE = 'diffrprojects', x, y)
+    .Call('_diffrprojects_which_dist_min_absolute', PACKAGE = 'diffrprojects', x, y)
 }
 

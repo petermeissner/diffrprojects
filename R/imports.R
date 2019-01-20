@@ -6,6 +6,7 @@
 #' @useDynLib diffrprojects
 dummyimport <- function(){
   R6::R6Class()
+  Rcpp::sizeof(1)
   1 %>% magrittr::add(1)
 }
 

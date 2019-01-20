@@ -15,4 +15,3 @@ text_version_2
 text_version_2 a second version of a text
 }
 \keyword{datasets}
-
