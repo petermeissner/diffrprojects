@@ -1,7 +1,7 @@
 Package: diffrprojects
 Title: Projects for Text Version Comparison and Analytics in R
-Date: 2018-01-20
-Version: 0.1.15
+Date: 2020-12-28
+Version: 0.1.16
 Authors@R: c(
   person(
     "Peter", "Meissner",

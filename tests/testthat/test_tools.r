@@ -49,7 +49,7 @@ test_that("as.data.frame methods work", {
 
   expect_true({
     is.data.frame(as.data.frame(dp$alignment)) &
-    all(dim(as.data.frame(dp$alignment)) == c(3, 10))
+      all(dim(as.data.frame(dp$alignment)) == c(3, 10))
   })
 
   expect_true({
@@ -98,7 +98,7 @@ test_that("", {
   })
   expect_true({
     all(
-        diffrprojects:::is_minimum(c(10000,134214234,10000), unique = TRUE)==c(TRUE,FALSE,FALSE)
+      diffrprojects:::is_minimum(c(10000,134214234,10000), unique = TRUE)==c(TRUE,FALSE,FALSE)
     )
   })
 })
@@ -118,10 +118,10 @@ test_that("", {
     )
   })
   expect_true({
-      identical(
-        diffrprojects:::is_unique(c(1,NA,1, 2)),
-        c(FALSE, NA, FALSE, TRUE)
-      )
+    identical(
+      diffrprojects:::is_unique(c(1,NA,1, 2)),
+      c(FALSE, NA, FALSE, TRUE)
+    )
   })
 })
 
@@ -142,9 +142,9 @@ context("tools get_list_item ") # ==============================================
 test_that("", {
   expect_true({
     all(
-     is.na(
-       diffrprojects:::get_list_item(list(a=1:2, 3), "a")
-     )
+      is.na(
+        diffrprojects:::get_list_item(list(a=1:2, 3), "a")
+      )
     )
   })
   expect_true({
@@ -427,7 +427,13 @@ test_that("dp_arrange works", {
   }, data.frame(i=10:9))
   expect_identical({
     diffrprojects:::dp_arrange(data.frame(i=10:9), i)
-  }, data.frame(i=9:10))
+  },
+    {
+     df <- data.frame(i=9:10)
+     row.names(df) <- 2:1
+     df
+    }
+  )
   expect_identical(
     {
       diffrprojects:::dp_arrange(data.frame(i=10:9, b=1), i)

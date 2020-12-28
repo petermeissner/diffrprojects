@@ -1,28 +1,51 @@
-## Re-submission
 
-- Your complaints:
-    - "as wells as" is a typo; please fix.  
-    - The whole sentence looks a little strange; you could probably word it more clearly (but I'll only ask for the typo to be fixed, the other is optional).
-    
-    
-- actions taken and response
-    - Thanks.
-    - typo is fixed 
-    - description field should be more intelligible and informative now
-    
+# Your message:
+
+You may have seen that when running your package code with current
+r-devel, one gets warnings about
+
+  cannot xtfrm data frames
+
+This is because you call order() on a data frame with k rows and 1
+column which (currently) returns something of length k.
+
+Now,
+
+? sort says
+
+     Sort (or _order_) a vector or factor (partially) into ascending or
+     descending order.  For ordering along more than one variable,
+     e.g., for sorting data frames, see ‘order’
+
+where in turn ? order says
+
+     ‘order’ returns a permutation which rearranges its first argument
+     into ascending or descending order, breaking ties by further
+     arguments.  ‘sort.list’ does the same, using only one argument.
+     See the examples for how to use these functions to sort data
+     frames, etc.
+
+and then the examples clearly explain to use do.call() for data
+frames, ideally also unnaming to avoid name clashes.
+
+Can you please change your package code to no longer call order() on
+data frames?
+
+
+# My Actions
+
+- fixed stringb_arrange() accordingly
+
 
 
 ## Test environments
 
-- R version 3.2.5 (2016-04-14) x86_64-w64-mingw32 (64-bit) http://builder.r-hub.io/status/diffrprojects_0.1.14.tar.gz-8db3e2bafd7c44f8a8bab9ca3a8289d5
+- Win10, local (R 3.6.3)
+- Ubuntu 18.04 LTS old, devel, release
+- WinBuilder devel, release
 
-- R version 3.3.1 (2016-06-21) x86_64-pc-linux-gnu (64-bit)
- http://builder.r-hub.io/status/diffrprojects_0.1.14.tar.gz-3d0a9ae7803f41368c844b30c437aa62
- 
-- R Under development (unstable) (2016-10-30 r71610) x86_64-pc-linux-gnu (64-bit)
-  http://builder.r-hub.io/status/diffrprojects_0.1.14.tar.gz-91dd4bab87d84a419c4656822de1a6e8
-  
 
-## Check Results
 
-no errors, no warning, no notes except about new submission
+## Test results 
+
+no errors, no warnings, no notes
